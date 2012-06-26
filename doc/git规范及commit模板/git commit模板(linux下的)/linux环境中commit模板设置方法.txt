@@ -1,0 +1,19 @@
+设置commit模板的步骤：
+1、复制.git_commit_msg和gitconfig到/etc/ 目录下
+  先进入终端，通过 su ztemt 切换到ztemt用户，密码：123456  
+  再执行
+  sudo cp gitconfig  /etc/
+  sudo cp .git_commit_msg /etc/
+
+  如果无法看到.git_commit_msg，可以文件夹中，选择 查看--显示隐藏文件，勾选 显示隐藏文件
+
+2、设置权限
+  先进入终端，进入etc目录
+  再通过su ztemt切换到ztemt用户，密码：123456
+  然后执行  sudo chmod a+r /etc/.git_commit_msg
+  提示密码时，输入123456
+
+
+使用：
+git commit 时，会自动调用该模板，无需额外提供选项和说明。
+

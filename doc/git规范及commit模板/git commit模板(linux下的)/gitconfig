@@ -1,0 +1,6 @@
+[commit]
+	status = true
+	template = /etc/.git_commit_msg
+
+[gui]
+	spellingdictionary = none   
