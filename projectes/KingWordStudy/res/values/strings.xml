@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, KingWordStudyActivity!</string>
+    <string name="app_name">KingWordStudy</string>
+
+    <string name="word_query">查询</string>
+    <string name="word_insert">新增</string>
+    
+    <string name="insertWordText">新增单词：</string>
+    <string name="insertMeanText">新增词义：</string>
+    <string name="insertPhoneticText">新增音标：</string>
+    <string name="insertGradeText">新增班级：</string>
+    <string name="insertRankText">新增等级：</string>
+    <string name="easyText">容易</string>
+    <string name="hardText">困难</string>
+    <string name="insertButtonText">保存</string>
+    <string name="selectInsertText">新增方式：</string>
+    <string name="selectFileText">请选择文件：</string>
+    <string name="browseButtonText">浏览</string>
+    <string name="multiSaveButtonText">保存</string>
+    <string name="inputQueryText">查询字段：</string>
+    <string name="query">查询</string>
+</resources>

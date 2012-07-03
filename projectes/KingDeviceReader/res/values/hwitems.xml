@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string-array name="hw_items">
+	<item>CPU</item>
+	<item>Memory</item>	
+	<item>WIFI</item>
+	<item>LCD</item>	
+	<item>Battery</item>
+</string-array>
+    
+</resources>

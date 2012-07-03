@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/y" />
+
+        <EditText
+            android:id="@+id/txtA"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:inputType="numberDecimal"
+            android:maxLength="5"
+            android:maxWidth="30dp"
+            android:singleLine="true" >
+
+            <requestFocus />
+        </EditText>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/x" />
+
+        <EditText
+            android:id="@+id/txtB"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:inputType="numberDecimal"
+            android:maxLength="5"
+            android:maxWidth="30dp"
+            android:singleLine="true" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/txtYX"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="2dp"
+        android:text="Y=    X=    " />
+
+
+</LinearLayout>

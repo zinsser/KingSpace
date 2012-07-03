@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+	<LinearLayout android:id="@+id/info_layout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" 
+	    android:background="#FED840">
+	    
+        <Spinner android:id="@+id/info_dict"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="2dp"
+		    android:layout_weight="1"		                
+			android:gravity="center_vertical"/>
+            
+		<TextView android:id="@+id/info_score_tip"
+		    android:layout_width="wrap_content"
+		    android:layout_height="fill_parent"
+		    android:background="#FED840"
+		    android:layout_weight="1"		    		    
+			android:gravity="center_vertical"	
+			android:textColor="@android:color/black" 				    
+		    android:text="得分"/>
+		    
+		<TextView android:id="@+id/info_score"
+		    android:layout_width="40dp"
+		    android:layout_height="fill_parent"
+			android:gravity="center_vertical"
+		    android:layout_weight="1"		    			
+			android:textColor="@android:color/black" 							    
+		    android:background="#FFAF05"/>
+		    		    
+		<TextView android:id="@+id/info_level_tip"
+		    android:layout_width="wrap_content"
+		    android:layout_height="fill_parent"
+		    android:background="#FED840"
+		    android:layout_weight="1"		    		    
+			android:gravity="center_vertical"
+			android:textColor="@android:color/black" 			    
+		    android:text="等级"/>
+		    
+		<TextView android:id="@+id/info_level"
+		    android:layout_width="40dp"
+		    android:layout_height="fill_parent"
+			android:gravity="center_vertical"
+			android:textColor="@android:color/black"
+		    android:layout_weight="1"		    			 				
+		    android:background="#FFAF05"/>
+		<Button android:id="@+id/info_mind"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/mind"
+		    android:layout_weight="1"		    
+		    android:layout_gravity="center_vertical"/>			    		    
+		<Button android:id="@+id/info_play_pause"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/start"
+		    android:layout_weight="1"		    
+		    android:layout_gravity="center_vertical"/>
+		    
+		<Button android:id="@+id/info_music"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/music"
+		    android:layout_weight="1"
+		    android:layout_gravity="center_vertical"/>
+		    
+			
+	</LinearLayout>
+	<LinearLayout android:id="@+id/game_layout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="horizontal" >
+<!-- 		
+		<com.jczhou.kingcai.VerticalProgressBar
+			android:id="@+id/pb" 
+			android:layout_width="20dp"
+			android:layout_height="fill_parent"  
+			android:layout_weight="9"
+			style="?android:attr/progressBarStyleHorizontal"
+		/>
+		 -->
+		<FrameLayout android:id="@+id/block_layout"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent">
+	    </FrameLayout>>
+	</LinearLayout>
+</LinearLayout>

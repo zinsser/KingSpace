@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        <TextView
+        android:id="@+id/selectInsertView"
+        android:layout_width="100dip"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="16dip"
+        android:text="@string/selectInsertText" />
+        
+        <Spinner android:id="@+id/insertSpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        />
+    </LinearLayout>
+    
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+	    
+	    <TextView
+	        android:id="@+id/insertWordView"
+	        android:layout_width="100dip"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:textSize="16dip"
+	        android:text="@string/insertWordText" />
+	    
+	    <EditText android:id="@+id/insertWordEditText"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        />
+    
+    </LinearLayout>
+    
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    
+	    <TextView
+	        android:id="@+id/insertMeanView"
+	        android:layout_width="100dip"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:textSize="16dip"
+	        android:text="@string/insertMeanText" />
+	    
+	    <EditText android:id="@+id/insertMeanEditText"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        />
+    
+     </LinearLayout>
+    
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    
+	    <TextView
+	        android:id="@+id/insertPhoneticView"
+	        android:layout_width="100dip"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:textSize="16dip"
+	        android:text="@string/insertPhoneticText" />
+	    
+	    <EditText android:id="@+id/insertPhoneticEditText"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        />
+    
+    </LinearLayout>
+    
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    
+	    <TextView
+	        android:id="@+id/insertGradeView"
+	        android:layout_width="100dip"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:textSize="16dip"
+	        android:text="@string/insertGradeText" />
+	    
+	    <Spinner android:id="@+id/gradeSpinner"
+	        android:layout_width="150dip"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        />
+	    
+	</LinearLayout>
+	 
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+	    
+	    <TextView
+	        android:id="@+id/insertRankView"
+	        android:layout_width="100dip"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:textSize="16dip"
+	        android:text="@string/insertRankText" />
+	    
+	    <RadioGroup
+	        android:id="@+id/rankRadioGroup"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+	    
+	    	<RadioButton 
+	    	    android:id="@+id/easyRadioButton"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
+	    	    android:text="@string/easyText"/>
+	    	<RadioButton 
+	    	    android:id="@+id/hardRadioButton"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
+	    	    android:text="@string/hardText"/>
+	    </RadioGroup>
+	    
+	 </LinearLayout>
+
+    <Button 
+        android:id="@+id/insertButton"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/insertButtonText"/>
+        
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+	
+        <TextView
+	        android:id="@+id/selectFileTextView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:textSize="16dip"
+	        android:text="@string/selectFileText" />
+        
+        <EditText android:id="@+id/multiInsertWordEditText"
+	        android:layout_width="100dip"
+	        android:layout_height="wrap_content"
+	        />
+        
+        <Button 
+	        android:id="@+id/browseButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:text="@string/browseButtonText"/>"
+        
+        <Button 
+	        android:id="@+id/multiSaveButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:text="@string/multiSaveButtonText"/>"
+        
+    </LinearLayout>
+    
+    <ListView 
+        android:id="@+id/nameListView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    </ListView>
+    
+</LinearLayout>
