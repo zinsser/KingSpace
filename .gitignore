@@ -1,5 +1,7 @@
 bin
 gen
+.metadata
 Thumbs.db
 .classpath
 .settings
+*.bak
