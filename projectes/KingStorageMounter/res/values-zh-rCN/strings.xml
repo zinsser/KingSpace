@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, KingStorageMounterActivity!</string>
+    <string name="app_name">USB设备映射</string>
+    <string name="mount">打开USB 存储设备</string>
+    <string name="unmount">关闭USB 存储设备</string>
+</resources>
