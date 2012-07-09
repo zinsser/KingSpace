@@ -5,3 +5,10 @@ Thumbs.db
 .classpath
 .settings
 *.bak
+*.sdf
+*.suo
+ipch
+*.user
+*.filters
+*.opensdf
+Debug
