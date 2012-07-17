@@ -1,0 +1,489 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>[Android] ListView中getView的原理＋如何在ListView中放置多个item - 木乃猫 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="http://common.cnblogs.com/blog/css/common.css?id=20120623"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="http://common.cnblogs.com/Skins/LoveIsIntheAir/style.css?id=20120623"/>
+<link type="text/css" rel="stylesheet" href="http://common.cnblogs.com/blog/css/common2.css"/>
+<link type="text/css" rel="stylesheet" href="http://common.cnblogs.com/css/shStyle.css"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/xiaowenji/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/xiaowenji/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/xiaowenji/wlwmanifest.xml"/>
+<script src="http://common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">
+var currentBlogApp = 'xiaowenji';
+</script>
+<script src="http://common.cnblogs.com/blog/script/common.js?id=20120623" type="text/javascript"></script> 
+<script src="http://common.cnblogs.com/script/json2.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://common.cnblogs.com/script/syntaxHighlighter.js"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<center>
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/xiaowenji/"><img id="blogLogo" src="/Skins/LoveIsIntheAir/images/logo.gif" alt="" /></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/xiaowenji/">木乃猫的学习笔记</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+	<li><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+	<li><a href="http://q.cnblogs.com" class="menu">博问</a></li>
+    <li><a href="http://home.cnblogs.com/ing/" class="menu">闪存</a></li>
+	<li><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/xiaowenji/">首页</a></li>
+	<li><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://www.cnblogs.com/xiaowenji/admin/EditPosts.aspx?opt=1">新随笔</a></li>
+	<li><a id="MyLinks1_ContactLink" accesskey="9" class="menu" rel="nofollow" href="http://space.cnblogs.com/msg/send/%e6%9c%a8%e4%b9%83%e7%8c%ab">联系</a></li>
+	<li><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://www.cnblogs.com/xiaowenji/admin/EditPosts.aspx">管理</a></li>
+	<li><a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/xiaowenji/rss">订阅</a>
+	<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/xiaowenji/rss"><img src="/Skins/Custom/images/rss.gif" alt="订阅" /></a></li>
+</ul>
+		<div class="blogStats">
+			
+			
+<!--done-->
+随笔- 13&nbsp;
+文章- 0&nbsp;
+评论- 29&nbsp;
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div class="clear"></div>
+	<div id="topicList">
+		
+	
+<!--done-->
+<div id="topics">
+	<div class = "post">
+		<h1 class = "postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/xiaowenji/archive/2010/12/08/1900579.html">[Android] ListView中getView的原理＋如何在ListView中放置多个item</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p><span style="line-height: 31px; font-size: 21px; font-weight: bold;">ListView 和 Adapter 的基础</span></p>
+<p>工作原理:</p>
+<ol>
+<li>ListView 针对List中每个item，要求 adapter &ldquo;给我一个视图&rdquo; (getView)。</li>
+<li>一个新的视图被返回并显示</li>
+</ol>
+<p>如果我们有上亿个项目要显示怎么办？为每个项目创建一个新视图？NO!这不可能！</p>
+<p>实际上Android为你缓存了视图。</p>
+<p>Android中有个叫做Recycler的构件，下图是他的工作原理：</p>
+<p><img width="500" src="http://android.amberfog.com/wp-content/uploads/2010/02/listview_recycler.jpg" /></p>
+<ol>
+<li>如果你有10亿个项目(item)，其中只有可见的项目存在内存中，其他的在Recycler中。</li>
+<li>ListView先请求一个type1视图(getView)然后请求其他可见的项目。convertView在getView中是空(null)的。</li>
+<li>当item1滚出屏幕，并且一个新的项目从屏幕低端上来时，ListView再请求一个type1视图。convertView此时不是空值了，它的值是item1。你只需设定新的数据然后返回convertView，不必重新创建一个视图。</li>
+</ol>
+<p>请看下面的示例代码，这里在getView中使用了System.out进行输出</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:java">public class MultipleItemsList extends ListActivity {
+ 
+    private MyCustomAdapter mAdapter;
+ 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mAdapter = new MyCustomAdapter();
+        for (int i = 0; i &lt; 50; i++) {
+            mAdapter.addItem("item " + i);
+        }
+        setListAdapter(mAdapter);
+    }
+ 
+    private class MyCustomAdapter extends BaseAdapter {
+ 
+        private ArrayList mData = new ArrayList();
+        private LayoutInflater mInflater;
+ 
+        public MyCustomAdapter() {
+            mInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+ 
+        public void addItem(final String item) {
+            mData.add(item);
+            notifyDataSetChanged();
+        }
+ 
+        @Override
+        public int getCount() {
+            return mData.size();
+        }
+ 
+        @Override
+        public String getItem(int position) {
+            return mData.get(position);
+        }
+ 
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+ 
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            System.out.println("getView " + position + " " + convertView);
+            ViewHolder holder = null;
+            if (convertView == null) {
+                convertView = mInflater.inflate(R.layout.item1, null);
+                holder = new ViewHolder();
+                holder.textView = (TextView)convertView.findViewById(R.id.text);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder)convertView.getTag();
+            }
+            holder.textView.setText(mData.get(position));
+            return convertView;
+        }
+ 
+    }
+ 
+    public static class ViewHolder {
+        public TextView textView;
+    }
+}
+</pre>
+</div>
+<p>&nbsp;</p>
+<p>执行程序，然后在Logcat中查看日志</p>
+<p>&nbsp;</p>
+<p><img src="http://android.amberfog.com/wp-content/uploads/2010/02/001.png" /></p>
+<p>getView 被调用 9 次 ，convertView 对于所有的可见项目是空值（如下）</p>
+<p>&nbsp;</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:java;gutter:false;">02-05 13:47:32.559: INFO/System.out(947): getView 0 null
+02-05 13:47:32.570: INFO/System.out(947): getView 1 null
+02-05 13:47:32.589: INFO/System.out(947): getView 2 null
+02-05 13:47:32.599: INFO/System.out(947): getView 3 null
+02-05 13:47:32.619: INFO/System.out(947): getView 4 null
+02-05 13:47:32.629: INFO/System.out(947): getView 5 null
+02-05 13:47:32.708: INFO/System.out(947): getView 6 null
+02-05 13:47:32.719: INFO/System.out(947): getView 7 null
+02-05 13:47:32.729: INFO/System.out(947): getView 8 null
+</pre>
+</div>
+<p>&nbsp;</p>
+<p>然后稍微向下滚动List，直到item10出现：</p>
+<p><img src="http://android.amberfog.com/wp-content/uploads/2010/02/002.png" /></p>
+<p>&nbsp;</p>
+<p>convertView仍然是空值，因为recycler中没有视图（item1的边缘仍然可见，在顶端）</p>
+<p>&nbsp;</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:java;gutter:false;">02-05 13:48:25.169: INFO/System.out(947): getView 9 null
+</pre>
+</div>
+<p>&nbsp;</p>
+<p>再滚动List</p>
+<p><img src="http://android.amberfog.com/wp-content/uploads/2010/02/003.png" /></p>
+<p>&nbsp;</p>
+<p>convertView不是空值了！item1离开屏幕到Recycler中去了，然后item11被创建</p>
+<p>&nbsp;</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:java;gutter:false;">02-05 13:48:42.879: INFO/System.out(947): getView 10 android.widget.LinearLayout@437430f8
+
+</pre>
+</div>
+<p>&nbsp;</p>
+<p>再滚动：</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:java;gutter:false;">02-05 14:01:31.069: INFO/System.out(947): getView 11 android.widget.LinearLayout@437447d0
+02-05 14:01:31.142: INFO/System.out(947): getView 12 android.widget.LinearLayout@43744ff8
+02-05 14:01:31.279: INFO/System.out(947): getView 13 android.widget.LinearLayout@43743fa8
+02-05 14:01:31.350: INFO/System.out(947): getView 14 android.widget.LinearLayout@43745820
+02-05 14:01:31.429: INFO/System.out(947): getView 15 android.widget.LinearLayout@43746048
+02-05 14:01:31.550: INFO/System.out(947): getView 16 android.widget.LinearLayout@43746870
+02-05 14:01:31.669: INFO/System.out(947): getView 17 android.widget.LinearLayout@43747098
+02-05 14:01:31.839: INFO/System.out(947): getView 18 android.widget.LinearLayout@437478c0
+02-05 14:03:30.900: INFO/System.out(947): getView 19 android.widget.LinearLayout@43748df0
+02-05 14:03:32.069: INFO/System.out(947): getView 20 android.widget.LinearLayout@437430f8
+</pre>
+</div>
+<p>convertView 如我们所期待的非空了，在item11离开屏幕之后，它的视图(@437430f8)作为convertView容纳item21了</p>
+<h2>不同的项目布局(item layout)</h2>
+<p>我们再举一个稍微复杂的例子，在上例的list中加入一些分隔线</p>
+<p>你需要做这些:</p>
+<ol>
+<li>重(@Override)写 getViewTypeCount() &ndash; 返回你有多少个不同的布局</li>
+<li>重写 getItemViewType(int) &ndash; 由position返回view type id</li>
+<li>根据view item的类型，在getView中创建正确的convertView</li>
+</ol>
+<p>以下是代码：</p>
+<p>&nbsp;</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:java">public class MultipleItemsList extends ListActivity {
+ 
+    private MyCustomAdapter mAdapter;
+ 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mAdapter = new MyCustomAdapter();
+        for (int i = 1; i &lt; 50; i++) {
+            mAdapter.addItem("item " + i);
+            if (i % 4 == 0) {
+                mAdapter.addSeparatorItem("separator " + i);
+            }
+        }
+        setListAdapter(mAdapter);
+    }
+ 
+    private class MyCustomAdapter extends BaseAdapter {
+ 
+        private static final int TYPE_ITEM = 0;
+        private static final int TYPE_SEPARATOR = 1;
+        private static final int TYPE_MAX_COUNT = TYPE_SEPARATOR + 1;
+ 
+        private ArrayList mData = new ArrayList();
+        private LayoutInflater mInflater;
+ 
+        private TreeSet mSeparatorsSet = new TreeSet();
+ 
+        public MyCustomAdapter() {
+            mInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+ 
+        public void addItem(final String item) {
+            mData.add(item);
+            notifyDataSetChanged();
+        }
+ 
+        public void addSeparatorItem(final String item) {
+            mData.add(item);
+            // save separator position
+            mSeparatorsSet.add(mData.size() - 1);
+            notifyDataSetChanged();
+        }
+ 
+        @Override
+        public int getItemViewType(int position) {
+            return mSeparatorsSet.contains(position) ? TYPE_SEPARATOR : TYPE_ITEM;
+        }
+ 
+        @Override
+        public int getViewTypeCount() {
+            return TYPE_MAX_COUNT;
+        }
+ 
+        @Override
+        public int getCount() {
+            return mData.size();
+        }
+ 
+        @Override
+        public String getItem(int position) {
+            return mData.get(position);
+        }
+ 
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+ 
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder = null;
+            int type = getItemViewType(position);
+            System.out.println("getView " + position + " " + convertView + " type = " + type);
+            if (convertView == null) {
+                holder = new ViewHolder();
+                switch (type) {
+                    case TYPE_ITEM:
+                        convertView = mInflater.inflate(R.layout.item1, null);
+                        holder.textView = (TextView)convertView.findViewById(R.id.text);
+                        break;
+                    case TYPE_SEPARATOR:
+                        convertView = mInflater.inflate(R.layout.item2, null);
+                        holder.textView = (TextView)convertView.findViewById(R.id.textSeparator);
+                        break;
+                }
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder)convertView.getTag();
+            }
+            holder.textView.setText(mData.get(position));
+            return convertView;
+        }
+ 
+    }
+ 
+    public static class ViewHolder {
+        public TextView textView;
+    }
+}
+</pre>
+</div>
+<p>&nbsp;</p>
+<p>运行程序，你会看到每4个item一个分割线</p>
+<p><img src="http://android.amberfog.com/wp-content/uploads/2010/02/004.png" /></p>
+<p>看看日志，无异常，所有的convertView都是空的</p>
+<p>&nbsp;</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:java;gutter:false;">02-05 15:19:03.080: INFO/System.out(1035): getView 0 null type = 0
+02-05 15:19:03.112: INFO/System.out(1035): getView 1 null type = 0
+02-05 15:19:03.130: INFO/System.out(1035): getView 2 null type = 0
+02-05 15:19:03.141: INFO/System.out(1035): getView 3 null type = 0
+02-05 15:19:03.160: INFO/System.out(1035): getView 4 null type = 1
+02-05 15:19:03.170: INFO/System.out(1035): getView 5 null type = 0
+02-05 15:19:03.180: INFO/System.out(1035): getView 6 null type = 0
+02-05 15:19:03.190: INFO/System.out(1035): getView 7 null type = 0
+02-05 15:19:03.210: INFO/System.out(1035): getView 8 null type = 0
+02-05 15:19:03.210: INFO/System.out(1035): getView 9 null type = 1
+</pre>
+</div>
+<p>滚动list：</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:java;gutter:false;">02-05 15:19:54.160: INFO/System.out(1035): getView 10 null type = 0
+02-05 15:19:57.440: INFO/System.out(1035): getView 11 android.widget.LinearLayout@43744528 type = 0
+02-05 15:20:01.310: INFO/System.out(1035): getView 12 android.widget.LinearLayout@43744eb0 type = 0
+02-05 15:20:01.880: INFO/System.out(1035): getView 13 android.widget.LinearLayout@437456d8 type = 0
+02-05 15:20:02.869: INFO/System.out(1035): getView 14 null type = 1
+02-05 15:20:06.489: INFO/System.out(1035): getView 15 android.widget.LinearLayout@43745f00 type = 0
+02-05 15:20:07.749: INFO/System.out(1035): getView 16 android.widget.LinearLayout@43747170 type = 0
+02-05 15:20:10.250: INFO/System.out(1035): getView 17 android.widget.LinearLayout@43747998 type = 0
+02-05 15:20:11.661: INFO/System.out(1035): getView 18 android.widget.LinearLayout@437481c0 type = 0
+02-05 15:20:13.180: INFO/System.out(1035): getView 19 android.widget.LinearLayout@437468a0 type = 1
+02-05 15:20:16.900: INFO/System.out(1035): getView 20 android.widget.LinearLayout@437489e8 type = 0
+02-05 15:20:25.690: INFO/System.out(1035): getView 21 android.widget.LinearLayout@4374a8d8 type = 0</pre>
+</div>
+<p>convertView对于分割线是空的，直到第一个分割线可见，当其离开屏幕，视图去到Recycler并且convertView开始起作用。</p>
+<p>本文翻译自http://android.amberfog.com/?p=296</p>
+<p>代码下载：<a href="http://android.amberfog.com/wp-content/uploads/2010/02/MultipleItemsList.zip">MultipleItemsList.zip &ndash; source code</a></p></div><div id="MySignature"></div>
+<script type="text/javascript">
+var isLogined = false;
+var cb_blogId = 80383;
+var cb_entryId = 1900579;
+var cb_blogApp = currentBlogApp;
+var cb_blogUserGuid = "312bc4a2-dc01-e011-ac81-842b2b196315";
+var cb_entryCreatedDate = '2010/12/8 19:30:00';
+var enableGoogleAd = true;
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+</script>
+<div id="blog_post_info_block">
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+<script type="text/javascript">
+    initBottomGoogleAd();
+</script>
+<script type="text/javascript">
+    $(function () {       
+        fixPostBodyFormat();
+        loadBottomGoogleAd();
+        loadBlogSignature();
+        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+        showEditorOpt();
+        loadNewsAndKb();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+        loadAdUnderGoogle();
+    });
+</script>
+		</div>
+		<div class = "postDesc">posted @ <span id="post-date">2010-12-08 19:30</span> <a href='http://www.cnblogs.com/xiaowenji/'>木乃猫</a> 阅读(18948) 评论(<span id="post-comment-count">6</span>)  <a href ="http://www.cnblogs.com/xiaowenji/admin/EditPosts.aspx?postid=1900579" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(1900579);return false;">收藏</a></div>
+	</div>
+	<img src ="http://www.cnblogs.com/xiaowenji/aggbug/1900579.html?type=1&amp;webview=1" width="1" height="1" alt=""/>
+	
+</div><!--end: topics 文章、评论容器-->
+<div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.loadComments();</script>
+<div id="comment_form" class="commentform">
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"></div>
+
+<script type="text/javascript">
+    if (typeof commentManager === 'undefined') {
+        commentManager = new blogCommentManager();
+    }
+    commentManager.loadCommentForm();   
+</script>
+
+<div class="ad_text_commentbox"><a href="http://q.cnblogs.com/" target="_blank">程序员问答社区，解决您的技术难题</a></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="程序员的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a><div id="site_editor_opt"></div></div>
+<script type="text/javascript">
+enableGoogleAd = true;
+if ($("#cnblogs_post_body").text().length < 1000) {
+    enableGoogleAd = false;
+}
+</script>
+<div id="google_ad_c1" class="c_ad_block">
+<div id='div-gpt-ad-1320933818841-0' style='width:300px; height:250px;'>
+<script type='text/javascript'>
+    if (enableGoogleAd) {
+        try {
+            googletag.cmd.push(function () { googletag.display('div-gpt-ad-1320933818841-0'); });
+        } catch (e) { }
+    } else {
+        $('#google_ad_c1').hide();
+    }
+</script>
+</div>
+</div>
+<div id="blog-news-kb"></div>
+<div id="google_ad_c2" class="c_ad_block">
+<div id='div-gpt-ad-1320933818841-1' style='width:468px; height:60px;'>
+<script type='text/javascript'>
+    if (enableGoogleAd) {
+        try {
+            googletag.cmd.push(function () { googletag.display('div-gpt-ad-1320933818841-1'); });
+        } catch (e) { }
+    } else {
+        $('#google_ad_c2').hide();
+    }
+</script>
+</div>
+</div>
+<div id="ad_under_google" class="c_ad_block" style="display:none;"></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+</div>
+
+
+
+
+
+	</div><!--end: topicList 文章列表容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"></div>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="displya:none"></div></div>
+			
+			<DIV id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+			</DIV>
+			
+		</div><!--end: sideBarMain -->
+		<div class="clear"></div>
+		<div id="footer">
+			
+<!--done-->
+Copyright &copy;2012 木乃猫
+		</div><!--end: footer -->
+	</div><!--end: sideBar 侧边栏容器 -->
+</div><!--end: home 自定义的最大容器 -->
+</center>
+<script type="text/javascript" src="http://common.cnblogs.com/script/google-analytics.js"></script>
+</body>
+</html>

@@ -1,0 +1,1676 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>【实例】如何利用手机摄像头拍照-Android 代码仓库-eoeAndroid开发者社区 -  Powered by Discuz!</title>
+<link href="http://www.eoeandroid.com/thread-179724-1-1.html" rel="canonical" />
+<meta name="keywords" content="【实例】如何利用手机摄像头拍照,Android 代码仓库,eoeAndroid开发者社区,手机摄像头,拍照,如何" />
+<meta name="description" content="Android 代码仓库,eoeAndroid开发者社区 " />
+<meta name="generator" content="Discuz! X2.5" />
+<meta name="author" content="Discuz! Team and Comsenz UI Team" />
+<meta name="copyright" content="2001-2012 Comsenz Inc." />
+<meta name="MSSmartTagsPreventParsing" content="True" />
+<meta http-equiv="MSThemeCompatible" content="Yes" />
+<base href="http://www.eoeandroid.com/" /><link rel="stylesheet" type="text/css" href="data/cache/style_1_common.css?ZSx" /><link rel="stylesheet" type="text/css" href="data/cache/style_1_forum_viewthread.css?ZSx" /><link rel="stylesheet" id="css_extstyle" type="text/css" href="./template/default/style/t8/style.css" /><script type="text/javascript">var STYLEID = '1', STATICURL = 'static/', IMGDIR = 'static/image/common', VERHASH = 'ZSx', charset = 'utf-8', discuz_uid = '523054', cookiepre = 'M9xo_8a0c_', cookiedomain = '.eoeandroid.com', cookiepath = '/', showusercard = '1', attackevasive = '0', disallowfloat = '', creditnotice = '1|e望|点,4|e币|元', defaultstyle = './template/default/style/t8', REPORTURL = 'aHR0cDovL3d3dy5lb2VhbmRyb2lkLmNvbS90aHJlYWQtMTc5NzI0LTEtMS5odG1s', SITEURL = 'http://www.eoeandroid.com/', JSPATH = 'static/js/';</script>
+<script src="static/js/common.js?ZSx" type="text/javascript"></script>
+<meta name="application-name" content="eoeAndroid开发者社区" />
+<meta name="msapplication-tooltip" content="eoeAndroid开发者社区" />
+<meta name="msapplication-task" content="name=;action-uri=http://www.eoeandroid.com/portal.php;icon-uri=http://www.eoeandroid.com/static/image/common/portal.ico" /><meta name="msapplication-task" content="name=社区首页;action-uri=http://www.eoeandroid.com/forum.php;icon-uri=http://www.eoeandroid.com/static/image/common/bbs.ico" />
+<meta name="msapplication-task" content="name=群组;action-uri=http://www.eoeandroid.com/group.php;icon-uri=http://www.eoeandroid.com/static/image/common/group.ico" /><meta name="msapplication-task" content="name=;action-uri=http://www.eoeandroid.com/home.php;icon-uri=http://www.eoeandroid.com/static/image/common/home.ico" /><link rel="archives" title="eoeAndroid开发者社区" href="http://www.eoeandroid.com/archiver/" />
+<link rel="stylesheet" id="css_widthauto" type="text/css" href="data/cache/style_1_widthauto.css?ZSx" />
+<script type="text/javascript">HTMLNODE.className += ' widthauto'</script>
+<script src="static/js/forum.js?ZSx" type="text/javascript"></script>
+</head>
+
+<body id="nv_forum" class="pg_viewthread" onkeydown="if(event.keyCode==27) return false;">
+<div id="append_parent"></div><div id="ajaxwaitid"></div>
+
+<div id="toptb" class="cl">
+<div class="wp">
+<div class="z"><a href="http://www.eoeandroid.com/" >门户首页</a><a href="http://www.eoeandroid.com/salon/" >优亿沙龙</a><a href="http://www.eoeandroid.com/android/" >Android开发</a><a href="http://www.eoeandroid.com/product/" >Android产品</a><a href="http://www.eoemarket.com/" target="_blank" >优亿市场</a><a href="http://dev.eoemarket.com" target="_blank" >开发者面板</a><a href="http://www.eoeandroid.com/eoemagazine/" >优亿特刊</a><a href="http://zhaopin.eoe.cn/" >移动人才招聘</a><script type="text/javascript">var _speedMark = new Date();</script></div>
+<div class="y">
+<a href="javascript:;" onclick="widthauto(this)">切换到窄版</a>
+<a id="sslct" href="javascript:;" onmouseover="delayShow(this, function() {showMenu({'ctrlid':'sslct','pos':'34!'})});">切换风格</a></div>
+</div>
+</div>
+
+<div id="sslct_menu" class="cl p_pop" style="display: none;">
+<span class="sslct_btn" onclick="extstyle('./template/default/style/t8')" title="绿"><i style='background:#70a703'></i></span>
+</div>
+
+<div id="qmenu_menu" class="p_pop " style="display: none;">
+<ul><li><a href="forum.php?mod=guide&view=my" style="background-image:url(http://www.eoeandroid.com/static/image/feed/thread_b.png) !important">我的帖子</a></li>
+<li><a href="home.php?mod=space&do=favorite&view=me" style="background-image:url(http://www.eoeandroid.com/static/image/feed/favorite_b.png) !important">我的收藏</a></li>
+<li><a href="home.php?mod=space&do=friend" style="background-image:url(http://www.eoeandroid.com/static/image/feed/friend_b.png) !important">我的好友</a></li>
+<li><a href="http://zhaopin.eoe.cn/user/user_personal.php?act=resume_list" target="_blank" style="background-image:url(http://www.eoeandroid.com/data/attachment/common/cf/171529g77yzkkns7ak7mjy.png?bvoOj8) !important">我的简历</a></li>
+<li><a href="forum.php?mod=guide&view=new" target="_blank" style="background-image:url(http://www.eoeandroid.com/data/attachment/common/cf/111009rcrn6e6n0e0c9065.png?kwmpXn) !important">查看新帖</a></li>
+<li><a href="http://dev.eoemarket.com/?from=eoeandroid" target="_blank" style="background-image:url(http://www.eoeandroid.com/data/attachment/common/cf/110819pvdapavn30aewv38.png?sS1nMB) !important">开发者面板</a></li>
+<li><a href="forum.php?mod=collection&op=my" style="background-image:url(http://www.eoeandroid.com/static/image/feed/collection_b.png) !important">淘帖</a></li>
+<li><a href="home.php?mod=medal" style="background-image:url(http://www.eoeandroid.com/static/image/feed/medal_b.png) !important">勋章</a></li>
+<li><a href="home.php?mod=task" style="background-image:url(http://www.eoeandroid.com/static/image/feed/task_b.png) !important">任务</a></li>
+<li><a href="home.php?mod=space&do=blog" style="background-image:url(http://www.eoeandroid.com/static/image/feed/blog_b.png) !important">日志</a></li>
+<li><a href="group.php" style="background-image:url(http://www.eoeandroid.com/static/image/feed/group_b.png) !important">群组</a></li>
+<li><a href="forum.php?mod=guide" style="background-image:url(http://www.eoeandroid.com/static/image/feed/guide_b.png) !important">导读</a></li>
+</ul>
+</div>
+<div class="wp a_h" style="line-height:40px;height:40px"><a href="http://sso.eoeandroid.com/sso.php?partner=zhuamob" target="_blank"><img src="http://www.eoeandroid.com/data/attachment/common/cf/004055r5ue9iixkuvr854d.jpg" height="40" width="960" border="0"></a></div><div id="hd">
+<div class="wp">
+<div class="hdc cl"><h2><a href="./" title="eoeAndroid开发者社区"><img src="static/image/common/eoe_logo.png" alt="eoeAndroid开发者社区" border="0" /></a></h2>
+
+<div id="um">
+<div class="avt y"><a href="home.php?mod=space&amp;uid=523054"><img src="http://www.eoeandroid.com/uc_server/avatar.php?uid=523054&size=small" /></a></div>
+<p>
+<strong class="vwmy"><a href="home.php?mod=space&amp;uid=523054" target="_blank" title="访问我的空间">zoezinsser</a></strong>
+
+
+<span class="pipe">|</span><a href="connect.php?mod=config" target="_blank"><img src="static/image/common/qq_bind_small.gif" class="qq_bind" align="absmiddle" alt="QQ绑定" /></a>
+
+			<span class="pipe">|</span>
+			<a href="home.php?mod=spacecp&ac=plugin&id=sina_xweibo_x2:home_binding" target="_blank"><img style="vertical-align:-5px;" src="xwb/images/bgimg/sina_bind_btn.png" /></a>
+			&nbsp;<span class="pipe">|</span><a href="home.php?mod=spacecp">设置</a>
+<span class="pipe">|</span><a href="home.php?mod=space&amp;do=pm" id="pm_ntc" class="new">消息</a>
+<span class="pipe">|</span><a href="home.php?mod=space&amp;do=notice" id="myprompt">提醒</a><span id="myprompt_check"></span>
+<span class="pipe">|</span><a href="javascript:;" onclick="showWindow('dsu_paulsign', 'plugin.php?id=dsu_paulsign:sign&027bd476')"><font color="red">签到领奖!</font></a> <span class="pipe">|</span><a href="member.php?mod=logging&amp;action=logout&amp;formhash=027bd476">退出</a>
+</p>
+<p>
+<a href="home.php?mod=spacecp&amp;ac=credit&amp;showcredit=1" id="extcreditmenu" onmouseover="delayShow(this, showCreditmenu);" class="showmenu">积分: 7</a>
+<span class="pipe">|</span>用户组: <a href="home.php?mod=spacecp&amp;ac=usergroup" id="g_upmine" class="xi2" onmouseover="delayShow(this, showUpgradeinfo)">No.1 优亿开发小菜鸟</a>
+</p>
+</div>
+</div>
+
+<div id="nv">
+<a href="javascript:;" id="qmenu" onmouseover="showMenu({'ctrlid':'qmenu','pos':'34!','ctrlclass':'a','duration':2});">快捷导航</a>
+<ul><li class="a" id="mn_forum" ><a href="forum.php" hidefocus="true" title="社区"  >社区首页<span>社区</span></a></li><li id="mn_Nb13d" ><a href="http://www.eoeandroid.com/topic-tag.html?from=forum" hidefocus="true" title="索引"  >精华索引<span>索引</span></a></li><li id="mn_forum_11" onmouseover="showMenu({'ctrlid':this.id,'ctrlclass':'hover','duration':2})"><a href="forum.php?mod=collection" hidefocus="true" title="淘帖"  >专辑淘帖<span>淘帖</span></a></li><li id="mn_Nf693" onmouseover="showMenu({'ctrlid':this.id,'ctrlclass':'hover','duration':2})"><a href="forum.php?mod=guide&view=hot" hidefocus="true"  >热门版块</a></li><li id="mn_Necc1" onmouseover="showMenu({'ctrlid':this.id,'ctrlclass':'hover','duration':2})"><a href="http://www.eoeandroid.com/group.php?sgid=165" hidefocus="true"  >图书专区</a></li><li id="mn_Neae5" onmouseover="showMenu({'ctrlid':this.id,'ctrlclass':'hover','duration':2})"><a href="group.php?mod=index" hidefocus="true" title="小组"  >圈子小组<span>小组</span></a></li><li id="mn_N9cf5" onmouseover="showMenu({'ctrlid':this.id,'ctrlclass':'hover','duration':2})"><a href="http://www.eoeandroid.com/forum-90-1.html" hidefocus="true"  >社区活动</a></li><li id="mn_N7708" onmouseover="showMenu({'ctrlid':this.id,'ctrlclass':'hover','duration':2})"><a href="http://www.eoeandroid.com/product/" hidefocus="true"  >开发服务</a></li><li id="mn_N462e" ><a href="plugin.php?id=dsu_paulsign:sign" hidefocus="true" title="签到"  >每日签到<span>签到</span></a></li></ul>
+</div>
+<ul class="p_pop h_pop" id="plugin_menu" style="display: none">  <li><a href="plugin.php?id=dsu_paulsign:sign" id="mn_plink_sign">每日签到</a></li>
+ </ul>
+<ul class="p_pop h_pop" id="mn_forum_11_menu" style="display: none"><li><a href="http://www.eoeandroid.com/forum.php?mod=collection&op=my" hidefocus="true" >我的专辑</a></li><li><a href="http://www.eoeandroid.com/forum.php?mod=collection" hidefocus="true" >推荐专辑</a></li><li><a href="http://www.eoeandroid.com/forum.php?mod=collection&op=all" hidefocus="true" >所有专辑</a></li></ul><ul class="p_pop h_pop" id="mn_Nf693_menu" style="display: none"><li><a href="http://www.eoeandroid.com/forum-53-1.html" hidefocus="true" >Android新手入门</a></li><li><a href="http://www.eoeandroid.com/forum-45-1.html" hidefocus="true" >Android问题解答</a></li><li><a href="http://www.eoeandroid.com/forum-26-1.html" hidefocus="true" title="招聘" >Android招聘求职</a></li><li><a href="http://www.eoeandroid.com/forum-23-1.html" hidefocus="true" >Android代码仓库</a></li><li><a href="http://www.eoeandroid.com/forum-39-1.html" hidefocus="true" >eoeAndroid特刊</a></li></ul><ul class="p_pop h_pop" id="mn_Necc1_menu" style="display: none"><li><a href="http://www.eoeandroid.com/group-159-1.html" hidefocus="true" >Android 3D游戏开发技术宝典</a></li><li><a href="http://www.eoeandroid.com/group-131-1.html" hidefocus="true" >Android游戏编程之从零开始</a></li><li><a href="http://www.eoeandroid.com/group-86-1.html" hidefocus="true" >It's Android TIME: 创赢路线</a></li><li><a href="http://www.eoeandroid.com/group-133-1.html" hidefocus="true" >Android应用开发范例精解</a></li><li><a href="http://www.eoeandroid.com/group-87-1.html" hidefocus="true" >Android/OPhone开发完全讲义</a></li><li><a href="http://www.eoeandroid.com/group-130-1.html" hidefocus="true" >Android开发权威指南</a></li><li><a href="http://www.eoeandroid.com/group-35-1.html" hidefocus="true" >Google Android开发入门与实战</a></li></ul><ul class="p_pop h_pop" id="mn_Neae5_menu" style="display: none"><li><a href="http://www.eoeandroid.com/group.php?gid=138" hidefocus="true" >兴趣类小组</a></li><li><a href="http://www.eoeandroid.com/group.php?gid=137" hidefocus="true" >产品类小组</a></li><li><a href="http://www.eoeandroid.com/group.php?gid=135" hidefocus="true" >学习类小组</a></li><li><a href="http://www.eoeandroid.com/group.php?gid=136" hidefocus="true" >团队类小组</a></li><li><a href="http://www.eoeandroid.com/group.php?gid=134" hidefocus="true" >地区类小组</a></li></ul><ul class="p_pop h_pop" id="mn_N9cf5_menu" style="display: none"><li><a href="http://www.eoeandroid.com/thread-182253-1-1.html" hidefocus="true" >第六期：创建简历拿勋章</a></li><li><a href="http://www.eoeandroid.com/thread-178213-1-1.html" hidefocus="true" >第五期：欧洲杯赛况大竞猜</a></li><li><a href="http://www.eoeandroid.com/thread-176452-1-1.html" hidefocus="true" >第四期：快乐找工作，电影票免费领</a></li><li><a href="http://www.eoeandroid.com/thread-175756-1-1.html" hidefocus="true" >第三期：六一回忆的奇幻旅程</a></li><li><a href="http://www.eoeandroid.com/activity/2.html" hidefocus="true" target="_blank" >第二期：精英Geek行动</a></li><li><a href="http://www.eoeandroid.com/activity/1.html" hidefocus="true" target="_blank" >第一期：Android图书818</a></li></ul><ul class="p_pop h_pop" id="mn_N7708_menu" style="display: none"><li><a href="http://zhaopin.eoe.cn/?from=forum" hidefocus="true" target="_blank" >优亿移动人才招聘</a></li><li><a href="http://sso.eoeandroid.com/sso.php?partner=zhuamob" hidefocus="true" target="_blank" >应用发布[抓猫]</a></li><li><a href="http://sso.eoeandroid.com/sso.php?partner=talkingdata" hidefocus="true" target="_blank" >应用统计[TalkData]</a></li><li><a href="http://sso.eoeandroid.com/sso.php?partner=testin" hidefocus="true" target="_blank" >应用测试[TestIN]</a></li></ul><div id="mu" class="cl">
+</div><div id="scbar" class="scbar_narrow cl">
+<form id="scbar_form" method="get" autocomplete="off" onsubmit="searchFocus($('scbar_txt'))" action="http://search.eoeandroid.com/f/discuz" target="_blank">
+<input type="hidden" name="mod" id="scbar_mod" value="search" />
+<input type="hidden" name="formhash" value="027bd476" />
+<input type="hidden" name="srchtype" value="title" />
+<input type="hidden" name="srhfid" value="23" />
+<input type="hidden" name="srhlocality" value="forum::viewthread" />
+<input type="hidden" name="sId" value="7379687" />
+<input type="hidden" name="ts" value="1341890985" />
+<input type="hidden" name="cuId" value="523054" />
+<input type="hidden" name="cuName" value="zoezinsser" />
+<input type="hidden" name="gId" value="10" />
+<input type="hidden" name="agId" value="0" />
+<input type="hidden" name="egIds" value="" />
+<input type="hidden" name="fmSign" value="" />
+<input type="hidden" name="ugSign10" value="" />
+<input type="hidden" name="sign" value="478a460ad1d46fcb9f72a87f6cda429c" />
+<input type="hidden" name="charset" value="utf-8" />
+<input type="hidden" name="source" value="discuz" />
+<input type="hidden" name="fId" id="srchFId" value="23" />
+<input type="hidden" name="q" id="cloudsearchquery" value="" />
+
+<style>
+#scbar { overflow: visible; position: relative; }
+#sg{ background: #FFF; width:456px; border: 1px solid #B2C7DA; }
+.scbar_narrow #sg { width: 316px; }
+#sg li { padding:0 8px; line-height:30px; font-size:14px; }
+#sg li span { color:#999; }
+.sml { background:#FFF; cursor:default; }
+.smo { background:#E5EDF2; cursor:default; }
+            </style>
+            <div style="display: none; position: absolute; top:37px; left:44px;" id="sg">
+                <div id="st_box" cellpadding="2" cellspacing="0"></div>
+            </div>
+<table cellspacing="0" cellpadding="0">
+<tr>
+<td class="scbar_icon_td"></td>
+<td class="scbar_txt_td"><input type="text" name="srchtxt" id="scbar_txt" value="请输入搜索内容" autocomplete="off" x-webkit-speech speech /></td>
+<td class="scbar_type_td"><a href="javascript:;" id="scbar_type" class="showmenu xg1 xs2" onclick="showMenu(this.id)" hidefocus="true">搜索</a></td>
+<td class="scbar_btn_td"><button type="submit" name="searchsubmit" id="scbar_btn" sc="1" class="pn pnc" value="true"><strong class="xi2 xs2">搜索</strong></button></td>
+<td class="scbar_hot_td">
+<div id="scbar_hot">
+<strong class="xw1">热搜: </strong>
+
+<a href="http://search.eoeandroid.com/f/discuz?q=%E5%AE%9A%E4%BD%8D&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">定位</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=%E5%AE%A2%E6%88%B7%E7%AB%AF&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">客户端</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=3G%E6%89%8B%E6%9C%BA&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">3G手机</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=%E4%B9%A6%E6%9E%B6&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">书架</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=%E6%9C%8D%E5%8A%A1%E5%99%A8&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">服务器</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=gps&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">gps</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=%E5%AF%BC%E8%88%AA&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">导航</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=%E6%95%88%E6%9E%9C&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">效果</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=%E7%9B%B8%E6%9C%BA&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">相机</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=%E6%B8%B8%E6%88%8F&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">游戏</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=%E7%AE%80%E5%8E%86&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">简历</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=%E6%95%B0%E6%8D%AE%E5%BA%93&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">数据库</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=%E9%BA%A6%E5%85%8B%E9%A3%8E&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">麦克风</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=%E6%89%93%E7%94%B5%E8%AF%9D&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">打电话</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=%E5%8A%A8%E7%94%BB&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">动画</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=%E6%BB%91%E5%8A%A8&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">滑动</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=widget&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">widget</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=%E8%93%9D%E7%89%99&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">蓝牙</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=%E5%B8%83%E5%B1%80&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">布局</a>
+
+
+
+<a href="http://search.eoeandroid.com/f/discuz?q=listview&source=hotsearch&sId=7379687&ts=1341890985&cuId=523054&cuName=zoezinsser&gId=10&agId=0&egIds=&fmSign=&ugSign10=&sign=478a460ad1d46fcb9f72a87f6cda429c&charset=utf-8" target="_blank" class="xi2" sc="1">listview</a>
+
+</div>
+</td>
+</tr>
+</table>
+</form>
+</div>
+<ul id="scbar_type_menu" class="p_pop" style="display: none;"><li><a href="javascript:;" rel="curforum" fid="23" >本版</a></li><li><a href="javascript:;" rel="article">文章</a></li><li><a href="javascript:;" rel="forum" class="curtype">帖子</a></li><li><a href="javascript:;" rel="group">群组</a></li><li><a href="javascript:;" rel="user">用户</a></li></ul>
+<script type="text/javascript">
+initSearchmenu('scbar', 'http://search.eoeandroid.com/f/discuz');
+</script>
+</div>
+</div>
+
+<style type="text/css">
+@import url('http://www.eoeandroid.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.83');
+@import url('http://www.eoeandroid.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/styles/shCoreEclipse.css?ver=3.0.83');
+@import url('http://www.eoeandroid.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/styles/shThemeEclipse.css?ver=3.0.83');
+.syntaxhighlighter,
+.syntaxhighlighter a,
+.syntaxhighlighter div,
+.syntaxhighlighter code,
+.syntaxhighlighter table,
+.syntaxhighlighter table td,
+.syntaxhighlighter table tr,
+.syntaxhighlighter table tbody,
+.syntaxhighlighter table thead,
+.syntaxhighlighter table caption,
+.syntaxhighlighter textarea {
+font-size: 12px !important; /* Set the font size in pixels */
+font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important; /* Set the font type */
+}
+.syntaxhighlighter table caption {
+/* For Title(Caption) */
+font-size: 14px !important; /* Set the font size in pixels */
+font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important; /* Set the font type */
+}
+.syntaxhighlighter.nogutter td.code .line {
+/* Set the left padding space when no-gutter in ver. 3.0 */
+padding-left: 3px !important;
+}
+
+/* For gutter */
+.syntaxhighlighter table td.code {
+width:auto !important;
+}
+.syntaxhighlighter table td.gutter .line {
+padding: 0 0.5em !important;
+}
+.syntaxhighlighter .gutter {
+width: 40px !important;
+}
+
+.syntaxhighlighter {
+/* For Chrome/Safari(WebKit) */
+/* Hide the superfluous vertical scrollbar in ver. 3.0 */
+overflow-y: hidden !important;
+padding: 1px !important;
+}
+/* For Title(Caption) */
+font-size: 10px !important; /* Set the font size in pixels */
+font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important; /* Set the font type */
+}
+</style>
+
+<div id="wp" class="wp"><script type="text/javascript">var fid = parseInt('23'), tid = parseInt('179724');</script>
+
+<script src="static/js/forum_viewthread.js?ZSx" type="text/javascript"></script>
+<script type="text/javascript">zoomstatus = parseInt(1);var imagemaxwidth = '600';var aimgcount = new Array();</script>
+
+<style id="diy_style" type="text/css"></style>
+<!--[diy=diynavtop]--><div id="diynavtop" class="area"></div><!--[/diy]-->
+<div id="pt" class="bm cl">
+<div class="z">
+<a href="./" class="nvhm" title="首页">eoeAndroid开发者社区</a><em>&raquo;</em><a href="forum.php">社区首页</a> <em>&rsaquo;</em> <a href="forum.php?gid=180">eoe·Android 开发资源区</a> <em>&rsaquo;</em> <a href="forum-23-1.html">Android 代码仓库</a> <em>&rsaquo;</em> <a href="thread-179724-1-1.html">【实例】如何利用手机摄像头拍照</a>
+</div>
+</div>
+
+<style id="diy_style" type="text/css"></style>
+<div class="wp">
+<!--[diy=diy1]--><div id="diy1" class="area"></div><!--[/diy]-->
+</div>
+
+<div id="ct" class="wp cl">
+<div id="pgt" class="pgs mbm cl ">
+<div class="pgt"></div>
+<span class="y pgb" id="visitedforums" onmouseover="$('visitedforums').id = 'visitedforumstmp';this.id = 'visitedforums';showMenu({'ctrlid':this.id,'pos':'34'})"><a href="forum-23-1.html">返回列表</a></span>
+<a id="newspecial" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})" onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=23')" href="javascript:;" title="发新帖"><img src="static/image/common/pn_post.png" alt="发新帖" /></a><a id="post_reply" onclick="showWindow('reply', 'forum.php?mod=post&action=reply&fid=23&tid=179724')" href="javascript:;" title="回复"><img src="static/image/common/pn_reply.png" alt="回复" /></a>
+</div>
+
+<ul class="p_pop" id="newspecial_menu" style="display: none">
+<li><a href="forum.php?mod=post&amp;action=newthread&amp;fid=23">发表帖子</a></li><li class="reward"><a href="forum.php?mod=post&amp;action=newthread&amp;fid=23&amp;special=3">发布悬赏</a></li><li class="trade"><a href="forum.php?mod=post&amp;action=newthread&amp;fid=23&amp;special=2">出售商品</a></li></ul>
+
+
+<div id="postlist" class="pl bm">
+<table cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls ptm pbm">
+<div class="hm">
+<span class="xg1">查看:</span> <span class="xi1">140</span><span class="pipe">|</span><span class="xg1">回复:</span> <span class="xi1">5</span>
+</div>
+</td>
+<td class="plc ptm pbn vwthd">
+<div class="y">
+<a href="forum.php?mod=viewthread&amp;action=printable&amp;tid=179724" title="打印" target="_blank"><img src="static/image/common/print.png" alt="打印" class="vm" /></a>
+<a href="forum.php?mod=redirect&amp;goto=nextoldset&amp;tid=179724" title="上一主题"><img src="static/image/common/thread-prev.png" alt="上一主题" class="vm" /></a>
+<a href="forum.php?mod=redirect&amp;goto=nextnewset&amp;tid=179724" title="下一主题"><img src="static/image/common/thread-next.png" alt="下一主题" class="vm" /></a>
+</div>
+<h1 class="ts">
+<a href="forum.php?mod=forumdisplay&amp;fid=23&amp;filter=typeid&amp;typeid=90">[代码片段]</a>
+<a href="thread-179724-1-1.html" id="thread_subject">【实例】如何利用手机摄像头拍照</a>
+</h1>
+<span class="xg1">
+<a href="forum.php?mod=viewthread&amp;tid=179724&amp;fromuid=523054" onclick="return copyThreadUrl(this)" title="您的朋友访问此链接后，您将获得相应的积分奖励">[复制链接]</a>
+</span>
+</td>
+</tr>
+</table>
+
+
+<table cellspacing="0" cellpadding="0" class="ad"><tr><td class="pls"></td><td class="plc"></td></tr></table><div id="post_1549658"><table id="pid1549658" summary="pid1549658" cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls" rowspan="2">
+ <div class="pi">
+<div class="authi"><a href="home.php?mod=space&amp;uid=647476" target="_blank" class="xw1">yanghe123</a>
+
+</div>
+</div>
+<div class="p_pop blk bui" id="userinfo1549658" style="display: none; margin-top: -11px;">
+<div class="m z">
+<div id="userinfo1549658_ma"></div>
+</div>
+<div class="i y">
+<div>
+<strong><a href="home.php?mod=space&amp;uid=647476" target="_blank" class="xi2">yanghe123</a></strong>
+<em>当前在线</em>
+</div>
+<dl class="cl"><dt>在线时间</dt><dd>155 小时</dd><dt>e望</dt><dd>12 点</dd><dt>最后登录</dt><dd>2012-7-10</dd><dt>注册时间</dt><dd>2012-4-13</dd><dt>积分</dt><dd>6244</dd><dt>阅读权限</dt><dd>180</dd><dt>UID</dt><dd>647476</dd></dl>
+<div class="imicn">
+<a href="home.php?mod=space&amp;uid=647476&amp;do=profile" target="_blank" title="查看详细资料"><img src="static/image/common/userinfo.gif" alt="查看详细资料" /></a>
+<a href="http://weibo.com/2785758720" target="_blank"><img src="http://www.eoeandroid.com/xwb/images/bgimg/icon_on.gif" title="yanghe123 的新浪微博" /></a><a href="home.php?mod=magic&amp;mid=showip&amp;idtype=user&amp;id=yanghe123" id="a_showip_li_1549658" class="xi2" onclick="showWindow(this.id, this.href)"><img src="static//image/magic/showip.small.gif" alt="" /> IP卡</a>
+<a href="home.php?mod=magic&amp;mid=checkonline&amp;idtype=user&amp;id=yanghe123" id="a_repent_1549658" class="xi2" onclick="showWindow(this.id, this.href)"><img src="static//image/magic/checkonline.small.gif" alt="" /> 狗仔卡</a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+<div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo1549658')"><a href="home.php?mod=space&amp;uid=647476" target="_blank"><img src="http://www.eoeandroid.com/uc_server/avatar.php?uid=647476&size=middle" /></a></div>
+<div class="tns xg2">
+<table cellspacing="0" cellpadding="0">
+<th><p><a href="home.php?mod=space&amp;uid=647476&amp;do=thread&amp;view=me&amp;from=space" class="xi2">426</a></p>主题</th>
+<th>
+<p><a href="home.php?mod=space&amp;uid=647476&amp;do=friend&amp;view=me" class="xi2">20</a></p>好友
+</th>
+<td><p><a href="home.php?mod=space&amp;uid=647476&amp;do=profile" class="xi2">6244</a></p>积分</td>
+</table>
+</div>
+<p><em><a href="home.php?mod=spacecp&amp;ac=usergroup&amp;gid=3" target="_blank"><font color="blue">版主</font></a></em></p>
+</div>
+<p><img src="static/image/common/star_level3.gif" alt="Rank: 8" /><img src="static/image/common/star_level3.gif" alt="Rank: 8" /></p>
+<a href="http://weibo.com/2785758720" target="_blank" class="xwb-plugin-medal-sinawb"><img onmouseout="XWBcontrol.TipPanel.setHideTimer();" onmouseover="XWBcontrol.TipPanel.showLayer(this, '2785758720');" src="http://www.eoeandroid.com/xwb/images/bgimg/icon_on.gif" /></a><dl class="pil cl"><dt>精华</dt><dd>0</dd><dt>帖子</dt><dd><a href="home.php?mod=space&uid=647476&do=thread&type=reply&view=me&from=space" target="_blank" class="xi2">2020</a></dd><dt>e币</dt><dd>5194 元</dd></dl><p class="md_ctrl">
+<a href="home.php?mod=medal"><img id="md_1549658_31" src="static/image/common/2012-gx.png" alt="社区贡献者" title="" onmouseover="showMenu({'ctrlid':this.id, 'menuid':'md_31_menu', 'pos':'12!'});" />
+</a>
+</p>
+<ul class="xl xl2 o cl">
+<li class="pm2"><a href="home.php?mod=spacecp&amp;ac=pm&amp;op=showmsg&amp;handlekey=showmsg_647476&amp;touid=647476&amp;pmid=0&amp;daterange=2&amp;pid=1549658&amp;tid=179724" onclick="showWindow('sendpm', this.href);" title="发消息" class="xi2">发消息</a></li>
+</ul>
+</td>
+<td class="plc">
+<div class="pi">
+<div id="fj" class="y">
+<label class="z">电梯直达</label>
+<input type="text" class="px p_fre z" size="2" onkeyup="$('fj_btn').href='forum.php?mod=redirect&ptid=179724&authorid=0&postno='+this.value" onkeydown="if(event.keyCode==13) {window.location=$('fj_btn').href;return false;}" title="跳转到指定楼层" />
+<a href="javascript:;" id="fj_btn" class="z" title="跳转到指定楼层"><img src="static/image/common/fj_btn.png" alt="跳转到指定楼层" class="vm" /></a>
+</div>
+<strong>
+<a href="forum.php?mod=viewthread&tid=179724&amp;fromuid=523054" title="您的朋友访问此链接后，您将获得相应的积分奖励" id="postnum1549658" onclick="setCopy(this.href, '帖子地址复制成功');return false;">楼主</a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon1549658" src="static/image/common/online_moderator.gif" />
+<em id="authorposton1549658">发表于 2012-6-18 15:17:13</em>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=179724&amp;page=1&amp;authorid=647476" rel="nofollow">只看该作者</a>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=179724&amp;extra=page%3D1&amp;ordertype=1">倒序浏览</a>
+<div style="float:right;position:relative;top:-6px;"><!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+	<span class="bds_more"></span>
+	<a class="bds_tsina"></a>
+	<a class="bds_tqq"></a>
+	<a class="bds_qzone"></a>
+	<a class="bds_renren"></a>
+	<a class="bds_kaixin001"></a>
+	<a class="shareCount"></a>
+</div>
+<script type="text/javascript" id="bdshare_js" data="type=tools&uid=597413" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+	var bds_config = {'bdText':$('thread_subject').innerHTML};
+	document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?t=" + new Date().getHours();
+</script>
+<!-- Baidu Button END --></div></div>
+</div>
+</div><div class="pct"><div class="a_pt"><a href="http://cnrdn.com/m5v4" target="_blank"><img src="http://www.eoeandroid.com/data/attachment/common/cf/180358j2llpp2iul2vilul.gif" border="0"></a></div><style type="text/css">.pcb{margin-right:0}</style><div class="pcb">
+<div class="t_fsz">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_1549658">
+<font face="微软雅黑"><font size="3"><font color="red">===============</font><strong><font color="#ff0000"><font color="red">eoeAndroid</font>社区推荐：=======================<br />
+</font></strong><br />
+</font></font><font color="#ff0000"><font face="微软雅黑"><font size="3"><strong>【eoeAndroid社区索引】多媒体之摄像头<br />
+</strong></font></font><a href="http://www.eoeandroid.com/thread-171847-1-1.html" target="_blank"><font face="微软雅黑"><font size="3"><strong>http://www.eoeandroid.com/thread-171847-1-1.html</strong></font></font></a><br />
+</font><br />
+<font face="微软雅黑"><font size="3"><font color="red"><strong>Android 手机摄像头编程入门(转)<br />
+</strong></font></font></font><a href="http://www.eoeandroid.com/thread-180370-1-1.html" target="_blank"><font face="微软雅黑"><font size="3"><strong>http://www.eoeandroid.com/thread-180370-1-1.html</strong></font></font></a><br />
+<br />
+<font face="微软雅黑"><font size="3"><font color="red"><strong>android手机摄像头当成QQ聊天视频，本人亲测成功<br />
+</strong></font></font></font><a href="http://www.eoeandroid.com/thread-148254-1-1.html" target="_blank"><font face="微软雅黑"><font size="3"><strong>http://www.eoeandroid.com/thread-148254-1-1.html</strong></font></font></a><br />
+<br />
+<font face="微软雅黑"><font size="3"><font color="red"><strong>改良版 手机远程监控，提供PC端摄像头捕捉程序<br />
+</strong></font></font></font><a href="http://www.eoeandroid.com/thread-30304-1-1.html" target="_blank"><font face="微软雅黑"><font size="3"><strong>http://www.eoeandroid.com/thread-30304-1-1.html</strong></font></font></a><br />
+<br />
+<font face="微软雅黑"><font size="3"><font color="red"><strong>手机摄像头虚拟电脑摄像头，方便QQ,MSN视频<br />
+</strong></font></font></font><a href="http://www.eoeandroid.com/thread-66456-1-1.html" target="_blank"><font face="微软雅黑"><font size="3"><strong>http://www.eoeandroid.com/thread-66456-1-1.html</strong></font></font></a><br />
+<font color="black"><br />
+<font face="微软雅黑"><font size="3"><font color="red"><strong>【eoe Android特刊】第十七期：Android摄像头的应用<br />
+</strong></font></font></font><a href="http://www.eoeandroid.com/thread-74676-1-1.html" target="_blank"><font face="微软雅黑"><font size="3"><strong>http://www.eoeandroid.com/thread-74676-1-1.html</strong></font></font></a><br />
+<br />
+<font face="微软雅黑"><font size="3"><strong>===============帖子正文==============================</strong></font></font></font><br />
+<br />
+废话少说,上完整源码。<br />
+<br />
+
+<ignore_js_op>
+
+<img src="static/image/filetype/rar.gif" border="0" class="vm" alt="" />
+<span style="white-space: nowrap" id="attach_63762" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})">
+
+<a href="forum.php?mod=attachment&amp;aid=NjM3NjJ8NGU1ZjBiZjN8MTM0MTg5MDk4NXw1MjMwNTR8MTc5NzI0" target="_blank">takepicture.rar</a>
+
+<em class="xg1">(46.47 KB, 下载次数: 20)</em>
+</span>
+<div class="tip tip_4" id="attach_63762_menu" style="position: absolute; display: none">
+<div class="tip_c xs0">
+<div class="y">2012-6-18 15:17 上传</div>
+点击文件名下载附件
+<br />下载积分: e币 -1 元
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+<br />
+<br />
+</td></tr></table>
+</div>
+<div id="comment_1549658" class="cm">
+</div>
+<div id="post_rate_div_1549658"></div>
+</div></div>
+
+<div class="ptg mbm">
+<a title="手机摄像头" href="misc.php?mod=tag&amp;id=2356" target="_blank">手机摄像头</a>, <a title="拍照" href="misc.php?mod=tag&amp;id=341" target="_blank">拍照</a>, <a title="如何" href="misc.php?mod=tag&amp;id=321" target="_blank">如何</a></div>
+</td></tr>
+<tr><td class="plc plm">
+
+<div id="relate_subject"></div>
+
+<div id="p_btn" class="mtw mbm cl">
+<div class="tshare cl">
+<strong>分享到:</strong>
+
+
+<a href="javascript:void(0);" id="k_qqshare" onclick="postToQzone();" title="QQ空间"><i><img src="static/image/common/qzone.gif" alt="QQ空间" />QQ空间</i></a>
+<a href="javascript:void(0)" onclick="postToWb();" id="k_weiboshare" title="腾讯微博"><i><img src="static/image/common/weibo.png" alt="腾讯微博" />腾讯微博</i></a>
+<a href="javascript:void(0);" onclick="postToPengyou();" id="k_pengyoushare" title="腾讯朋友"><i><img src="static/image/common/pengyou.png" alt="腾讯朋友" />腾讯朋友</i></a>
+<script type="text/javascript">
+function postToWb(){
+var _t = encodeURI(document.title);
+var _url = encodeURIComponent(document.location);
+var _appkey = encodeURI("801141744");
+var _pic = "";
+var _site = encodeURIComponent("eoeAndroid开发者社区");
+var _from = 'discuz';
+var _u = 'http://v.t.qq.com/share/share.php?url='+_url+'&appkey='+_appkey+'&site='+_site+'&pic='+_pic+'&title='+_t+'&from='+_from;
+window.open( _u,'', 'width=700, height=680, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no' );
+}
+function postToQzone(){
+var _url = encodeURIComponent(document.location.href);
+var _site = encodeURIComponent("eoeAndroid开发者社区");
+var _title = encodeURIComponent("【实例】如何利用手机摄像头拍照");
+var _pics = "";
+var _from = 'discuz';
+var _u = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+_url+'&site='+_site+'&title='+_title+'&pics='+_pics+'&from='+_from;
+window.open(_u);
+}
+function postToPengyou(){
+var _url = encodeURIComponent(document.location.href);
+var _site = encodeURIComponent("eoeAndroid开发者社区");
+var _title = encodeURIComponent("【实例】如何利用手机摄像头拍照");
+var _pics = "";
+var _from = 'discuz';
+var _u = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?to=pengyou&url='+_url+'&site='+_site+'&title='+_title+'&pics='+_pics+'&from='+_from;
+window.open(_u);
+}
+</script>
+
+</div>
+<a href="forum.php?mod=collection&amp;action=edit&amp;op=addthread&amp;tid=179724" id="k_collect" onclick="showWindow(this.id, this.href);return false;" onmouseover="this.title = $('collectionnumber').innerHTML + ' 人淘帖'"><i><img src="static/image/common/collection.png" alt="分享" />淘帖<span id="collectionnumber">0</span></i></a>
+<a href="home.php?mod=spacecp&amp;ac=share&amp;type=thread&amp;id=179724" id="k_share" onclick="showWindow(this.id, this.href, 'get', 0);" onmouseover="this.title = $('sharenumber').innerHTML + ' 人分享'"><i><img src="static/image/common/oshr.png" alt="分享" />分享<span id="sharenumber">0</span></i></a>
+<a href="home.php?mod=spacecp&amp;ac=favorite&amp;type=thread&amp;id=179724" id="k_favorite" onclick="showWindow(this.id, this.href, 'get', 0);" onmouseover="this.title = $('favoritenumber').innerHTML + ' 人收藏'"><i><img src="static/image/common/fav.gif" alt="收藏" />收藏<span id="favoritenumber">0</span></i></a>
+<a id="recommend_add" href="forum.php?mod=misc&amp;action=recommend&amp;do=add&amp;tid=179724" onclick="ajaxmenu(this, 3000, 1, 0, '43', 'recommendupdate(1)');return false;" onmouseover="this.title = $('recommendv_add').innerHTML + ' 人好评'"><i><img src="static/image/common/rec_add.gif" alt="好评" />好评<span id="recommendv_add">0</span></i></a>
+<a id="recommend_subtract" href="forum.php?mod=misc&amp;action=recommend&amp;do=subtract&amp;tid=179724" onclick="ajaxmenu(this, 3000, 1, 0, '43', 'recommendupdate(-1)');return false;" onmouseover="this.title = $('recommendv_subtract').innerHTML + ' 人差评'"><i><img src="static/image/common/rec_subtract.gif" alt="差评" />差评<span id="recommendv_subtract">0</span></i></a>
+
+<a href="javascript:void((function(s,d,e,r,l,p,t,z,c,o) {var f='http://service.weibo.com/share/share.php?appkey=2823075910',u=z||d.location,p=['&url=',e(u),'&title=',e(t||d.title),'&ralateUid=',o||'','&sourceUrl=',e(l),'&content=',c||'gb2312','&pic=',e(p||'')].join('');function a(){if(!window.open([f,p].join(''),'mb', ['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width- 440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');}; if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0);}else{a();}}) (screen,document,encodeURIComponent,'','','','【实例】如何利用手机摄像头拍照','','utf-8', ''));" onclick="setTimeout('forstat()', 0);"><i><img src="xwb/images/bgimg/icon_logo.png" />转发到微博</i></a>
+         <img id="statimg" style="display:none;" />
+         <script type="text/javascript">
+            function forstat(){
+                var statimg = document.getElementById("statimg");
+                statimg.src = "http://beacon.x.weibo.com/a.gif?uid=&pjt=xwb4dx&dsz=2.5&ver=2.1.1&xt=fw&akey=2823075910&ip=210.21.236.135" + "&random=" + Math.round(Math.random()*1000000);
+            }
+            if(window.jQuery && jQuery.fn.lazyload){
+                jQuery(function(){
+                    document.getElementById("statimg").style.display = "none";
+                });
+            }
+         </script>
+</div>
+<div class="mtw mbw">
+<h3 class="pbm mbm bbda">相关帖子</h3>
+<ul class="xl xl2 cl"><li>&#8226; <a href="thread-167751-1-1.html" title="如何提升你的应用在Google Market“电子市场”排行榜的排名" target="_blank">如何提升你的应用在Google Market“电子市场”排行榜的排名</a></li>
+<li>&#8226; <a href="thread-168223-1-1.html" title="垃圾短信如何找上门？工商税务贡献很大" target="_blank">垃圾短信如何找上门？工商税务贡献很大</a></li>
+<li>&#8226; <a href="thread-169511-1-1.html" title="android如何盈利呢？大家讨论一下" target="_blank">android如何盈利呢？大家讨论一下</a></li>
+<li>&#8226; <a href="thread-169555-1-1.html" title="wifi, gprs如何切换" target="_blank">wifi, gprs如何切换</a></li>
+<li>&#8226; <a href="thread-169595-1-1.html" title="群发监听发送状态同时更新数据状态？如何解决？" target="_blank">群发监听发送状态同时更新数据状态？如何解决？</a></li>
+<li>&#8226; <a href="thread-169614-1-1.html" title="想问个某android企业" target="_blank">想问个某android企业</a></li>
+<li>&#8226; <a href="thread-169622-1-1.html" title="新人，求助~~~" target="_blank">新人，求助~~~</a></li>
+<li>&#8226; <a href="thread-169672-1-1.html" title="如何从一个View跳转到一个Activity" target="_blank">如何从一个View跳转到一个Activity</a></li>
+<li>&#8226; <a href="thread-169774-1-1.html" title="MenuItem 中的 title内容如何自动换行？？？" target="_blank">MenuItem 中的 title内容如何自动换行？？？</a></li>
+<li>&#8226; <a href="thread-169779-1-1.html" title="如何在开发中使用图片？？" target="_blank">如何在开发中使用图片？？</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr>
+<td class="pls"></td>
+<td class="plc">
+<div class="po">
+<div class="pob cl">
+<em>
+<a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=23&amp;tid=179724&amp;reppost=1549658&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">回复</a>
+</em>
+
+<p>
+<a href="javascript:;" id="mgc_post_1549658" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport1549658', 'misc.php?mod=report&rtype=post&rid=1549658&tid=179724&fid=23', 'get', -1);return false;">举报</a>
+</p>
+
+<ul id="mgc_post_1549658_menu" class="p_pop mgcmn" style="display: none;">
+<li><a href="home.php?mod=magic&amp;mid=bump&amp;idtype=tid&amp;id=179724" id="a_bump" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/bump.small.gif" />提升卡</a></li>
+<li><a href="home.php?mod=magic&amp;mid=stick&amp;idtype=tid&amp;id=179724" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/stick.small.gif" />置顶卡</a></li>
+<li><a href="home.php?mod=magic&amp;mid=close&amp;idtype=tid&amp;id=179724" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/close.small.gif" />沉默卡</a></li>
+<li><a href="home.php?mod=magic&amp;mid=open&amp;idtype=tid&amp;id=179724" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/open.small.gif" />喧嚣卡</a></li>
+<li><a href="home.php?mod=magic&amp;mid=highlight&amp;idtype=tid&amp;id=179724" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/highlight.small.gif" />变色卡</a></li>
+<li><a href="home.php?mod=magic&amp;mid=namepost&amp;idtype=pid&amp;id=1549658:179724" id="a_namepost_1549658" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/namepost.small.gif" />显身卡</a><li>
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_1549658')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls"></td>
+<td class="plc">
+</td>
+</tr>
+</table>
+</div><div id="post_1550417"><table id="pid1550417" summary="pid1550417" cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls" rowspan="2">
+ <div class="pi">
+<div class="authi"><a href="home.php?mod=space&amp;uid=93158" target="_blank" class="xw1">snowdream</a>
+
+</div>
+</div>
+<div class="p_pop blk bui" id="userinfo1550417" style="display: none; margin-top: -11px;">
+<div class="m z">
+<div id="userinfo1550417_ma"></div>
+</div>
+<div class="i y">
+<div>
+<strong><a href="home.php?mod=space&amp;uid=93158" target="_blank" class="xi2">snowdream</a></strong>
+<em>当前离线</em>
+</div>
+<dl class="cl"><dt>在线时间</dt><dd>345 小时</dd><dt>e望</dt><dd>1 点</dd><dt>最后登录</dt><dd>2012-7-9</dd><dt>注册时间</dt><dd>2010-9-17</dd><dt>积分</dt><dd>1464</dd><dt>阅读权限</dt><dd>40</dd><dt>UID</dt><dd>93158</dd></dl>
+<div class="imicn">
+<a href="home.php?mod=space&amp;uid=93158&amp;do=profile" target="_blank" title="查看详细资料"><img src="static/image/common/userinfo.gif" alt="查看详细资料" /></a>
+<a href="http://weibo.com/1067467205" target="_blank"><img src="http://www.eoeandroid.com/xwb/images/bgimg/icon_on.gif" title="snowdream 的新浪微博" /></a><a href="home.php?mod=magic&amp;mid=showip&amp;idtype=user&amp;id=snowdream" id="a_showip_li_1550417" class="xi2" onclick="showWindow(this.id, this.href)"><img src="static//image/magic/showip.small.gif" alt="" /> IP卡</a>
+<a href="home.php?mod=magic&amp;mid=checkonline&amp;idtype=user&amp;id=snowdream" id="a_repent_1550417" class="xi2" onclick="showWindow(this.id, this.href)"><img src="static//image/magic/checkonline.small.gif" alt="" /> 狗仔卡</a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+<div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo1550417')"><a href="home.php?mod=space&amp;uid=93158" target="_blank"><img src="http://www.eoeandroid.com/uc_server/avatar.php?uid=93158&size=middle" /></a></div>
+<div class="tns xg2">
+<table cellspacing="0" cellpadding="0">
+<th><p><a href="home.php?mod=space&amp;uid=93158&amp;do=thread&amp;view=me&amp;from=space" class="xi2">28</a></p>主题</th>
+<th>
+<p><a href="home.php?mod=space&amp;uid=93158&amp;do=friend&amp;view=me" class="xi2">7</a></p>好友
+</th>
+<td><p><a href="home.php?mod=space&amp;uid=93158&amp;do=profile" class="xi2">1464</a></p>积分</td>
+</table>
+</div>
+<p><em><a href="home.php?mod=spacecp&amp;ac=usergroup&amp;gid=13" target="_blank">No.4 优亿中级开发者</a></em></p>
+</div>
+<p id="g_up1550417" onmouseover="showMenu({'ctrlid':this.id, 'pos':'12!'});"><img src="static/image/common/star_level3.gif" alt="Rank: 4" /></p>
+<div id="g_up1550417_menu" class="tip tip_4" style="display: none;">
+<div class="tip_horn"></div>
+<div class="tip_c">No.4 优亿中级开发者, 积分 1464, 距离下一级还需 36 积分</div>
+</div>
+<p id="plgup1550417" onmouseover="showMenu({'ctrlid':this.id, 'pos':'12!'});"><span style="float:left;">升级&nbsp;</span><span style="padding-top:4px;float:left;"><img width="2" height="12" src="source/plugin/plbeautify/images/expl.gif"><img width="45.84" height="12" src="source/plugin/plbeautify/images/expc.gif"><img width="6" height="12" src="source/plugin/plbeautify/images/expr.gif"></span>&nbsp;<span>95.5%</span></p><div id="plgup1550417_menu" class="tip tip_4" style="position: absolute; z-index: 301; left: 215px; top: 771px; display: none; "><div class="tip_horn"></div><div class="tip_c">当前用户组为 <span style="color:red;">No.4 优亿中级开发者</span><br />当前积分为 <span style="color:red;">1464</span>, 升到下一级还需要 36 点。</div></div><a href="http://weibo.com/1067467205" target="_blank" class="xwb-plugin-medal-sinawb"><img onmouseout="XWBcontrol.TipPanel.setHideTimer();" onmouseover="XWBcontrol.TipPanel.showLayer(this, '1067467205');" src="http://www.eoeandroid.com/xwb/images/bgimg/icon_on.gif" /></a><dl class="pil cl"><dt>精华</dt><dd>0</dd><dt>帖子</dt><dd><a href="home.php?mod=space&uid=93158&do=thread&type=reply&view=me&from=space" target="_blank" class="xi2">476</a></dd><dt>e币</dt><dd>747 元</dd></dl><p class="md_ctrl">
+<a href="home.php?mod=medal"><img id="md_1550417_20" src="static/image/common/hui.png" alt="优亿2012" title="" onmouseover="showMenu({'ctrlid':this.id, 'menuid':'md_20_menu', 'pos':'12!'});" />
+</a>
+</p>
+<ul class="xl xl2 o cl">
+<li class="pm2"><a href="home.php?mod=spacecp&amp;ac=pm&amp;op=showmsg&amp;handlekey=showmsg_93158&amp;touid=93158&amp;pmid=0&amp;daterange=2&amp;pid=1550417&amp;tid=179724" onclick="showWindow('sendpm', this.href);" title="发消息" class="xi2">发消息</a></li>
+</ul>
+</td>
+<td class="plc">
+<div class="pi">
+<strong>
+<a href="forum.php?mod=redirect&goto=findpost&ptid=179724&pid=1550417&amp;fromuid=523054" title="您的朋友访问此链接后，您将获得相应的积分奖励" id="postnum1550417" onclick="setCopy(this.href, '帖子地址复制成功');return false;">沙发</a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon1550417" src="static/image/common/online_member.gif" />
+<em id="authorposton1550417">发表于 2012-6-18 19:51:31</em>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=179724&amp;page=1&amp;authorid=93158" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div><div class="pct"><div class="pcb">
+<div class="t_fsz">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_1550417">
+感谢分享。建议用UTF8进行编码</td></tr></table>
+</div>
+<div id="comment_1550417" class="cm">
+</div>
+<div id="post_rate_div_1550417"></div>
+</div></div>
+
+</td></tr>
+<tr><td class="plc plm">
+<div class="sign" style="max-height:110px;maxHeightIE:110px;">HD文件管理器<br />
+项目主页 http://code.google.com/p/hdexplorer/<br />
+谷歌商店 https://market.android.com/details?id=com.hd.explorer</div>
+</td>
+</tr>
+<tr>
+<td class="pls"></td>
+<td class="plc">
+<div class="po">
+<div class="pob cl">
+<em>
+<a class="cmmnt" href="forum.php?mod=misc&amp;action=comment&amp;tid=179724&amp;pid=1550417&amp;extra=page%3D1&amp;page=1" onclick="showWindow('comment', this.href, 'get', 0)">点评</a><a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=23&amp;tid=179724&amp;repquote=1550417&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">回复</a>
+</em>
+
+<p>
+<a href="javascript:;" id="mgc_post_1550417" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport1550417', 'misc.php?mod=report&rtype=post&rid=1550417&tid=179724&fid=23', 'get', -1);return false;">举报</a>
+</p>
+
+<ul id="mgc_post_1550417_menu" class="p_pop mgcmn" style="display: none;">
+<li><a href="home.php?mod=magic&amp;mid=namepost&amp;idtype=pid&amp;id=1550417:179724" id="a_namepost_1550417" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/namepost.small.gif" />显身卡</a><li>
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_1550417')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls"></td>
+<td class="plc">
+</td>
+</tr>
+</table>
+</div><div id="post_1550792"><table id="pid1550792" summary="pid1550792" cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls" rowspan="2">
+ <div class="pi">
+<div class="authi"><a href="home.php?mod=space&amp;uid=128092" target="_blank" class="xw1">sclhy1017</a>
+
+</div>
+</div>
+<div class="p_pop blk bui" id="userinfo1550792" style="display: none; margin-top: -11px;">
+<div class="m z">
+<div id="userinfo1550792_ma"></div>
+</div>
+<div class="i y">
+<div>
+<strong><a href="home.php?mod=space&amp;uid=128092" target="_blank" class="xi2">sclhy1017</a></strong>
+<em>当前离线</em>
+</div>
+<dl class="cl"><dt>在线时间</dt><dd>229 小时</dd><dt>e望</dt><dd>0 点</dd><dt>最后登录</dt><dd>2012-7-7</dd><dt>注册时间</dt><dd>2011-1-22</dd><dt>积分</dt><dd>915</dd><dt>阅读权限</dt><dd>40</dd><dt>UID</dt><dd>128092</dd></dl>
+<div class="imicn">
+<a href="home.php?mod=space&amp;uid=128092&amp;do=profile" target="_blank" title="查看详细资料"><img src="static/image/common/userinfo.gif" alt="查看详细资料" /></a>
+<img src="http://www.eoeandroid.com/xwb/images/bgimg/icon_off.gif" title="未绑定新浪微博" /><a href="home.php?mod=magic&amp;mid=showip&amp;idtype=user&amp;id=sclhy1017" id="a_showip_li_1550792" class="xi2" onclick="showWindow(this.id, this.href)"><img src="static//image/magic/showip.small.gif" alt="" /> IP卡</a>
+<a href="home.php?mod=magic&amp;mid=checkonline&amp;idtype=user&amp;id=sclhy1017" id="a_repent_1550792" class="xi2" onclick="showWindow(this.id, this.href)"><img src="static//image/magic/checkonline.small.gif" alt="" /> 狗仔卡</a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+<div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo1550792')"><a href="home.php?mod=space&amp;uid=128092" target="_blank"><img src="http://www.eoeandroid.com/uc_server/avatar.php?uid=128092&size=middle" /></a></div>
+<div class="tns xg2">
+<table cellspacing="0" cellpadding="0">
+<th><p><a href="home.php?mod=space&amp;uid=128092&amp;do=thread&amp;view=me&amp;from=space" class="xi2">0</a></p>主题</th>
+<th>
+<p><a href="home.php?mod=space&amp;uid=128092&amp;do=friend&amp;view=me" class="xi2">3</a></p>好友
+</th>
+<td><p><a href="home.php?mod=space&amp;uid=128092&amp;do=profile" class="xi2">915</a></p>积分</td>
+</table>
+</div>
+<p><em><a href="home.php?mod=spacecp&amp;ac=usergroup&amp;gid=13" target="_blank">No.4 优亿中级开发者</a></em></p>
+</div>
+<p id="g_up1550792" onmouseover="showMenu({'ctrlid':this.id, 'pos':'12!'});"><img src="static/image/common/star_level3.gif" alt="Rank: 4" /></p>
+<div id="g_up1550792_menu" class="tip tip_4" style="display: none;">
+<div class="tip_horn"></div>
+<div class="tip_c">No.4 优亿中级开发者, 积分 915, 距离下一级还需 585 积分</div>
+</div>
+<p id="plgup1550792" onmouseover="showMenu({'ctrlid':this.id, 'pos':'12!'});"><span style="float:left;">升级&nbsp;</span><span style="padding-top:4px;float:left;"><img width="2" height="12" src="source/plugin/plbeautify/images/expl.gif"><img width="12.9024" height="12" src="source/plugin/plbeautify/images/expc.gif"><img width="6" height="12" src="source/plugin/plbeautify/images/expr.gif"></span>&nbsp;<span>26.88%</span></p><div id="plgup1550792_menu" class="tip tip_4" style="position: absolute; z-index: 301; left: 215px; top: 771px; display: none; "><div class="tip_horn"></div><div class="tip_c">当前用户组为 <span style="color:red;">No.4 优亿中级开发者</span><br />当前积分为 <span style="color:red;">915</span>, 升到下一级还需要 585 点。</div></div><img src="http://www.eoeandroid.com/xwb/images/bgimg/icon_off.gif" class="xwb-plugin-medal-sinawb"  title="未绑定新浪微博" /><dl class="pil cl"><dt>精华</dt><dd>0</dd><dt>帖子</dt><dd><a href="home.php?mod=space&uid=128092&do=thread&type=reply&view=me&from=space" target="_blank" class="xi2">457</a></dd><dt>e币</dt><dd>0 元</dd></dl><ul class="xl xl2 o cl">
+<li class="pm2"><a href="home.php?mod=spacecp&amp;ac=pm&amp;op=showmsg&amp;handlekey=showmsg_128092&amp;touid=128092&amp;pmid=0&amp;daterange=2&amp;pid=1550792&amp;tid=179724" onclick="showWindow('sendpm', this.href);" title="发消息" class="xi2">发消息</a></li>
+</ul>
+</td>
+<td class="plc">
+<div class="pi">
+<strong>
+<a href="forum.php?mod=redirect&goto=findpost&ptid=179724&pid=1550792&amp;fromuid=523054" title="您的朋友访问此链接后，您将获得相应的积分奖励" id="postnum1550792" onclick="setCopy(this.href, '帖子地址复制成功');return false;">板凳</a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon1550792" src="static/image/common/online_member.gif" />
+<em id="authorposton1550792">发表于 2012-6-19 01:13:29</em>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=179724&amp;page=1&amp;authorid=128092" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div><div class="pct"><div class="pcb">
+<div class="t_fsz">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_1550792">
+<img src="static/image/smiley/tutu/38.gif" smilieid="142" border="0" alt="" /></td></tr></table>
+</div>
+<div id="comment_1550792" class="cm">
+</div>
+<div id="post_rate_div_1550792"></div>
+</div></div>
+
+</td></tr>
+<tr><td class="plc plm">
+</td>
+</tr>
+<tr>
+<td class="pls"></td>
+<td class="plc">
+<div class="po">
+<div class="pob cl">
+<em>
+<a class="cmmnt" href="forum.php?mod=misc&amp;action=comment&amp;tid=179724&amp;pid=1550792&amp;extra=page%3D1&amp;page=1" onclick="showWindow('comment', this.href, 'get', 0)">点评</a><a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=23&amp;tid=179724&amp;repquote=1550792&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">回复</a>
+</em>
+
+<p>
+<a href="javascript:;" id="mgc_post_1550792" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport1550792', 'misc.php?mod=report&rtype=post&rid=1550792&tid=179724&fid=23', 'get', -1);return false;">举报</a>
+</p>
+
+<ul id="mgc_post_1550792_menu" class="p_pop mgcmn" style="display: none;">
+<li><a href="home.php?mod=magic&amp;mid=namepost&amp;idtype=pid&amp;id=1550792:179724" id="a_namepost_1550792" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/namepost.small.gif" />显身卡</a><li>
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_1550792')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls"></td>
+<td class="plc">
+</td>
+</tr>
+</table>
+</div><div id="post_1551250"><table id="pid1551250" summary="pid1551250" cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls" rowspan="2">
+ <div class="pi">
+<div class="authi"><a href="home.php?mod=space&amp;uid=647476" target="_blank" class="xw1">yanghe123</a>
+
+</div>
+</div>
+<div class="p_pop blk bui" id="userinfo1551250" style="display: none; margin-top: -11px;">
+<div class="m z">
+<div id="userinfo1551250_ma"></div>
+</div>
+<div class="i y">
+<div>
+<strong><a href="home.php?mod=space&amp;uid=647476" target="_blank" class="xi2">yanghe123</a></strong>
+<em>当前在线</em>
+</div>
+<dl class="cl"><dt>在线时间</dt><dd>155 小时</dd><dt>e望</dt><dd>12 点</dd><dt>最后登录</dt><dd>2012-7-10</dd><dt>注册时间</dt><dd>2012-4-13</dd><dt>积分</dt><dd>6244</dd><dt>阅读权限</dt><dd>180</dd><dt>UID</dt><dd>647476</dd></dl>
+<div class="imicn">
+<a href="home.php?mod=space&amp;uid=647476&amp;do=profile" target="_blank" title="查看详细资料"><img src="static/image/common/userinfo.gif" alt="查看详细资料" /></a>
+<a href="http://weibo.com/2785758720" target="_blank"><img src="http://www.eoeandroid.com/xwb/images/bgimg/icon_on.gif" title="yanghe123 的新浪微博" /></a><a href="home.php?mod=magic&amp;mid=showip&amp;idtype=user&amp;id=yanghe123" id="a_showip_li_1551250" class="xi2" onclick="showWindow(this.id, this.href)"><img src="static//image/magic/showip.small.gif" alt="" /> IP卡</a>
+<a href="home.php?mod=magic&amp;mid=checkonline&amp;idtype=user&amp;id=yanghe123" id="a_repent_1551250" class="xi2" onclick="showWindow(this.id, this.href)"><img src="static//image/magic/checkonline.small.gif" alt="" /> 狗仔卡</a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+<div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo1551250')"><a href="home.php?mod=space&amp;uid=647476" target="_blank"><img src="http://www.eoeandroid.com/uc_server/avatar.php?uid=647476&size=middle" /></a></div>
+<div class="tns xg2">
+<table cellspacing="0" cellpadding="0">
+<th><p><a href="home.php?mod=space&amp;uid=647476&amp;do=thread&amp;view=me&amp;from=space" class="xi2">426</a></p>主题</th>
+<th>
+<p><a href="home.php?mod=space&amp;uid=647476&amp;do=friend&amp;view=me" class="xi2">20</a></p>好友
+</th>
+<td><p><a href="home.php?mod=space&amp;uid=647476&amp;do=profile" class="xi2">6244</a></p>积分</td>
+</table>
+</div>
+<p><em><a href="home.php?mod=spacecp&amp;ac=usergroup&amp;gid=3" target="_blank"><font color="blue">版主</font></a></em></p>
+</div>
+<p><img src="static/image/common/star_level3.gif" alt="Rank: 8" /><img src="static/image/common/star_level3.gif" alt="Rank: 8" /></p>
+<a href="http://weibo.com/2785758720" target="_blank" class="xwb-plugin-medal-sinawb"><img onmouseout="XWBcontrol.TipPanel.setHideTimer();" onmouseover="XWBcontrol.TipPanel.showLayer(this, '2785758720');" src="http://www.eoeandroid.com/xwb/images/bgimg/icon_on.gif" /></a><dl class="pil cl"><dt>精华</dt><dd>0</dd><dt>帖子</dt><dd><a href="home.php?mod=space&uid=647476&do=thread&type=reply&view=me&from=space" target="_blank" class="xi2">2020</a></dd><dt>e币</dt><dd>5194 元</dd></dl><p class="md_ctrl">
+<a href="home.php?mod=medal"><img id="md_1551250_31" src="static/image/common/2012-gx.png" alt="社区贡献者" title="" onmouseover="showMenu({'ctrlid':this.id, 'menuid':'md_31_menu', 'pos':'12!'});" />
+</a>
+</p>
+<ul class="xl xl2 o cl">
+<li class="pm2"><a href="home.php?mod=spacecp&amp;ac=pm&amp;op=showmsg&amp;handlekey=showmsg_647476&amp;touid=647476&amp;pmid=0&amp;daterange=2&amp;pid=1551250&amp;tid=179724" onclick="showWindow('sendpm', this.href);" title="发消息" class="xi2">发消息</a></li>
+</ul>
+</td>
+<td class="plc">
+<div class="pi">
+<strong>
+<a href="forum.php?mod=redirect&goto=findpost&ptid=179724&pid=1551250&amp;fromuid=523054" title="您的朋友访问此链接后，您将获得相应的积分奖励" id="postnum1551250" onclick="setCopy(this.href, '帖子地址复制成功');return false;">地板</a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon1551250" src="static/image/common/online_moderator.gif" />
+<em id="authorposton1551250">发表于 2012-6-19 09:31:25</em>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=179724&amp;page=1&amp;authorid=647476" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div><div class="pct"><div class="pcb">
+<div class="t_fsz">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_1551250">
+<div class="quote"><blockquote><font size="2"><font color="#999999">snowdream 发表于 2012-6-18 19:51</font> <a href="http://www.eoeandroid.com/forum.php?mod=redirect&amp;goto=findpost&amp;pid=1550417&amp;ptid=179724" target="_blank"><img id="aimg_6qgg2" onclick="zoom(this, this.src, 0, 0, 0)" class="zoom" file="static/image/common/back.gif" onmouseover="img_onmouseoverfunc(this)" onload="thumbImg(this)" border="0" alt="" /></a></font><br />
+感谢分享。建议用UTF8进行编码</blockquote></div><br />
+<img src="static/image/smiley/tutu/76.gif" smilieid="141" border="0" alt="" /></td></tr></table>
+</div>
+<div id="comment_1551250" class="cm">
+</div>
+<div id="post_rate_div_1551250"></div>
+</div></div>
+
+</td></tr>
+<tr><td class="plc plm">
+</td>
+</tr>
+<tr>
+<td class="pls"></td>
+<td class="plc">
+<div class="po">
+<div class="pob cl">
+<em>
+<a class="cmmnt" href="forum.php?mod=misc&amp;action=comment&amp;tid=179724&amp;pid=1551250&amp;extra=page%3D1&amp;page=1" onclick="showWindow('comment', this.href, 'get', 0)">点评</a><a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=23&amp;tid=179724&amp;repquote=1551250&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">回复</a>
+</em>
+
+<p>
+<a href="javascript:;" id="mgc_post_1551250" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport1551250', 'misc.php?mod=report&rtype=post&rid=1551250&tid=179724&fid=23', 'get', -1);return false;">举报</a>
+</p>
+
+<ul id="mgc_post_1551250_menu" class="p_pop mgcmn" style="display: none;">
+<li><a href="home.php?mod=magic&amp;mid=namepost&amp;idtype=pid&amp;id=1551250:179724" id="a_namepost_1551250" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/namepost.small.gif" />显身卡</a><li>
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_1551250')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls"></td>
+<td class="plc">
+</td>
+</tr>
+</table>
+<script type="text/javascript" reload="1">
+aimgcount[1551250] = ['6qgg2'];
+attachimggroup(1551250);
+var aimgfid = 0;
+</script>
+</div><div id="post_1551254"><table id="pid1551254" summary="pid1551254" cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls" rowspan="2">
+ <div class="pi">
+<div class="authi"><a href="home.php?mod=space&amp;uid=647476" target="_blank" class="xw1">yanghe123</a>
+
+</div>
+</div>
+<div class="p_pop blk bui" id="userinfo1551254" style="display: none; margin-top: -11px;">
+<div class="m z">
+<div id="userinfo1551254_ma"></div>
+</div>
+<div class="i y">
+<div>
+<strong><a href="home.php?mod=space&amp;uid=647476" target="_blank" class="xi2">yanghe123</a></strong>
+<em>当前在线</em>
+</div>
+<dl class="cl"><dt>在线时间</dt><dd>155 小时</dd><dt>e望</dt><dd>12 点</dd><dt>最后登录</dt><dd>2012-7-10</dd><dt>注册时间</dt><dd>2012-4-13</dd><dt>积分</dt><dd>6244</dd><dt>阅读权限</dt><dd>180</dd><dt>UID</dt><dd>647476</dd></dl>
+<div class="imicn">
+<a href="home.php?mod=space&amp;uid=647476&amp;do=profile" target="_blank" title="查看详细资料"><img src="static/image/common/userinfo.gif" alt="查看详细资料" /></a>
+<a href="http://weibo.com/2785758720" target="_blank"><img src="http://www.eoeandroid.com/xwb/images/bgimg/icon_on.gif" title="yanghe123 的新浪微博" /></a><a href="home.php?mod=magic&amp;mid=showip&amp;idtype=user&amp;id=yanghe123" id="a_showip_li_1551254" class="xi2" onclick="showWindow(this.id, this.href)"><img src="static//image/magic/showip.small.gif" alt="" /> IP卡</a>
+<a href="home.php?mod=magic&amp;mid=checkonline&amp;idtype=user&amp;id=yanghe123" id="a_repent_1551254" class="xi2" onclick="showWindow(this.id, this.href)"><img src="static//image/magic/checkonline.small.gif" alt="" /> 狗仔卡</a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+<div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo1551254')"><a href="home.php?mod=space&amp;uid=647476" target="_blank"><img src="http://www.eoeandroid.com/uc_server/avatar.php?uid=647476&size=middle" /></a></div>
+<div class="tns xg2">
+<table cellspacing="0" cellpadding="0">
+<th><p><a href="home.php?mod=space&amp;uid=647476&amp;do=thread&amp;view=me&amp;from=space" class="xi2">426</a></p>主题</th>
+<th>
+<p><a href="home.php?mod=space&amp;uid=647476&amp;do=friend&amp;view=me" class="xi2">20</a></p>好友
+</th>
+<td><p><a href="home.php?mod=space&amp;uid=647476&amp;do=profile" class="xi2">6244</a></p>积分</td>
+</table>
+</div>
+<p><em><a href="home.php?mod=spacecp&amp;ac=usergroup&amp;gid=3" target="_blank"><font color="blue">版主</font></a></em></p>
+</div>
+<p><img src="static/image/common/star_level3.gif" alt="Rank: 8" /><img src="static/image/common/star_level3.gif" alt="Rank: 8" /></p>
+<a href="http://weibo.com/2785758720" target="_blank" class="xwb-plugin-medal-sinawb"><img onmouseout="XWBcontrol.TipPanel.setHideTimer();" onmouseover="XWBcontrol.TipPanel.showLayer(this, '2785758720');" src="http://www.eoeandroid.com/xwb/images/bgimg/icon_on.gif" /></a><dl class="pil cl"><dt>精华</dt><dd>0</dd><dt>帖子</dt><dd><a href="home.php?mod=space&uid=647476&do=thread&type=reply&view=me&from=space" target="_blank" class="xi2">2020</a></dd><dt>e币</dt><dd>5194 元</dd></dl><p class="md_ctrl">
+<a href="home.php?mod=medal"><img id="md_1551254_31" src="static/image/common/2012-gx.png" alt="社区贡献者" title="" onmouseover="showMenu({'ctrlid':this.id, 'menuid':'md_31_menu', 'pos':'12!'});" />
+</a>
+</p>
+<ul class="xl xl2 o cl">
+<li class="pm2"><a href="home.php?mod=spacecp&amp;ac=pm&amp;op=showmsg&amp;handlekey=showmsg_647476&amp;touid=647476&amp;pmid=0&amp;daterange=2&amp;pid=1551254&amp;tid=179724" onclick="showWindow('sendpm', this.href);" title="发消息" class="xi2">发消息</a></li>
+</ul>
+</td>
+<td class="plc">
+<div class="pi">
+<strong>
+<a href="forum.php?mod=redirect&goto=findpost&ptid=179724&pid=1551254&amp;fromuid=523054" title="您的朋友访问此链接后，您将获得相应的积分奖励" id="postnum1551254" onclick="setCopy(this.href, '帖子地址复制成功');return false;"><em>5</em>楼</a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon1551254" src="static/image/common/online_moderator.gif" />
+<em id="authorposton1551254">发表于 2012-6-19 09:31:48</em>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=179724&amp;page=1&amp;authorid=647476" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div><div class="pct"><div class="pcb">
+<div class="t_fsz">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_1551254">
+<div class="quote"><blockquote><font size="2"><font color="#999999">sclhy1017 发表于 2012-6-19 01:13</font> <a href="http://www.eoeandroid.com/forum.php?mod=redirect&amp;goto=findpost&amp;pid=1550792&amp;ptid=179724" target="_blank"><img id="aimg_Vy2Fq" onclick="zoom(this, this.src, 0, 0, 0)" class="zoom" file="static/image/common/back.gif" onmouseover="img_onmouseoverfunc(this)" onload="thumbImg(this)" border="0" alt="" /></a></font></blockquote></div><br />
+<img src="static/image/smiley/tutu/22.gif" smilieid="138" border="0" alt="" /></td></tr></table>
+</div>
+<div id="comment_1551254" class="cm">
+</div>
+<div id="post_rate_div_1551254"></div>
+</div></div>
+
+</td></tr>
+<tr><td class="plc plm">
+</td>
+</tr>
+<tr>
+<td class="pls"></td>
+<td class="plc">
+<div class="po">
+<div class="pob cl">
+<em>
+<a class="cmmnt" href="forum.php?mod=misc&amp;action=comment&amp;tid=179724&amp;pid=1551254&amp;extra=page%3D1&amp;page=1" onclick="showWindow('comment', this.href, 'get', 0)">点评</a><a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=23&amp;tid=179724&amp;repquote=1551254&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">回复</a>
+</em>
+
+<p>
+<a href="javascript:;" id="mgc_post_1551254" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport1551254', 'misc.php?mod=report&rtype=post&rid=1551254&tid=179724&fid=23', 'get', -1);return false;">举报</a>
+</p>
+
+<ul id="mgc_post_1551254_menu" class="p_pop mgcmn" style="display: none;">
+<li><a href="home.php?mod=magic&amp;mid=namepost&amp;idtype=pid&amp;id=1551254:179724" id="a_namepost_1551254" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/namepost.small.gif" />显身卡</a><li>
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_1551254')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls"></td>
+<td class="plc">
+</td>
+</tr>
+</table>
+<script type="text/javascript" reload="1">
+aimgcount[1551254] = ['Vy2Fq'];
+attachimggroup(1551254);
+var aimgfid = 0;
+</script>
+</div><div id="post_1556592"><table id="pid1556592" summary="pid1556592" cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls" rowspan="2">
+ <a name="lastpost"></a><div class="pi">
+<div class="authi"><a href="home.php?mod=space&amp;uid=89613" target="_blank" class="xw1">zett</a>
+
+</div>
+</div>
+<div class="p_pop blk bui" id="userinfo1556592" style="display: none; margin-top: -11px;">
+<div class="m z">
+<div id="userinfo1556592_ma"></div>
+</div>
+<div class="i y">
+<div>
+<strong><a href="home.php?mod=space&amp;uid=89613" target="_blank" class="xi2">zett</a></strong>
+<em>当前离线</em>
+</div>
+<dl class="cl"><dt>在线时间</dt><dd>1938 小时</dd><dt>e望</dt><dd>0 点</dd><dt>最后登录</dt><dd>2012-7-3</dd><dt>注册时间</dt><dd>2010-9-2</dd><dt>积分</dt><dd>4122</dd><dt>阅读权限</dt><dd>60</dd><dt>UID</dt><dd>89613</dd></dl>
+<div class="imicn">
+<a href="home.php?mod=space&amp;uid=89613&amp;do=profile" target="_blank" title="查看详细资料"><img src="static/image/common/userinfo.gif" alt="查看详细资料" /></a>
+<img src="http://www.eoeandroid.com/xwb/images/bgimg/icon_off.gif" title="未绑定新浪微博" /><a href="home.php?mod=magic&amp;mid=showip&amp;idtype=user&amp;id=zett" id="a_showip_li_1556592" class="xi2" onclick="showWindow(this.id, this.href)"><img src="static//image/magic/showip.small.gif" alt="" /> IP卡</a>
+<a href="home.php?mod=magic&amp;mid=checkonline&amp;idtype=user&amp;id=zett" id="a_repent_1556592" class="xi2" onclick="showWindow(this.id, this.href)"><img src="static//image/magic/checkonline.small.gif" alt="" /> 狗仔卡</a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+<div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo1556592')"><a href="home.php?mod=space&amp;uid=89613" target="_blank"><img src="http://www.eoeandroid.com/uc_server/avatar.php?uid=89613&size=middle" /></a></div>
+<div class="tns xg2">
+<table cellspacing="0" cellpadding="0">
+<th><p><a href="home.php?mod=space&amp;uid=89613&amp;do=thread&amp;view=me&amp;from=space" class="xi2">2</a></p>主题</th>
+<th>
+<p><a href="home.php?mod=space&amp;uid=89613&amp;do=friend&amp;view=me" class="xi2">5</a></p>好友
+</th>
+<td><p><a href="home.php?mod=space&amp;uid=89613&amp;do=profile" class="xi2">4122</a></p>积分</td>
+</table>
+</div>
+<p><em><a href="home.php?mod=spacecp&amp;ac=usergroup&amp;gid=15" target="_blank">No.6 优亿江湖开发者</a></em></p>
+</div>
+<p id="g_up1556592" onmouseover="showMenu({'ctrlid':this.id, 'pos':'12!'});"><img src="static/image/common/star_level3.gif" alt="Rank: 6" /><img src="static/image/common/star_level2.gif" alt="Rank: 6" /></p>
+<div id="g_up1556592_menu" class="tip tip_4" style="display: none;">
+<div class="tip_horn"></div>
+<div class="tip_c">No.6 优亿江湖开发者, 积分 4122, 距离下一级还需 1878 积分</div>
+</div>
+<p id="plgup1556592" onmouseover="showMenu({'ctrlid':this.id, 'pos':'12!'});"><span style="float:left;">升级&nbsp;</span><span style="padding-top:4px;float:left;"><img width="2" height="12" src="source/plugin/plbeautify/images/expl.gif"><img width="17.952" height="12" src="source/plugin/plbeautify/images/expc.gif"><img width="6" height="12" src="source/plugin/plbeautify/images/expr.gif"></span>&nbsp;<span>37.4%</span></p><div id="plgup1556592_menu" class="tip tip_4" style="position: absolute; z-index: 301; left: 215px; top: 771px; display: none; "><div class="tip_horn"></div><div class="tip_c">当前用户组为 <span style="color:red;">No.6 优亿江湖开发者</span><br />当前积分为 <span style="color:red;">4122</span>, 升到下一级还需要 1878 点。</div></div><img src="http://www.eoeandroid.com/xwb/images/bgimg/icon_off.gif" class="xwb-plugin-medal-sinawb"  title="未绑定新浪微博" /><dl class="pil cl"><dt>精华</dt><dd>0</dd><dt>帖子</dt><dd><a href="home.php?mod=space&uid=89613&do=thread&type=reply&view=me&from=space" target="_blank" class="xi2">1398</a></dd><dt>e币</dt><dd>172 元</dd></dl><ul class="xl xl2 o cl">
+<li class="pm2"><a href="home.php?mod=spacecp&amp;ac=pm&amp;op=showmsg&amp;handlekey=showmsg_89613&amp;touid=89613&amp;pmid=0&amp;daterange=2&amp;pid=1556592&amp;tid=179724" onclick="showWindow('sendpm', this.href);" title="发消息" class="xi2">发消息</a></li>
+</ul>
+</td>
+<td class="plc">
+<div class="pi">
+<strong>
+<a href="forum.php?mod=redirect&goto=findpost&ptid=179724&pid=1556592&amp;fromuid=523054" title="您的朋友访问此链接后，您将获得相应的积分奖励" id="postnum1556592" onclick="setCopy(this.href, '帖子地址复制成功');return false;"><em>6</em>楼</a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon1556592" src="static/image/common/online_member.gif" />
+<em id="authorposton1556592">发表于 2012-6-21 09:10:33</em>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=179724&amp;page=1&amp;authorid=89613" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div><div class="pct"><div class="pcb">
+<div class="t_fsz">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_1556592">
+<img src="static/image/smiley/tutu/86.gif" smilieid="140" border="0" alt="" /></td></tr></table>
+</div>
+<div id="comment_1556592" class="cm">
+</div>
+<div id="post_rate_div_1556592"></div>
+</div></div>
+
+</td></tr>
+<tr><td class="plc plm">
+<div class="sign" style="max-height:110px;maxHeightIE:110px;">android</div>
+</td>
+</tr>
+<tr>
+<td class="pls"></td>
+<td class="plc">
+<div class="po">
+<div class="pob cl">
+<em>
+<a class="cmmnt" href="forum.php?mod=misc&amp;action=comment&amp;tid=179724&amp;pid=1556592&amp;extra=page%3D1&amp;page=1" onclick="showWindow('comment', this.href, 'get', 0)">点评</a><a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=23&amp;tid=179724&amp;repquote=1556592&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">回复</a>
+</em>
+
+<p>
+<a href="javascript:;" id="mgc_post_1556592" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport1556592', 'misc.php?mod=report&rtype=post&rid=1556592&tid=179724&fid=23', 'get', -1);return false;">举报</a>
+</p>
+
+<ul id="mgc_post_1556592_menu" class="p_pop mgcmn" style="display: none;">
+<li><a href="home.php?mod=magic&amp;mid=namepost&amp;idtype=pid&amp;id=1556592:179724" id="a_namepost_1556592" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/namepost.small.gif" />显身卡</a><li>
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_1556592')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls"></td>
+<td class="plc">
+</td>
+</tr>
+</table>
+</div>
+<div id="postlistreply" class="pl"><div id="post_new" class="viewthread_table" style="display: none"></div></div>
+</div>
+
+
+<form method="post" autocomplete="off" name="modactions" id="modactions">
+<input type="hidden" name="formhash" value="027bd476" />
+<input type="hidden" name="optgroup" />
+<input type="hidden" name="operation" />
+<input type="hidden" name="listextra" value="page%3D1" />
+<input type="hidden" name="page" value="1" />
+</form>
+
+
+<div class="pgs mtm mbm cl">
+<span class="pgb y" id="visitedforumstmp" onmouseover="$('visitedforums').id = 'visitedforumstmp';this.id = 'visitedforums';showMenu({'ctrlid':this.id,'pos':'21'})"><a href="forum-23-1.html">返回列表</a></span>
+<a id="newspecialtmp" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})" onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=23')" href="javascript:;" title="发新帖"><img src="static/image/common/pn_post.png" alt="发新帖" /></a>
+<a id="post_replytmp" onclick="showWindow('reply', 'forum.php?mod=post&action=reply&fid=23&tid=179724')" href="javascript:;" title="回复"><img src="static/image/common/pn_reply.png" alt="回复" /></a>
+</div>
+
+<!--[diy=diyfastposttop]--><div id="diyfastposttop" class="area"></div><!--[/diy]-->
+<script type="text/javascript">
+var postminchars = parseInt('4');
+var postmaxchars = parseInt('20000');
+var disablepostctrl = parseInt('0');
+</script>
+
+<div id="f_pst" class="pl bm bmw">
+<form method="post" autocomplete="off" id="fastpostform" action="forum.php?mod=post&amp;action=reply&amp;fid=23&amp;tid=179724&amp;extra=page%3D1&amp;replysubmit=yes&amp;infloat=yes&amp;handlekey=fastpost" onSubmit="return fastpostvalidate(this)">
+<table cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls">
+<div class="avatar"><img src="http://www.eoeandroid.com/uc_server/avatar.php?uid=523054&size=middle" /></div></td>
+<td class="plc">
+
+<span id="fastpostreturn"></span>
+
+
+<div class="cl">
+<div id="fastsmiliesdiv" class="y"><div id="fastsmiliesdiv_data"><div id="fastsmilies"></div></div></div><div class="hasfsl" id="fastposteditor">
+<div class="tedt mtn">
+<div class="bar">
+<span class="y">
+<a href="forum.php?mod=post&amp;action=reply&amp;fid=23&amp;tid=179724" onclick="return switchAdvanceMode(this.href)">高级模式</a>
+</span><script src="static/js/seditor.js?ZSx" type="text/javascript"></script>
+<div class="fpd">
+<a href="javascript:;" title="文字加粗" class="fbld" onclick="seditor_insertunit('fastpost', '[b]', '[/b]');doane(event);">B</a>
+<a href="javascript:;" title="设置文字颜色" class="fclr" id="fastpostforecolor" onclick="showColorBox(this.id, 2, 'fastpost');doane(event);">Color</a>
+<a id="fastpostimg" href="javascript:;" title="图片" class="fmg" onclick="seditor_menu('fastpost', 'img');doane(event);">Image</a>
+<a id="fastposturl" href="javascript:;" title="添加链接" class="flnk" onclick="seditor_menu('fastpost', 'url');doane(event);">Link</a>
+<a id="fastpostquote" href="javascript:;" title="引用" class="fqt" onclick="seditor_menu('fastpost', 'quote');doane(event);">Quote</a>
+<a id="fastpostcode" href="javascript:;" title="代码" class="fcd" onclick="seditor_menu('fastpost', 'code');doane(event);">Code</a>
+<a href="javascript:;" class="fsml" id="fastpostsml" onclick="showMenu({'ctrlid':this.id,'evt':'click','layer':2});return false;">Smilies</a>
+<script type="text/javascript" reload="1">smilies_show('fastpostsmiliesdiv', 8, 'fastpost');</script>
+<script src="static/js/at.js?ZSx" type="text/javascript"></script>
+<a id="fastpostat" href="javascript:;" title="@朋友" class="fat" onclick="seditor_menu('fastpost', 'at');doane(event);">@朋友</a>
+<span class="pipe z">|</span><span id="spanButtonPlaceholder">上传</span></div></div>
+<div class="area">
+<textarea rows="6" cols="80" name="message" id="fastpostmessage" onKeyDown="seditor_ctlent(event, 'fastpostvalidate($(\'fastpostform\'))');" tabindex="4" class="pt"></textarea>
+</div>
+</div>
+</div>
+</div>
+<div class="mtm sec">
+<input name="sechash" type="hidden" value="S2RrihH0" />
+
+验证问答 <span id="secqaaS2RrihH0" onclick="showMenu(this.id)"><input name="secanswer" id="secqaaverify_S2RrihH0" type="text" autocomplete="off" style="width:100px" class="txt px vm" onblur="checksec('qaa', 'S2RrihH0')" tabindex="1" />
+<a href="javascript:;" onclick="updatesecqaa('S2RrihH0');doane(event);" class="xi2">换一个</a>
+<span id="checksecqaaverify_S2RrihH0"><img src="static/image/common/none.gif" width="16" height="16" class="vm" /></span>
+</span><div id="secqaaS2RrihH0_menu" class="p_pop p_opt" style="display:none"><span id="secqaa_S2RrihH0"></span>
+<script type="text/javascript" reload="1">updatesecqaa('S2RrihH0');</script>
+</div>
+
+验证码 <span id="seccodeS2RrihH0" onclick="showMenu(this.id)"><input name="seccodeverify" id="seccodeverify_S2RrihH0" type="text" autocomplete="off" style="ime-mode:disabled;width:100px" class="txt px vm" onblur="checksec('code', 'S2RrihH0')" tabindex="1" />
+<a href="javascript:;" onclick="updateseccode('S2RrihH0');doane(event);" class="xi2">换一个</a>
+<span id="checkseccodeverify_S2RrihH0"><img src="static/image/common/none.gif" width="16" height="16" class="vm" /></span>
+</span><div id="seccodeS2RrihH0_menu" class="p_pop p_opt" style="display:none"><span id="seccode_S2RrihH0"></span>
+<script type="text/javascript" reload="1">updateseccode('S2RrihH0');</script>
+</div>
+
+</div>
+<script type="text/javascript">
+var editorid = '';
+var ATTACHNUM = {'imageused':0,'imageunused':0,'attachused':0,'attachunused':0}, ATTACHUNUSEDAID = new Array(), IMGUNUSEDAID = new Array();
+</script>
+
+<script src="static/js/swfupload.js?ZSx" type="text/javascript"></script>
+<script src="static/js/swfupload.queue.js?ZSx" type="text/javascript"></script>
+<script src="static/js/handlers.js?ZSx" type="text/javascript"></script>
+<script src="static/js/fileprogress.js?ZSx" type="text/javascript"></script>
+
+<input type="hidden" name="posttime" id="posttime" value="1341890985" />
+<div class="upfl hasfsl">
+<table cellpadding="0" cellspacing="0" border="0" id="attach_tblheader" style="display: none;">
+<tr>
+<td>点击附件文件名添加到帖子内容中</td>
+<td class="atds">描述</td>
+<td class="attc"></td>
+</tr>
+</table>
+<div class="fieldset flash" id="attachlist"></div>
+<script type="text/javascript">
+var upload = new SWFUpload({
+upload_url: "http://www.eoeandroid.com/misc.php?mod=swfupload&action=swfupload&operation=upload&fid=",
+post_params: {"uid" : "523054", "hash":"a3622b103ff60f301cfe69a60b1513d5"},
+
+file_size_limit : "8192",
+file_types : "*.pdf;*.zip;*.rar;*.gif;*.jpg;*.png;*.bmp;*.apk",
+file_types_description : "All Support Formats",
+file_upload_limit : 20,
+file_queue_limit : 0,
+
+swfupload_preload_handler : preLoad,
+swfupload_load_failed_handler : loadFailed,
+file_dialog_start_handler : fileDialogStart,
+file_queued_handler : fileQueued,
+file_queue_error_handler : fileQueueError,
+file_dialog_complete_handler : fileDialogComplete,
+upload_start_handler : uploadStart,
+upload_progress_handler : uploadProgress,
+upload_error_handler : uploadError,
+upload_success_handler : uploadSuccess,
+upload_complete_handler : uploadComplete,
+
+button_image_url : "static/image/common/uploadbutton_small.png",
+button_placeholder_id : "spanButtonPlaceholder",
+button_width: 17,
+button_height: 25,
+button_cursor:SWFUpload.CURSOR.HAND,
+button_window_mode: "transparent",
+
+custom_settings : {
+progressTarget : "attachlist",
+uploadSource: 'forum',
+uploadType: 'attach',
+maxAttachNum: 20,
+uploadFrom: 'fastpost'
+},
+debug: false
+});
+
+</script>
+
+
+</div>
+
+<input type="hidden" name="formhash" value="027bd476" />
+<input type="hidden" name="usesig" value="1" />
+<input type="hidden" name="subject" value="  " />
+<p class="ptm pnpost">
+<button type="submit" name="replysubmit" id="fastpostsubmit" class="pn pnc vm" value="replysubmit" tabindex="5"><strong>发表回复</strong></button>
+<label for="fastpostrefresh"><input id="fastpostrefresh" type="checkbox" class="pc" />回帖后跳转到最后一页</label>
+<script type="text/javascript">if(getcookie('fastpostrefresh') == 1) {$('fastpostrefresh').checked=true;}</script>
+</p>
+</td>
+</tr>
+</table>
+</form>
+</div>
+
+<script type="text/javascript">
+var connect_qzone_share_url = '';
+var connect_weibo_share_url = '';
+var connect_thread_info = {
+thread_url: 'http://www.eoeandroid.com/thread-179724-1-1.html',
+thread_id: '179724',
+post_id: '',
+forum_id: '23',
+author_id: '',
+author: ''
+};
+
+connect_autoshare = '';
+connect_isbind = '0';
+if(connect_autoshare == 1 && connect_isbind) {
+_attachEvent(window, 'load', function(){
+connect_share(connect_weibo_share_url, connect_openid);
+});
+}
+</script>
+
+
+<div id="visitedforums_menu" class="p_pop blk cl" style="display: none;">
+<table cellspacing="0" cellpadding="0">
+<tr>
+<td id="v_forums">
+<h3 class="mbn pbn bbda xg1">浏览过的版块</h3>
+<ul class="xl xl1">
+<li><a href="forum-89-1.html">Android 盈利探讨区</a></li><li><a href="forum-27-1.html">Android 实例教程</a></li><li><a href="forum-93-1.html">Android 进阶讨论&经验分享</a></li><li><a href="forum-53-1.html">Android 新手入门</a></li><li><a href="forum-15-1.html">Android 开发资料共享</a></li><li><a href="forum-45-1.html">Android 问题&解答</a></li><li><a href="forum-7-1.html">Android 原创软件交流</a></li><li><a href="forum-182-1.html">游戏开发进阶探讨</a></li><li><a href="forum-39-1.html">eoeAndroid 特刊</a></li><li><a href="forum-48-1.html">Android 底层开发</a></li><li><a href="forum-129-1.html">游戏开发入门&问答</a></li><li><a href="forum-54-1.html">Android Framework</a></li><li><a href="forum-2-1.html">Android 最新资讯</a></li></ul>
+</td>
+</tr>
+</table>
+</div>
+<div id="md_31_menu" class="tip tip_4" style="display: none;">
+<div class="tip_horn"></div>
+<div class="tip_c">
+<h4>社区贡献者</h4>
+<p>eoeAndriod社区索引帖贡献网友</p>
+</div>
+</div>
+<div id="md_20_menu" class="tip tip_4" style="display: none;">
+<div class="tip_horn"></div>
+<div class="tip_c">
+<h4>优亿2012</h4>
+<p>2012双蛋有礼活动荣誉奖章</p>
+</div>
+</div>
+<script type="text/javascript">
+new lazyload();
+</script>
+<script type="text/javascript">document.onkeyup = function(e){keyPageScroll(e, 0, 0, 'forum.php?mod=viewthread&tid=179724', 1);}</script>
+</div>
+
+<div class="wp mtn">
+<!--[diy=diy3]--><div id="diy3" class="area"></div><!--[/diy]-->
+</div>
+
+
+<script type="text/javascript">
+function succeedhandle_followmod(url, msg, values) {
+var fObj = $('followmod_'+values['fuid']);
+if(values['type'] == 'add') {
+fObj.innerHTML = '不收听';
+fObj.href = 'home.php?mod=spacecp&ac=follow&op=del&fuid='+values['fuid'];
+} else if(values['type'] == 'del') {
+fObj.innerHTML = '收听TA';
+fObj.href = 'home.php?mod=spacecp&ac=follow&op=add&hash=027bd476&fuid='+values['fuid'];
+}
+}
+</script>	</div>
+
+
+<script type="text/javascript">
+var rel_tid = "179724";
+var rel_title = "%E3%80%90%E5%AE%9E%E4%BE%8B%E3%80%91%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8%E6%89%8B%E6%9C%BA%E6%91%84%E5%83%8F%E5%A4%B4%E6%8B%8D%E7%85%A7";
+var rel_reltid = "";
+var rel_prepos = "";
+var my_siteid = "7379687";
+var rel_uid = "523054";
+var rel_views = "140";
+var rel_replies = "5";
+var rel_page = "1";
+var rel_show = "1";
+</script>
+<script src="http://cache.soso.com/30d/js/discuz/relate_subject.js" type="text/javascript" charset="GBK"></script>
+
+
+
+<script src="http://search.discuz.qq.com/api/site/se?from=viewthread&referer=&response_type=js&s_id=7379687&s_site_gid=10&s_site_uid=523054&ts=1341890985&sig=f0891b61f54022974c9028cd477603d7" type="text/javascript"></script>
+
+
+
+<script type="text/javascript">
+_attachEvent(window, 'load', getForbiddenFormula, document);
+function getForbiddenFormula() {
+var toGetForbiddenFormulaFIds = function () {
+ajaxget('plugin.php?id=cloudsearch&formhash=027bd476');
+};
+var a = document.body.getElementsByTagName('a');
+for(var i = 0;i < a.length;i++){
+if(a[i].getAttribute('sc')) {
+a[i].setAttribute('mid', hash(a[i].href));
+a[i].onmousedown = function() {toGetForbiddenFormulaFIds();};
+}
+}
+var btn = document.body.getElementsByTagName('button');
+for(var i = 0;i < btn.length;i++){
+if(btn[i].getAttribute('sc')) {
+btn[i].setAttribute('mid', hash(btn[i].id));
+btn[i].onmousedown = function() {toGetForbiddenFormulaFIds();};
+}
+}
+}
+</script>
+
+
+
+					<script type='text/javascript'>
+					var urlRetry = SITEURL + '/plugin.php?id=security:job';
+					var ajaxRetry = new Ajax();
+					ajaxRetry.post(urlRetry, 'formhash=027bd476', function(s){});
+					</script><script language="javascript">
+function xwb_loadScript(file, charset){
+	var script = document.createElement('SCRIPT');
+	script.type = 'text/javascript'; script.charset = charset; script.src = file;
+	document.getElementsByTagName('HEAD')[0].appendChild(script);
+}
+
+var _xwb_cfg_data ={
+	tipsType:	'',site_uid:	'523054',sina_uid:	'',
+	siteVer:	'2.5',siteName:	'eoeAndroid开发者社区',pName:'forum_viewthread',
+	regUrl:		'http://www.eoeandroid.com/xwb.php?m=xwbSiteInterface.reg',
+	setUrl:		'http://www.eoeandroid.com/xwb.php?m=xwbSiteInterface.bind',
+	bindUrl:	'http://www.eoeandroid.com/xwb.php?m=xwbSiteInterface.bind',
+	signerUrl:	'http://www.eoeandroid.com/xwb.php?m=xwbSiteInterface.signer',
+	authUrl:	'http://www.eoeandroid.com/xwb.php?m=xwbAuth.login',
+	getTipsUrl:	'http://www.eoeandroid.com/xwb.php?m=xwbSiteInterface.getTips',
+	attentionUrl:	'http://www.eoeandroid.com/xwb.php?m=xwbSiteInterface.attention',
+	wbxUrl:		'',
+    tipGetCountUrl: 'http://www.eoeandroid.com/xwb.php?m=xwbSiteInterface.getTips',
+    loadingImgUrl : 'http://www.eoeandroid.com/xwb/images/bgimg/xwb_loading.gif',
+	switchToStd: '0',
+	baseurlToStd: ''
+};
+
+xwb_loadScript("http://www.eoeandroid.com/xwb/images/xwb.js", "UTF-8");
+</script>
+<link href="http://www.eoeandroid.com/xwb/images/xwb_base.css" rel="stylesheet" type="text/css" />
+<link href="http://www.eoeandroid.com/xwb/images/xwb_2.5.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+function mw_syntaxhighlighter_show_editor_codebox(editortype) {
+var tag = 'code';
+var mw_syntaxhighlighter_tag = 'mw_shl_code';
+var str = '请输入要插入的代码<br>选择语言：';
+str += '<select id="brush_lang" name="lang">';str += '<option value="java">Java</option>';
+str += '<option value="applescript">AppleScript</option>';
+str += '<option value="c">C</option>';
+str += '<option value="cpp">C++</option>';
+str += '<option value="html">HTML</option>';
+str += '<option value="xhtml">XHTML</option>';
+
+str += '</select><br>';
+
+str += '显示行号：';
+str += '<input type="checkbox" id="show_gutter" name="show_gutter" value="1" checked><br>';
+
+
+if(editortype == 'newthread') {
+
+var sel, selection;
+var str1 = '', strdialog = 0, stitle = '';
+var ctrlid = editorid + '_' + tag;
+var menu = $(ctrlid + '_menu');
+var pos = [0, 0];
+var menuwidth = 270;
+var menupos = '43!';
+var menutype = 'menu';
+
+str += '<div id="mw_codearea">你的代码：<br>';
+str += '<textarea id="' + ctrlid + '_param_1" style="width: 98%" cols="50" rows="5" class="txtarea"></textarea></div>';
+
+if(BROWSER.ie) {
+sel = wysiwyg ? editdoc.selection.createRange() : document.selection.createRange();
+pos = getCaret();
+}
+
+selection = sel ? (wysiwyg ? sel.htmlText : sel.text) : getSel();
+
+if(menu) {
+if($(ctrlid).getAttribute('menupos') !== null) {
+menupos = $(ctrlid).getAttribute('menupos');
+}
+if($(ctrlid).getAttribute('menuwidth') !== null) {
+menu.style.width = $(ctrlid).getAttribute('menuwidth') + 'px';
+}
+
+if(selection) {//note ���ѡ�������ݵĴ���
+$('mw_codearea').style.display = 'none';
+}
+
+showMenu({'ctrlid':ctrlid,'evt':'click','pos':menupos,'timeout':250,'duration':in_array(tag, ['fontname', 'fontsize', 'sml']) ? 2 : 3,'drag':1});
+} else {
+
+var menu = document.createElement('div');
+menu.id = ctrlid + '_menu';
+menu.style.display = 'none';
+menu.className = 'p_pof upf';
+menu.style.width = menuwidth + 'px';
+
+s = '<div class="p_opt cl"><span class="y" style="margin:-10px -10px 0 0"><a onclick="hideMenu();return false;" class="flbc" href="javascript:;">关闭</a></span><div>' + str + '</div><div class="pns mtn"><button type="submit" id="' + ctrlid + '_submit" class="pn pnc"><strong>提交</strong></button></div></div>';
+menu.innerHTML = s;
+$(editorid + '_editortoolbar').appendChild(menu);
+
+if(selection) {//note ���ѡ�������ݵĴ���
+$('mw_codearea').style.display = 'none';
+}
+
+showMenu({'ctrlid':ctrlid,'mtype':menutype,'evt':'click','duration':3,'cache':0,'drag':1,'pos':menupos});
+}
+
+try {
+if($(ctrlid + '_param_1')) {
+$(ctrlid + '_param_1').focus();
+}
+} catch(e) {}
+var objs = menu.getElementsByTagName('*');
+for(var i = 0; i < objs.length; i++) {
+_attachEvent(objs[i], 'keydown', function(e) {
+e = e ? e : event;
+obj = BROWSER.ie ? event.srcElement : e.target;
+if((obj.type == 'text' && e.keyCode == 13) || (obj.type == 'textarea' && e.ctrlKey && e.keyCode == 13)) {
+if($(ctrlid + '_submit') && tag != 'image') $(ctrlid + '_submit').click();
+doane(e);
+} else if(e.keyCode == 27) {
+hideMenu();
+doane(e);
+}
+});
+}
+if($(ctrlid + '_submit')) $(ctrlid + '_submit').onclick = function() {
+checkFocus();
+if(BROWSER.ie && wysiwyg) {
+setCaret(pos[0]);
+}
+if(wysiwyg) {
+if(!BROWSER.ie) {
+selection = selection ? selection : '';
+}
+}
+str1 = $(ctrlid + '_param_1') && $(ctrlid + '_param_1').value ? $(ctrlid + '_param_1').value : (selection ? selection : '');
+
+var opentag = '[' + mw_syntaxhighlighter_tag + '=' + $('brush_lang').value + ',' + (($('show_gutter') && $('show_gutter').checked) ? 'true' : 'false') + ']';
+var closetag = '[/' + mw_syntaxhighlighter_tag + ']';
+
+if(wysiwyg) {
+str1 = preg_replace(['<', '>'], ['&lt;', '&gt;'], str1);
+
+str1 = str1.replace(/\r?\n/g, '<br />');
+}
+str1 = opentag + str1 + closetag;
+insertText(str1, strlen(opentag), strlen(closetag), false, sel);
+hideMenu();
+};
+
+} else if(editortype == 'fastpost' || editortype == 'post') {
+
+var sel = false;
+var seditorkey = editortype;
+if(!isUndefined($(seditorkey + 'message').selectionStart)) {
+sel = $(seditorkey + 'message').selectionEnd - $(seditorkey + 'message').selectionStart;
+} else if(document.selection && document.selection.createRange) {
+$(seditorkey + 'message').focus();
+var sel = document.selection.createRange();
+$(seditorkey + 'message').sel = sel;
+sel = sel.text ? true : false;
+}
+
+var ctrlid = seditorkey + tag;
+var menuid = ctrlid + '_menu';
+
+str += '<div id="mw_codearea">你的代码：<br>';
+str += '<textarea id="' + ctrlid + '_param_1" style="width: 98%" cols="50" rows="5" class="txtarea"></textarea></div>';
+
+if(!$(menuid)) {
+var submitstr = "seditor_insertunit('" + seditorkey + "', '[" + mw_syntaxhighlighter_tag + "=' + $('brush_lang').value + ',' + (($('show_gutter') && $('show_gutter').checked) ? 'true' : 'false') + ']'+$('" + ctrlid + "_param_1').value, '[/" + mw_syntaxhighlighter_tag + "]', null, 1);hideMenu();";
+var menu = document.createElement('div');
+menu.id = menuid;
+menu.style.display = 'none';
+menu.className = 'p_pof upf';
+menu.style.width = '270px';
+$('append_parent').appendChild(menu);
+menu.innerHTML = '<span class="y"><a onclick="hideMenu()" class="flbc" href="javascript:;">关闭</a></span><div class="p_opt cl"><form onsubmit="' + submitstr + ';return false;" autocomplete="off"><div>' + str + '</div><div class="pns mtn"><button type="submit" id="' + ctrlid + '_submit" class="pn pnc"><strong>提交</strong></button><button type="button" onClick="hideMenu()" class="pn"><em>取消</em></button></div></form></div>';
+}
+if(sel) {//note ���ѡ�������ݵĴ���
+$('mw_codearea').style.display = 'none';
+}
+showMenu({'ctrlid':ctrlid,'evt':'click','duration':3,'cache':0,'drag':1});
+}
+}
+</script>
+<script type="text/javascript" src="source/plugin/mw_syntaxhighlighter/js/mw_syntaxhighlighter.js?ZSx"></script><script type="text/javascript" reload="1">mw_syntaxhighlighter("fastpost");</script>
+<!-- mw_syntaxhighlighter ver.3.0.83 Begin -->
+<script type="text/javascript" src="http://www.eoeandroid.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shCore.js?ver=3.0.83"></script>
+<script type="text/javascript" src="http://www.eoeandroid.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shAutoloader.js?ver=3.0.83"></script>
+<script type="text/javascript" src="http://www.eoeandroid.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushXml.js?ver=3.0.83"></script>
+<script type="text/javascript">//<![CDATA[
+	SyntaxHighlighter.autoloader(
+	"java	http://www.eoeandroid.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJava.js?ver=3.0.83"
+	,"applescript	http://www.eoeandroid.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushAppleScript.js?ver=3.0.83"
+	,"cpp c	http://www.eoeandroid.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCpp.js?ver=3.0.83"
+	,"xml xhtml xslt html	http://www.eoeandroid.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushXml.js?ver=3.0.83"
+	);
+	SyntaxHighlighter.defaults['auto-links'] = false;
+	SyntaxHighlighter.defaults['quick-code'] = true;
+	SyntaxHighlighter.defaults['title'] = '代码片段，双击复制';
+	SyntaxHighlighter.defaults['class-name'] = 'notranslate';
+	SyntaxHighlighter.defaults['collapse'] = false;
+	SyntaxHighlighter.defaults['first-line'] = 1;
+	SyntaxHighlighter.defaults['gutter'] = true;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = 2;
+	SyntaxHighlighter.defaults['smart-tabs'] = true;
+	SyntaxHighlighter.defaults['tab-size'] = 4;
+	SyntaxHighlighter.defaults['toolbar'] = true;
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter';
+	SyntaxHighlighter.config.strings.noBrush = "Can\'t find brush for: ";
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = "Brush wasn\'t configured for html-script option: ";
+	SyntaxHighlighter.all();
+	
+//]]></script>
+<!-- mw_syntaxhighlighter ver.3.0.83 End -->
+<div id="ft" class="wp cl">
+<div id="flk" class="y">
+<p><a href="http://www.eoeandroid.com/html/about/index.html" target="_blank" >关于我们</a><span class="pipe">|</span><a href="http://www.eoeandroid.com/html/connectours/index.html" target="_blank" >联系我们</a><span class="pipe">|</span><a href="forum.php?mod=guide&view=new" >论坛新帖</a><span class="pipe">|</span><a href="archiver/" >Archiver</a><span class="pipe">|</span><a href="forum.php?mobile=yes" >手机版</a><span class="pipe">|</span><a href="javascript:;"  onclick="showWindow('miscreport', 'misc.php?mod=report&url='+REPORTURL);return false;">举报</a><span class="pipe">|</span><strong><a href="http://www.eoeandroid.com/" target="_blank">优亿安卓开发者</a></strong>
+( <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备11018032号-4</a> )&nbsp;<a href="http://discuz.qq.com/service/security" target="_blank" title="防水墙保卫网站远离侵害"><img src="static/image/common/security.png"></a>&nbsp;&nbsp;<span id="tcss"></span><script type="text/javascript" src="http://tcss.qq.com/ping.js?v=1ZSx" charset="utf-8"></script><script type="text/javascript" reload="1">pgvMain({"discuzParams":{"r2":"7379687","ui":"523054","ty":2,"rt":"forum","md":"viewthread","fi":"23","ti":"179724","pn":1,"qq":"010","logo":12},"extraParams":""});</script><script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8242804-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<script src="http://s9.cnzz.com/stat.php?id=3832059&web_id=3832059&show=pic1" language="JavaScript"></script>
+<script type="text/javascript" src="http://js.tongji.linezing.com/1854084/tongji.js"></script><noscript><a href="http://www.linezing.com"><img src="http://img.tongji.linezing.com/1854084/tongji.gif"/></a></noscript>
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F86b213384c3a2477e10b492ddb035567' type='text/javascript'%3E%3C/script%3E"));
+</script></p>
+<p class="xs0">
+GMT+8, 2012-7-10 11:29<span id="debuginfo">
+, Processed in 0.108752 second(s), 16 queries
+, Memcache On.
+</span>
+</p>
+</div>
+<div id="frt">
+<p>Powered by <strong><a href="http://www.discuz.net" target="_blank">Discuz!</a></strong> <em>X2.5</em></p>
+<p class="xs0">&copy; 2001-2012 <a href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a></p>
+</div></div>
+
+<div id="g_upmine_menu" class="tip tip_3" style="display:none;">
+<div class="tip_c">
+积分 7, 距离下一级还需 93 积分
+</div>
+<div class="tip_horn"></div>
+</div>
+<script src="home.php?mod=spacecp&ac=pm&op=checknewpm&rand=1341890985" type="text/javascript"></script>
+<span id="scrolltop" onclick="window.scrollTo('0','0')">回顶部</span>
+<script type="text/javascript">_attachEvent(window, 'scroll', function(){showTopLink();});</script>
+			<div id="discuz_tips" style="display:none;"></div>
+			<script type="text/javascript">
+				var discuzSId = '7379687';
+				var discuzVersion = 'X2.5';
+				var discuzRelease = '20120701';
+				var discuzApi = '0.6';
+				var discuzIsFounder = '';
+				var discuzFixbug = '25000002';
+				var discuzAdminId = '0';
+				var discuzOpenId = '';
+				var discuzUid = '523054';
+				var discuzGroupId = '10';
+				var ts = '1341890985';
+				var sig = 'f9ee86dca48d0d5620ff0a0436516318';
+				var discuzTipsCVersion = '2';
+			</script>
+			<script src="http://discuz.gtimg.cn/cloud/scripts/discuz_tips.js?v=1" type="text/javascript" charset="UTF-8"></script></body>
+</html>

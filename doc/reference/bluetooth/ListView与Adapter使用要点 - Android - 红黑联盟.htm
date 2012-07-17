@@ -1,0 +1,495 @@
+<!DOCTYPE html PUBliC "-//W3C//dtD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/dtD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<link rel="stylesheet" href="http://www.2cto.com/statics/css/article.css" type="text/css" />
+<link rel="stylesheet" href="article.css" type="text/css" />
+<link href="http://www.2cto.com/statics/css/dialog.css" rel="stylesheet" type="text/css" />
+<title>ListView与Adapter使用要点 - Android - 红黑联盟</title>
+<meta name="keywords" content="ListView" />
+<meta name="description" content="项目用到ListView，由于要用到ImageView，图片源不是在资源里面的，没法使用资源ID，因此无法直接使用SimpleAdapter，要自己写一个Adapter。在使用ListView和Adapter需要注意以下几点：1. Adapter.getView()pub..." />
+<script type="text/javascript" src="http://www.2cto.com/statics/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://www.2cto.com/statics/js/jquery.sgallery.js"></script>
+<script type="text/javascript" src="http://www.2cto.com/statics/js/search_common.js"></script>
+<script type="text/javascript" src="http://cbjs.baidu.com/js/m.js"></script>
+<script type="text/javascript" src="http://www.2cto.com/statics/js/json.js"></script>
+<script language="javascript" type="text/javascript" src="http://www.2cto.com/statics/js/dialog.js"></script>
+</head>
+
+<body>
+<div class="line_top_box">
+	<dl class="top_box_left">
+		<dd class="left_logo"><a href="http://www.2cto.com"></a></dd>
+		<dd class="left_menu_link">
+													<a class='Channel' href='/News/'>资讯</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/Article/'>安全</a>&nbsp;|&nbsp;
+													<a class='Channel' href='http://bbs.2cto.com'>论坛</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/Soft/'>下载</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/kf/'>程序开发</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/ym/'>源码</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/zz/'>站长学院</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/ebook/'>电子书</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/QQ/'>QQ</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/net/'>网络</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/os/'>系统</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/database/'>数据库</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/px/'>考试</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/shouce/'>手册</a>
+											</dd>
+	</dl>
+</div>
+<div class="line_top_lmbox">
+	<dl class="lmpic"></dl>
+	<dl class="lmlinkbox"><dd>
+										<a class='Channel' href='http://www.2cto.com/kf/web/'>Web开发</a>|
+							<a class='Channel' href='http://www.2cto.com/kf/ware/'>软件开发</a>|
+							<a class='Channel' href='http://www.2cto.com/kf/safe/'>安全编程</a>|
+							<a class='Channel' href='http://www.2cto.com/kf/yidong/'>移动开发</a>|
+							<a class='Channel' href='http://www.2cto.com/kf/qita/'>其他综合</a>|
+								</dd></dl>
+</div>
+<div class="divline8"></div>
+<div class="tadv">
+
+<a target="_blank" href="http://vip.2cto.com/"><img src="http://www.2cto.com/adv/980-80.gif" width="980" height="90" /></a>
+<!-- 广告位：顶部banner -->
+<script type="text/javascript">BAIDU_CLB_fillSlot("298612");</script>
+
+</div>
+
+
+<div class="divline8"></div>
+<div class="it165_box">
+	<div class="box_left">
+		
+		<dl class="box_p">
+			<dd class="pRight"><a href="http://www.2cto.com">首页</a><span> > </span><a href="http://www.2cto.com/kf/">程序开发</a> > <a href="http://www.2cto.com/kf/yidong/">移动开发</a> > <a href="http://www.2cto.com/kf/yidong/Android/">Android</a> >  正文</dd>
+			<form  name="search" target="_blank" action="http://www.2cto.com/index.php" method="get">
+			<dd class="pRSearch">
+					<input type="hidden" name="m" value="search"/>
+					<input type="hidden" name="c" value="index"/>
+					<input type="hidden" name="a" value="init"/>
+					<input type="hidden" name="typeid" value="1" id="typeid"/>
+					<input type="hidden" name="siteid" value="1" id="siteid"/>
+					<input name="Submit1" type="submit" value=" " /></dd>
+					<dd class="pRKeyWork"><input id="Keyword" name="q" type="text"/></dd>
+			</form>
+			</dl>
+		<dl class="box_t"><dd>ListView与Adapter使用要点</dd></dl>
+
+		<dl class="box_INFO">
+			<dd class="frinfo line_blue">2011-08-12 15:16:56  &nbsp;&nbsp;&nbsp;&nbsp;<a style="font-weight:bold;padding:5px 0px 5px 20px;background:url('http://www.2cto.com/statics/images/icon/user_comment.png') left center no-repeat" href="#comment_iframe">我来说两句&nbsp;</a></dd>
+			<dd class="frsize line_blue">
+			<span id='favorite'>
+				<a href="javascript:;" onclick="add_favorite('ListView与Adapter使用要点');" class="t6">收藏</a>
+			</span>&nbsp;&nbsp;
+				<a target="_blank" href="http://www.2cto.com/tg.html">我要投稿</a> &nbsp;&nbsp;  [字体：<a href="javascript:fontZoomA();" class="top_UserLogin">小</a> <a href="javascript:fontZoomB();" class="top_UserLogin">
+			大</a>]
+			</dd>
+			
+		</dl>
+		<dl class="box_body" id="fontzoom"><dd id="Article">
+		<p>
+	项目用到ListView，由于要用到ImageView，图片源不是在资源里面的，没法使用资源ID，因此无法直接使用SimpleAdapter，要自己写一个Adapter。在使用ListView和Adapter需要注意以下几点：</p>
+<p>
+	&nbsp;</p>
+<p>
+	1. Adapter.getView()</p>
+<p>
+	&nbsp;</p>
+<p>
+	public View getView(int position, View convertView, ViewGroup parent){...}</p>
+<p>
+	&nbsp;</p>
+<p>
+	这个方法就是用来获得指定位置要显示的View。官网解释如下：</p>
+<p>
+	Get a View that displays the data at the specified position in the data set. You can either create a View manually or inflate it from an XML layout file.</p>
+<p>
+	&nbsp;</p>
+<p>
+	当要显示一个View就调用一次这个方法。这个方法是ListView性能好坏的关键。方法中有个convertView，这个是Android在为我们而做的缓存机制。</p>
+<p>
+	ListView中每个item都是通过getView返回并显示的，假如item有很多个，那么重复创建这么多对象来显示显然是不合理。因此，Android提供了Recycler，将没有正在显示的item放进RecycleBin，然后在显示新视图时从RecycleBin中复用这个View。</p>
+<p>
+	&nbsp;</p>
+<p>
+	Recycler的工作原理大致如下：</p>
+<p>
+	假设屏幕最多能看到11个item，那么当第1个item滚出屏幕，这个item的View进入RecycleBin中，第12个要出现前，通过getView从回收站（RecycleBin）中重用这个View，然后设置数据，而不必重新创建一个View。</p>
+<p>
+	&nbsp;</p>
+<p>
+	我们用Android提供的APIDemos来验证这个过程：</p>
+<p>
+	&nbsp;</p>
+<p>
+	先看关键代码：</p>
+<p>
+	Java代码</p>
+<p>
+	public View getView(int position, View convertView, ViewGroup parent) {&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp; // A ViewHolder keeps references to children views to avoid unneccessary calls&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp; // to findViewById() on each row.&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp; ViewHolder holder;&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp; // When convertView is not null, we can reuse it directly, there is no need&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp; // to reinflate it. We only inflate a new View when the convertView supplied&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp; // by ListView is null.&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp; if (convertView == null) {&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; convertView = mInflater.inflate(R.layout.list_item_icon_text, null);&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.v(&quot;tag&quot;, &quot;positon &quot; + position + &quot; convertView is null, &quot; + &quot;new: &quot; + convertView);&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Creates a ViewHolder and store references to the two children views&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // we want to bind data to.&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; holder = new ViewHolder();&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; holder.text = (TextView) convertView.findViewById(R.id.text);&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; holder.icon = (ImageView) convertView.findViewById(R.id.icon);&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; convertView.setTag(holder);&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp; } else {&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Get the ViewHolder back to get fast access to the TextView&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // and the ImageView.&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; holder = (ViewHolder) convertView.getTag();&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.v(&quot;tag&quot;, &quot;positon &quot; + position + &quot; convertView is not null, &quot;&nbsp; + convertView);&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp; }&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp; // Bind the data efficiently with the holder.&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp; holder.text.setText(DATA[position]);&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp; holder.icon.setImageBitmap((position &amp; 1) == 1 ? mIcon1 : mIcon2);&nbsp;</p>
+<p>
+	&nbsp;&nbsp; &nbsp;return convertView;&nbsp;</p>
+<p>
+	}&nbsp;</p>
+<p>
+	&nbsp;</p>
+<p>
+	&nbsp;static class ViewHolder {&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp; TextView text;&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp; ImageView icon;&nbsp;</p>
+<p>
+	}&nbsp;</p>
+<p>
+	&nbsp;</p>
+<p>
+	效果图：</p>
+<p>
+	&nbsp;<img src="http://www.2cto.com/uploadfile/2011/0812/20110812032506153.png" /></p>
+<p>
+	&nbsp;</p>
+<p>
+	可以看到，一打开Activity，看到10个item.</p>
+<p>
+	我们看看Log信息：</p>
+<p>
+	&nbsp;<img src="http://www.2cto.com/uploadfile/2011/0812/20110812032506432.png" /></p>
+<p>
+	&nbsp;</p>
+<p>
+	可以看出，每次convertView都是null, 都是新建一个View来显示的。</p>
+<p>
+	当我们向下滑动，如下图，</p>
+<p>
+	&nbsp;<img src="http://www.2cto.com/uploadfile/2011/0812/20110812032507937.png" /></p>
+<p>
+	&nbsp;</p>
+<p>
+	由于item0和item10都显示一半，所以item10也是新建出来，但是当要显示item11的时候，由于item0已经不在屏幕上，所以item11复用了item0的实例。可以从</p>
+<p>
+	以下Log信息看出：</p>
+<p>
+	<img src="http://www.2cto.com/uploadfile/2011/0812/20110812032507184.png" /></p>
+<p>
+	&nbsp;</p>
+<p>
+	我们分析Log信息，可以看出item11的对象是item0，item12的对象是item1，如此类推。</p>
+<p>
+	这样，通过复用convertView,就可以避免每次都新建View，节省内存而且优化ListView的滑动效果。</p>
+<p>
+	&nbsp;</p>
+<p>
+	&nbsp;</p>
+<p>
+	2.&nbsp; ListView的Layout XML</p>
+<p>
+	&nbsp;</p>
+<p>
+	除了上述说的，还有一个要点就是ListView在Layout XML中的描述。</p>
+<p>
+	先看问题：</p>
+<p>
+	有时，我们可能会看到一打开ListView，getView会重复调用好次（假设屏幕最多可以看到6个item），如下图：</p>
+<p>
+	<img src="http://www.2cto.com/uploadfile/2011/0812/20110812032507984.png" /></p>
+<p>
+	&nbsp;</p>
+<p>
+	一直重复0-6,&nbsp; 0-5，0-5，0-5，0-5，0-5。而且，convertView一开始都是同一个View，这个是因为ListView的</p>
+<p>
+	android:layout_height=&quot;wrap_content&quot;。</p>
+<p>
+	我们修改为android:layout_height=&quot;fill_parent&quot;，Log信息如下：</p>
+<p>
+	<img src="http://www.2cto.com/uploadfile/2011/0812/20110812032508831.png" /></p>
+<p>
+	&nbsp;</p>
+<p>
+	可以看出，修改之后ListView的getView调用恢复和Recycler的行为一致。</p>
+<p>
+	至于为什么使用wrap_content会出现重复调用的情况，我还没有研究过。不过初步觉得是因为在Android描绘ListView的时候，由于不清楚高度，所以使用一个item去试探ListView在屏幕中的最大高度所引起。希望有知道的朋友能够告诉，先谢谢了！</p>
+<p>
+	&nbsp;</p>
+<p>
+	最后，如果上面有什么地方说错的话，希望能够指出，互相进步嘛。</p>
+				</dd></dl>
+		<script type="text/javascript">
+		<!--
+		$(function(){
+		  $('#Article img').LoadImage(true, 630, 560,'http://www.2cto.com/statics/images/s_nopic.gif');    
+		})
+		
+		//-->
+		</script>
+	<div id="pages" class="box_body" id="fontzoom">	</div>
+	<dl class="box_Nsc">
+		<dd class="lcopy"><a class="ckcopy" onclick="copyToClipBoard()">点击复制链接 与QQ/MSN好友分享!</a></dd>
+		<script> 
+		function copyToClipBoard(){ 
+		var clipBoardContent=document.title + '\r\n' + document.location; 
+		clipBoardContent+='\r\n'; 
+		window.clipboardData.setData("Text",clipBoardContent); 
+		alert("恭喜您！复制成功"); 
+		} 
+		</script>
+
+		<div class="Article-Tool">
+          <span class="fxd">分享到：
+		  <img src="http://v.t.qq.com/share/images/s/weiboicon16.png" style="padding-bottom:3px;" onclick="postToWb();" class="cu" title="分享到腾讯微博"/></span><script type="text/javascript">
+	function postToWb(){
+		var _t = encodeURI(document.title);
+		var _url = encodeURIComponent(document.location);
+		var _appkey = encodeURI("5e544a8fdea646c5a5f3967871346eb8");
+		var _pic = encodeURI('http://www.2cto.com/uploadfile/2011/0812/20110812032506153.png');
+		var _site = '';
+		var _u = 'http://v.t.qq.com/share/share.php?url='+_url+'&appkey='+_appkey+'&site='+_site+'&pic='+_pic+'&title='+_t;
+		window.open( _u,'', 'width=700, height=680, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no' );
+	}
+</script>
+          <script type="text/javascript">document.write('<a href="http://v.t.sina.com.cn/share/share.php?url='+encodeURIComponent(location.href)+'&appkey=2386826374&title='+encodeURIComponent('ListView与Adapter使用要点')+'" title="分享到新浪微博" class="t1" target="_blank">&nbsp;</a>');</script>
+		  <script type="text/javascript">document.write('<a href="http://www.douban.com/recommend/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent('ListView与Adapter使用要点')+'" title="分享到豆瓣" class="t2" target="_blank">&nbsp;</a>');</script>
+		  <script type="text/javascript">document.write('<a href="http://share.renren.com/share/buttonshare.do?link='+encodeURIComponent(location.href)+'&title='+encodeURIComponent('ListView与Adapter使用要点')+'" title="分享到人人" class="t3" target="_blank">&nbsp;</a>');</script>
+		  <script type="text/javascript">document.write('<a href="http://www.kaixin001.com/repaste/share.php?rtitle='+encodeURIComponent('ListView与Adapter使用要点')+'&rurl='+encodeURIComponent(location.href)+'&rcontent=" title="分享到开心网" class="t4" target="_blank">&nbsp;</a>');</script>
+		  <script type="text/javascript">document.write('<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+encodeURIComponent(location.href)+'" title="分享到QQ空间" class="t5" target="_blank">&nbsp;</a>');</script>
+      
+	  
+
+	  </div>
+
+		
+		</dd>
+		<dd class="bbstt">您对本文章有什么意见或着疑问吗？请到<a href="http://bbs.2cto.com/">论坛讨论</a>您的关注和建议是我们前行的参考和动力&nbsp;&nbsp; </dd>
+	</dl>
+	<dl class="box_NPre">
+		<dd class="TLineX"><strong>上一篇：</strong><a href="http://www.2cto.com/kf/201108/99927.html">Android签名工厂</a></dd>
+		<dd><strong>下一篇：</strong><a href="http://www.2cto.com/kf/201108/99929.html">android Table(1)</a></dd>
+	</dl>
+	<dl style="width:650px;height:70px;padding-top:10px;float:left;padding-left:10px">
+		<dd><script type="text/javascript">BAIDU_CLB_fillSlot("182716");</script></dd>
+	</dl>
+	<dl class="about"><dd>相关文章</dd></dl>
+				<div class="alistline"><a href="http://www.2cto.com/kf/200602/7978.html" target=blank>Delphi中用TListView显示数据库数据</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/200905/37759.html" target=blank>Delphi中用TListView显示数据库数据</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/200905/38360.html" target=blank>一个功能增强的DelphiTListView组件</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/201101/81721.html" target=blank>Android入门第六篇之ListView (一)</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/201101/81722.html" target=blank>Android入门第七篇之ListView (二)</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/201105/89775.html" target=blank>自定义GridView/ListView数据源</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/201108/98665.html" target=blank>Android ListView Adapter  </a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/201108/100755.html" target=blank>ListView自动滚动方法</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/201108/101092.html" target=blank>listview加载性能优化</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/201108/101100.html" target=blank>listview适配器与加载过程详解</a></div>
+			<dl class="linetb"></dl>
+	<dl class="about"><dd>图文推荐</dd></dl>
+	<div class="picbox">
+						<dl class="wbox">
+			<dd class="npicbox"><a href="http://www.2cto.com/kf/201204/126483.html"><img src='http://www.2cto.com/uploadfile/2012/0407/thumb_126_90_20120407103844543.png'  width='120' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/kf/201204/126483.html">Android实现左右滑动</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a href="http://www.2cto.com/kf/201204/126379.html"><img src='http://www.2cto.com/uploadfile/2012/0406/thumb_126_90_20120406025816408.gif'  width='120' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/kf/201204/126379.html">（android基础）之An</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a href="http://www.2cto.com/kf/201204/126319.html"><img src='http://www.2cto.com/uploadfile/2012/0406/thumb_126_90_20120406105941975.gif'  width='120' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/kf/201204/126319.html">Android---斗地主[牌</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a href="http://www.2cto.com/kf/201204/126277.html"><img src='http://www.2cto.com/uploadfile/2012/0406/thumb_126_90_20120406095120161.png'  width='120' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/kf/201204/126277.html">android图形系统详解</a></dd>
+		</dl>
+					</div>
+		<dl class="linetb"></dl>
+	<div id="pl" style="float:left;width:650px;padding:10px 10px 0px 10px;overflow:hidden;background-color:white">
+		<iframe src="http://www.2cto.com/uapi.php?tid=99928&catid=90&title=TGlzdFZpZXfT60FkYXB0ZXLKudPD0qq14w==" width="100%" height="100%" id="comment_iframe" name="comment_iframe" frameborder="0" scrolling="no"></iframe>
+	</div>
+	
+	</div>
+	<div class="box_right">
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:250px">
+			<a target="_blank" href="http://vip.2cto.com/"><img src="http://www.2cto.com/adv/300-250.gif" width="300" height="250" /></a></div>
+		<div class="box_right_line"><div class="xline"></div></div>
+		<div class="box_right_box">
+			<dl class="bTitle"><dd onmousemove="m_tab(1)" id="indexW" class="tablinkschecked">排行</dd><dd onmousemove="m_tab(2)" id="hotW" class="tablinkscheck">热门</dd></dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index" id="index">
+					<dd class="picline"></dd>
+															<dd class="list">423 | <a title="Android 4.0 SDK 环境搭建体验（Windows 7 Ultimate）  " href="http://www.2cto.com/kf/201111/111042.html">Android 4.0 SDK 环境搭建体验（Wi</a></dd>
+										<dd class="list">335 | <a title="Android中ADT插件的安装" href="http://www.2cto.com/kf/201202/120475.html">Android中ADT插件的安装</a></dd>
+										<dd class="list">211 | <a title="Android之ImageSwitcher,Gallery用法 " href="http://www.2cto.com/kf/201110/108180.html">Android之ImageSwitcher,Gallery用法 </a></dd>
+										<dd class="list">207 | <a title="Android Canvas类介绍(zhuan)" href="http://www.2cto.com/kf/201109/103992.html">Android Canvas类介绍(zhuan)</a></dd>
+										<dd class="list">201 | <a title="浅谈android的selector背景选择器" href="http://www.2cto.com/kf/201110/107866.html">浅谈android的selector背景选择器</a></dd>
+										<dd class="list">199 | <a title="Android系统开机画面修改 " href="http://www.2cto.com/kf/201203/124795.html">Android系统开机画面修改 </a></dd>
+										<dd class="list">187 | <a title="Android中Cursor类的概念和用法 " href="http://www.2cto.com/kf/201109/103163.html">Android中Cursor类的概念和用法 </a></dd>
+										<dd class="list">185 | <a title="Cannot complete the install because one or more required items could not befound" href="http://www.2cto.com/kf/201110/106715.html">Cannot complete the install bec</a></dd>
+														</dl>
+				<dl class="index" id="hot" style="display:none">
+					<dd class="picline"></dd>
+															<dd class="list"><a title="Android开发学习笔记：浅谈WebView" href="http://www.2cto.com/kf/201108/101518.html">Android开发学习笔记：浅谈WebView</a></dd>
+										<dd class="list"><a title="Android 4.0 SDK 环境搭建体验（Windows 7 Ultimate）  " href="http://www.2cto.com/kf/201111/111042.html">Android 4.0 SDK 环境搭建体验（Wi</a></dd>
+										<dd class="list"><a title="Cannot complete the install because one or more required items could not befound" href="http://www.2cto.com/kf/201110/106715.html">Cannot complete the install bec</a></dd>
+										<dd class="list"><a title="Android Canvas类介绍(zhuan)" href="http://www.2cto.com/kf/201109/103992.html">Android Canvas类介绍(zhuan)</a></dd>
+										<dd class="list"><a title="Android自定义Button按钮显示样式" href="http://www.2cto.com/kf/201108/100751.html">Android自定义Button按钮显示样式</a></dd>
+										<dd class="list"><a title="浅谈android的selector背景选择器" href="http://www.2cto.com/kf/201110/107866.html">浅谈android的selector背景选择器</a></dd>
+										<dd class="list"><a title="7.5 TableLayout布局详解" href="http://www.2cto.com/kf/201107/96807.html">7.5 TableLayout布局详解</a></dd>
+										<dd class="list"><a title=" Android开发学习笔记：浅谈GridView" href="http://www.2cto.com/kf/201108/101520.html"> Android开发学习笔记：浅谈GridView</a></dd>
+														</dl>
+			</div>
+			<script type="text/javascript">
+			<!--
+				function m_tab(index)
+				{
+					if (index == 1){
+						document.getElementById("indexW").className = "tablinkschecked";
+						document.getElementById("hotW").className = "tablinkscheck";
+						document.getElementById("index").style.display = "block";
+						document.getElementById("hot").style.display = "none";
+					}
+					else{
+						document.getElementById("hotW").className = "tablinkschecked";
+						document.getElementById("indexW").className = "tablinkscheck";
+						document.getElementById("index").style.display = "none";
+						document.getElementById("hot").style.display = "block";
+					}
+				}
+			//-->
+			</script>
+		</div>
+		<div class="rightlineT"><div class="rxline"></div></div>
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:60px">
+			<a target="_blank" href="tencent://message/?uin=6242122&Site=红黑Vip&Menu=yes"><img src="http://www.2cto.com/adv/300-90.png" width="300" height="60" /></a></div>
+		<div class="rightlineNo"></div>
+		<div class="box_right_box">
+			<dl class="bTitle borT"><dd class="newarc"></dd></dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index">
+					<iframe frameborder="0" name="Iframe1" src="http://www.2cto.com/bbsdy/index.html" width="100%" height="200">
+				您的浏览器不支持嵌入式框架，或者当前配置为不显示嵌入式框架。
+			</iframe>
+				</dl>
+			</div>
+		</div>
+		<div class="rightlineT"><div class="rxline"></div></div>
+
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:250px"><script type="text/javascript">BAIDU_CLB_fillSlot("182692");</script> </div>
+		<div class="rightlineNo"></div>
+		<div class="box_right_box">
+			<dl class="bTitle borT"><dd class="newdown"></dd></dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index">
+															<dd class="picbox"><a class="plink" href="http://www.2cto.com/kf/201111/109790.html"><img class='pic1' src='http://www.2cto.com/uploadfile/2011/1101/thumb_126_90_20111101030653722.jpg'  width='126' height='90' border='0' /></a><span><a href="http://www.2cto.com/kf/201111/109790.html">阿里云手机应用开发点</a></span></dd>
+										<dd class="picbox"><a class="plink" href="http://www.2cto.com/kf/201112/113087.html"><img class='pic1' src='http://www.2cto.com/uploadfile/2011/1205/thumb_126_90_20111205045331102.jpg'  width='126' height='90' border='0' /></a><span><a href="http://www.2cto.com/kf/201112/113087.html">编写高效的android代</a></span></dd>
+															<dd class="picline"></dd>
+															<dd class="list">&#9642;&nbsp;<a href="http://www.2cto.com/kf/201110/108606.html">Android AIDL 远程服务器使用示例</a></dd>
+										<dd class="list">&#9642;&nbsp;<a href="http://www.2cto.com/kf/201111/109790.html">阿里云手机应用开发点滴</a></dd>
+										<dd class="list">&#9642;&nbsp;<a href="http://www.2cto.com/kf/201112/113087.html">编写高效的android代码（译文）  </a></dd>
+										<dd class="list">&#9642;&nbsp;<a href="http://www.2cto.com/kf/201112/113153.html">给Android应用开发者的十个建议</a></dd>
+										<dd class="list">&#9642;&nbsp;<a href="http://www.2cto.com/kf/201112/114445.html">android网络业务的封装与调度 </a></dd>
+										<dd class="list">&#9642;&nbsp;<a href="http://www.2cto.com/kf/201202/120041.html">Android_手把手教你写跳跃类游戏(3) </a></dd>
+														</dl>
+			</div>
+			<div class="xline"></div>
+		</div>
+
+	</div>
+</div>
+<script type="text/javascript">
+<!--
+function showLogin(){
+	window.art.dialog({id:'Login',iframe:'http://www.2cto.com/index.php?m=member&c=index&a=login&tupe=mini', title:'快捷登陆', width:'450', height:'310', lock:true}, function(){var d = window.art.dialog({id:'Login'}).data.iframe;var form = d.document.getElementById('dosubmit');form.click();return false;}, function(){window.art.dialog({id:'Login'}).close()});void(0);
+}
+function add_favorite(title) {
+		$.getJSON('http://www.2cto.com/api.php?op=add_favorite&title='+encodeURIComponent(title)+'&url='+encodeURIComponent(location.href)+'&'+Math.random()+'&callback=?', function(data){
+			if(data.status==1)	{
+				$("#favorite").html('收藏成功');
+			} else {
+				alert('请登录');
+			}
+		});
+	}
+//-->
+</script>
+<script language="JavaScript" src="http://www.2cto.com/api.php?op=count&id=99928&modelid=1"></script>
+<!-- 广告位：右侧漂浮 -->
+<script type="text/javascript">BAIDU_CLB_fillSlot("137946");</script>
+
+<div style="width:980px;padding:8px 0px 8px 0px;margin:auto"><script type="text/javascript">BAIDU_CLB_fillSlot("333829");</script></div>
+<div class="foot">
+<p>
+<a target="_blank" href="http://www.2cto.com/about">关于我们</a> |
+<a target="_blank" href="http://www.2cto.com/about/contact.html">联系我们</a> |
+<a target="_blank" href="http://www.2cto.com/about/ads.html">广告服务</a> |
+<a target="_blank" href="http://www.2cto.com/about/touzi.html">投资合作</a> |
+<a target="_blank" href="http://www.2cto.com/about/Copyright.html">版权申明</a> |
+<a target="_blank" href="http://www.2cto.com/about/faq.html">在线帮助</a> |
+<a target="_blank" href="http://www.2cto.com/about/map.html">网站地图</a> |
+<a target="_blank" href="http://www.2cto.com/about/tg.html">作品发布</a> |
+<a target="_blank" href="http://vip.2cto.com/"><span style="COLOR: red">Vip技术培训</span></a>
+<br />
+<span class="style4">版权所有: <a href="http://www.2cto.com" target="_blank">红黑联盟</a>--致力于做最好的IT技术学习网站<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F1898984a3d796e86ad73ad1f4bc9f240' type='text/javascript'%3E%3C/script%3E"));
+</script>    <script language="javascript" type="text/javascript" src="http://js.users.51.la/331738.js"></script>
+
+<noscript><a href="http://www.51.la/?331738" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/331738.asp" style="border:none" /></a></noscript>
+</span>
+</div></body>
+
+</html>
