@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lottery_data_converter", "lottery_data_converter\lottery_data_converter.vcxproj", "{71AF52F0-7153-43FF-A02A-F1856FC5281E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71AF52F0-7153-43FF-A02A-F1856FC5281E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{71AF52F0-7153-43FF-A02A-F1856FC5281E}.Debug|Win32.Build.0 = Debug|Win32
+		{71AF52F0-7153-43FF-A02A-F1856FC5281E}.Release|Win32.ActiveCfg = Release|Win32
+		{71AF52F0-7153-43FF-A02A-F1856FC5281E}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
