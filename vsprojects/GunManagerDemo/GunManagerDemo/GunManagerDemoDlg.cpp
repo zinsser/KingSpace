@@ -7,6 +7,11 @@
 #include "GunManagerDemoDlg.h"
 #include "afxdialogex.h"
 
+#include "TabpageLend.h"
+#include "TabpageBorrow.h"
+#include "TabpageInput.h"
+#include "TabpageExport.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -44,15 +49,21 @@ END_MESSAGE_MAP()
 
 
 // CGunManagerDemoDlg dialog
-
-
-
-
 CGunManagerDemoDlg::CGunManagerDemoDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CGunManagerDemoDlg::IDD, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-	mMaxTabItem = 0;
+}
+
+CGunManagerDemoDlg::~CGunManagerDemoDlg()
+{
+	for (vector<CTabpageBase*>::iterator iter = mPageItems.begin();
+		iter != mPageItems.end(); ++iter)
+	{
+		delete *iter;
+	}
+
+	mPageItems.clear();
 }
 
 void CGunManagerDemoDlg::DoDataExchange(CDataExchange* pDX)
@@ -65,11 +76,11 @@ BEGIN_MESSAGE_MAP(CGunManagerDemoDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_NOTIFY(TCN_SELCHANGE, IDC_OP_STAGE, &CGunManagerDemoDlg::OnTcnSelchangeOpStage)
 END_MESSAGE_MAP()
 
 
 // CGunManagerDemoDlg message handlers
-
 BOOL CGunManagerDemoDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
@@ -99,11 +110,13 @@ BOOL CGunManagerDemoDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
-	// TODO: Add extra initialization here
-	AddTabItem(TCIF_TEXT, L"Lend");
-	AddTabItem(TCIF_TEXT, L"Borrow");
-	AddTabItem(TCIF_TEXT, L"Input");
-	AddTabItem(TCIF_TEXT, L"Export");
+	mPageItems.push_back(new CTabpageLend(GetDlgItem(IDC_OP_STAGE), &mTabCtrlOpStage));
+	mPageItems.push_back(new CTabpageBorrow(GetDlgItem(IDC_OP_STAGE), &mTabCtrlOpStage));
+	mPageItems.push_back(new CTabpageInput(GetDlgItem(IDC_OP_STAGE), &mTabCtrlOpStage));
+	mPageItems.push_back(new CTabpageExport(GetDlgItem(IDC_OP_STAGE), &mTabCtrlOpStage));
+
+	OnInitTabpage();
+
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -156,10 +169,25 @@ HCURSOR CGunManagerDemoDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-void CGunManagerDemoDlg::AddTabItem(UINT mask, LPWSTR opTip)
+void CGunManagerDemoDlg::OnInitTabpage()
 {
-	TCITEMW item;
-	item.mask = mask;
-	item.pszText = opTip;
-	mTabCtrlOpStage.InsertItem(mMaxTabItem++, &item);
+	UINT defaultIndex = 1;
+	mTabCtrlOpStage.SetCurSel(defaultIndex);
+	//在语义上，defaultIndex仅和GetIndex()值相同
+	//此处为了减少循环查找，采用如下模糊的index概念
+	if (mPageItems[defaultIndex] != NULL
+		&& mPageItems[defaultIndex]->GetIndex() == defaultIndex)
+	{
+		mPageItems[defaultIndex]->ShowWindow(SW_SHOW);
+	}
+}
+
+void CGunManagerDemoDlg::OnTcnSelchangeOpStage(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	for (vector<CTabpageBase*>::iterator iter = mPageItems.begin();
+		iter != mPageItems.end(); ++iter)
+	{
+		(*iter)->ShowWindow((*iter)->GetIndex() == mTabCtrlOpStage.GetCurSel());
+	}
+	*pResult = 0;
 }

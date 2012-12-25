@@ -103,6 +103,11 @@
     <ClInclude Include="GunManagerDemoDlg.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TabpageBase.h" />
+    <ClInclude Include="TabpageBorrow.h" />
+    <ClInclude Include="TabpageExport.h" />
+    <ClInclude Include="TabpageInput.h" />
+    <ClInclude Include="TabpageLend.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +117,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TabpageBase.cpp" />
+    <ClCompile Include="TabpageBorrow.cpp" />
+    <ClCompile Include="TabpageExport.cpp" />
+    <ClCompile Include="TabpageInput.cpp" />
+    <ClCompile Include="TabpageLend.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GunManagerDemo.rc" />

@@ -4,15 +4,17 @@
 
 #pragma once
 #include "afxcmn.h"
-
+#include <vector>
+using namespace std;
 
 // CGunManagerDemoDlg dialog
+class CTabpageBase;
 class CGunManagerDemoDlg : public CDialogEx
 {
 // Construction
 public:
 	CGunManagerDemoDlg(CWnd* pParent = NULL);	// standard constructor
-
+	~CGunManagerDemoDlg();
 // Dialog Data
 	enum { IDD = IDD_GUNMANAGERDEMO_DIALOG };
 
@@ -30,12 +32,14 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
-private :
-	void AddTabItem(UINT mask, LPWSTR opTip);
 
-public:
-	CTabCtrl mTabCtrlOpStage;
+private :
+	void OnInitTabpage();
 
 private:
-	int mMaxTabItem;
+	CTabCtrl mTabCtrlOpStage;
+	vector<CTabpageBase*>  mPageItems;
+
+public:
+	afx_msg void OnTcnSelchangeOpStage(NMHDR *pNMHDR, LRESULT *pResult);
 };
