@@ -35,7 +35,9 @@ public class FtpDemoActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				mTextViewReceivedInfo.setText("");
 				mTcpClient = new ClientObject(mServerAddr, mPort);
+				mTextViewReceivedInfo.append("Client Object Connected!\n");
 			}
 		});
         
@@ -59,7 +61,7 @@ public class FtpDemoActivity extends Activity {
 				byte[] datas = bundle.getByteArray("DATA");
 				StringBuilder builder = new StringBuilder();
 				builder.append(datas);
-    			mTextViewReceivedInfo.setText(builder.toString());
+    			mTextViewReceivedInfo.append(builder.toString()+"\n");
     			break;
     		}
     	}
