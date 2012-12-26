@@ -37,7 +37,6 @@ public class FtpDemoActivity extends Activity {
 			public void onClick(View v) {
 				mTextViewReceivedInfo.setText("");
 				mTcpClient = new ClientObject(mServerAddr, mPort);
-				mTextViewReceivedInfo.append("Client Object Connected!\n");
 			}
 		});
         
@@ -47,6 +46,7 @@ public class FtpDemoActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				mTcpClient.stopRunner();
+				mTextViewReceivedInfo.append("Client Object Disconnected!\n");
 			}
 		});
         mTextViewReceivedInfo = (TextView)findViewById(R.id.textviewReceivedInfo);
@@ -59,9 +59,10 @@ public class FtpDemoActivity extends Activity {
     		case DATA_RECEIVED:
 				Bundle bundle = msg.getData();
 				byte[] datas = bundle.getByteArray("DATA");
+				int  size = bundle.getInt("SIZE");
 				StringBuilder builder = new StringBuilder();
 				builder.append(datas);
-    			mTextViewReceivedInfo.append(builder.toString()+"\n");
+    			mTextViewReceivedInfo.append(builder.toString()+"\n"+size+"\n");
     			break;
     		}
     	}
@@ -82,10 +83,15 @@ public class FtpDemoActivity extends Activity {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
-			} 
-			
-			mReceiveRunner = new TCPReceiveRunner(mHandler, mInputStream);
-			new Thread(mReceiveRunner).start();
+			} finally{
+				if (mSocket != null && mInputStream != null){
+					mTextViewReceivedInfo.append("Client Object Connected!\n");
+					mReceiveRunner = new TCPReceiveRunner(mHandler, mInputStream);
+					new Thread(mReceiveRunner).start();
+				}else{
+					mTextViewReceivedInfo.append("Client Object Connected Failure!\n");
+				}
+			}
 		}
 		
 		public void sendMessage(String outterMessage){
@@ -159,6 +165,7 @@ public class FtpDemoActivity extends Activity {
 					Message msg = mHandler.obtainMessage(DATA_RECEIVED);
 					Bundle bundle = new Bundle();
 					bundle.putByteArray("DATA", mReceiveBuf.array());
+					bundle.putInt("SIZE", sigleReadSize);
 					msg.setData(bundle);
 					msg.sendToTarget();
 				} catch (IOException e) {
