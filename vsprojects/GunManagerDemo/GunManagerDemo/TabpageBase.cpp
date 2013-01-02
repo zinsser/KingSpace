@@ -10,7 +10,7 @@
 // CTabpageBase dialog
 UINT CTabpageBase::mMaxItem = 0;
 CTabpageBase::CTabpageBase(UINT idd, LPWSTR title, CWnd* pParent, CTabCtrl* pTabContainer)
-	: CDialogEx(idd, NULL), mIndex(0)
+	: CDialogEx(idd, pParent), mIndex(0)
 {
 	CreatePageContent(idd, title, pParent, pTabContainer);
 }
@@ -22,7 +22,7 @@ CTabpageBase::~CTabpageBase()
 // CTabpageBase message handlers
 void CTabpageBase::CreatePageContent(UINT idd, LPWSTR title, CWnd* pWndParent, CTabCtrl* pTabContainer)
 {
-	Create(idd, pWndParent);
+	this->Create(idd, pWndParent);
 
 	CRect rs;
 	pWndParent->GetClientRect(&rs);

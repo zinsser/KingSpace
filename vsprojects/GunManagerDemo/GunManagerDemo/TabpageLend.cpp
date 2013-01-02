@@ -11,7 +11,7 @@
 IMPLEMENT_DYNAMIC(CTabpageLend, CDialogEx)
 
 CTabpageLend::CTabpageLend(CWnd* pParent, CTabCtrl* pTabContainer)
-	: CTabpageBase(CTabpageLend::IDD, L"Lend", pParent, pTabContainer)
+	: CTabpageBase(CTabpageLend::IDD, L"�黹ǹ֧", pParent, pTabContainer)
 {
 }
 

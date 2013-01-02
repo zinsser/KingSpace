@@ -110,13 +110,31 @@ BOOL CGunManagerDemoDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
-	mPageItems.push_back(new CTabpageLend(GetDlgItem(IDC_OP_STAGE), &mTabCtrlOpStage));
-	mPageItems.push_back(new CTabpageBorrow(GetDlgItem(IDC_OP_STAGE), &mTabCtrlOpStage));
-	mPageItems.push_back(new CTabpageInput(GetDlgItem(IDC_OP_STAGE), &mTabCtrlOpStage));
-	mPageItems.push_back(new CTabpageExport(GetDlgItem(IDC_OP_STAGE), &mTabCtrlOpStage));
+//	mPageItems.push_back(new CTabpageLend(GetDlgItem(IDC_OP_STAGE), &mTabCtrlOpStage));
+//	mPageItems.push_back(new CTabpageBorrow(GetDlgItem(IDC_OP_STAGE), &mTabCtrlOpStage));
+//	mPageItems.push_back(new CTabpageInput(GetDlgItem(IDC_OP_STAGE), &mTabCtrlOpStage));
+//	mPageItems.push_back(new CTabpageExport(GetDlgItem(IDC_OP_STAGE), &mTabCtrlOpStage));
+	mTabpageExport.Create(mTabpageExport.IDD, GetDlgItem(IDC_OP_STAGE));
+	mTabpageBorrow.Create(mTabpageBorrow.IDD, GetDlgItem(IDC_OP_STAGE));
+
+	CRect rs;
+	GetDlgItem(IDC_OP_STAGE)->GetClientRect(&rs);
+	rs.top += 30;
+	rs.bottom -= 1;
+	rs.left -= 2;
+	rs.right -= 1;
+
+	mTabpageExport.SetParent(GetDlgItem(IDC_OP_STAGE));
+	mTabpageExport.MoveWindow(rs);
+
+	mTabpageBorrow.SetParent(GetDlgItem(IDC_OP_STAGE));
+	mTabpageBorrow.MoveWindow(rs);
+
+	mTabCtrlOpStage.InsertItem(0, L"导出表格");
+	mTabCtrlOpStage.InsertItem(1, L"借用枪支");	
 
 	OnInitTabpage();
-
+	ShowWindow(SW_MAXIMIZE);
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -171,23 +189,35 @@ HCURSOR CGunManagerDemoDlg::OnQueryDragIcon()
 
 void CGunManagerDemoDlg::OnInitTabpage()
 {
-	UINT defaultIndex = 1;
+	UINT defaultIndex = 0;
 	mTabCtrlOpStage.SetCurSel(defaultIndex);
-	//在语义上，defaultIndex仅和GetIndex()值相同
+#if 0
+	//在语义上，defaultIndex仅和GetIndex()值相同,和[index]中的索引不同概念
 	//此处为了减少循环查找，采用如下模糊的index概念
 	if (mPageItems[defaultIndex] != NULL
 		&& mPageItems[defaultIndex]->GetIndex() == defaultIndex)
 	{
 		mPageItems[defaultIndex]->ShowWindow(SW_SHOW);
 	}
+#endif
+	mTabpageExport.ShowWindow(SW_SHOW);
 }
 
 void CGunManagerDemoDlg::OnTcnSelchangeOpStage(NMHDR *pNMHDR, LRESULT *pResult)
 {
+#if 0
 	for (vector<CTabpageBase*>::iterator iter = mPageItems.begin();
 		iter != mPageItems.end(); ++iter)
 	{
 		(*iter)->ShowWindow((*iter)->GetIndex() == mTabCtrlOpStage.GetCurSel());
+	}
+#endif
+	if (mTabCtrlOpStage.GetCurSel() == 0){
+		mTabpageExport.ShowWindow(TRUE);
+		mTabpageBorrow.ShowWindow(FALSE);
+	}else if (mTabCtrlOpStage.GetCurSel() == 1){
+		mTabpageExport.ShowWindow(FALSE);
+		mTabpageBorrow.ShowWindow(TRUE);	
 	}
 	*pResult = 0;
 }

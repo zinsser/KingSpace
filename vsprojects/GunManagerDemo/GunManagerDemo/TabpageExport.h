@@ -3,12 +3,12 @@
 #include "TabpageBase.h"
 // CTabpageExport dialog
 
-class CTabpageExport : public CTabpageBase
+class CTabpageExport : public CDialogEx
 {
 	DECLARE_DYNAMIC(CTabpageExport)
 
 public:
-	CTabpageExport(CWnd* pParent, CTabCtrl* pTabContainer);   // standard constructor
+	CTabpageExport(CWnd* pParent = NULL, CTabCtrl* pTabContainer = NULL);   // standard constructor
 	virtual ~CTabpageExport();
 
 // Dialog Data
@@ -18,4 +18,6 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 	DECLARE_MESSAGE_MAP()
+public:
+	virtual BOOL OnInitDialog();
 };

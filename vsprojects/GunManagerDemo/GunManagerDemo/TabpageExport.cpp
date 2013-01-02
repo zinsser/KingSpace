@@ -12,7 +12,8 @@
 IMPLEMENT_DYNAMIC(CTabpageExport, CDialogEx)
 
 CTabpageExport::CTabpageExport(CWnd* pParent, CTabCtrl* pTabContainer)
-	: CTabpageBase(CTabpageExport::IDD, L"Export", pParent, pTabContainer)
+//	: CTabpageBase(CTabpageExport::IDD, L"表格导出", pParent, pTabContainer)
+	: CDialogEx(CTabpageExport::IDD, NULL)
 {
 }
 
@@ -31,3 +32,14 @@ END_MESSAGE_MAP()
 
 
 // CTabpageExport message handlers
+
+
+BOOL CTabpageExport::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	// TODO:  Add extra initialization here
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// EXCEPTION: OCX Property Pages should return FALSE
+}

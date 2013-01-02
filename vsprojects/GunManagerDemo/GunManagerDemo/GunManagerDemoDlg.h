@@ -7,6 +7,8 @@
 #include <vector>
 using namespace std;
 
+#include "TabpageExport.h"
+#include "TabpageBorrow.h"
 // CGunManagerDemoDlg dialog
 class CTabpageBase;
 class CGunManagerDemoDlg : public CDialogEx
@@ -39,7 +41,9 @@ private :
 private:
 	CTabCtrl mTabCtrlOpStage;
 	vector<CTabpageBase*>  mPageItems;
-
+	CTabpageExport mTabpageExport;
+	CTabpageBorrow mTabpageBorrow;
 public:
 	afx_msg void OnTcnSelchangeOpStage(NMHDR *pNMHDR, LRESULT *pResult);
+
 };

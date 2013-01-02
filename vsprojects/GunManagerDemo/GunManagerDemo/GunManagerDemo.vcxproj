@@ -95,12 +95,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
+    <None Include="res\222.bmp" />
+    <None Include="res\Close.bmp" />
+    <None Include="res\def_head.bmp" />
+    <None Include="res\Green.bmp" />
     <None Include="res\GunManagerDemo.ico" />
     <None Include="res\GunManagerDemo.rc2" />
+    <None Include="res\head.bmp" />
+    <None Include="res\OOOPIC.bmp" />
+    <None Include="res\Red.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Gun.h" />
+    <ClInclude Include="GunManager.h" />
     <ClInclude Include="GunManagerDemo.h" />
     <ClInclude Include="GunManagerDemoDlg.h" />
+    <ClInclude Include="Policeman.h" />
+    <ClInclude Include="PolicemanManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TabpageBase.h" />
@@ -111,8 +122,11 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GunManager.cpp" />
     <ClCompile Include="GunManagerDemo.cpp" />
     <ClCompile Include="GunManagerDemoDlg.cpp" />
+    <ClCompile Include="Policeman.cpp" />
+    <ClCompile Include="PolicemanManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

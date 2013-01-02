@@ -14,7 +14,8 @@ public:
 private:
 	void CreatePageContent(UINT idd, LPWSTR title, CWnd* pWndParent, CTabCtrl* pTabContainer);
 
-private:
+public:
 	static UINT mMaxItem;
+private:
 	UINT mIndex;
 };
