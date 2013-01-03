@@ -16,10 +16,11 @@
 
 IMPLEMENT_DYNAMIC(CTabpageBorrow, CDialogEx)
 
-CTabpageBorrow::CTabpageBorrow(CWnd* pParent, CTabCtrl* pTabContainer)
-//	: CTabpageBase(CTabpageBorrow::IDD, L"借用枪支", pParent, pTabContainer)
-	: CDialogEx(CTabpageBorrow::IDD, NULL)
-	, m_bApprovalPass(FALSE)
+CTabpageBorrow::CTabpageBorrow(CWnd* pParent)
+	: CDialogEx(CTabpageBorrow::IDD, pParent)
+	, mApprovalPass(FALSE)
+	, mIDPass(FALSE)
+	, mGunPass(FALSE)
 	, mSexValue(_T("性别："))
 	, mPoliceIdValue(_T("警号："))
 	, mRankValue(_T("警衔："))
@@ -60,6 +61,7 @@ BEGIN_MESSAGE_MAP(CTabpageBorrow, CDialogEx)
 	ON_BN_CLICKED(IDC_RADIO_PASS, &CTabpageBorrow::OnBnClickedRadioPass)
 	ON_WM_CTLCOLOR()
 	ON_BN_CLICKED(IDC_RADIO_FAIL, &CTabpageBorrow::OnBnClickedRadioFail)
+	ON_BN_CLICKED(IDC_BUTTON_OK, &CTabpageBorrow::OnBnClickedButtonOk)
 END_MESSAGE_MAP()
 
 
@@ -108,18 +110,16 @@ void CTabpageBorrow::InitListCtrl()
 void CTabpageBorrow::OnBnClickedRadioFail()
 {
 	// TODO: Add your control notification handler code here
-	m_bApprovalPass = FALSE;
+	mApprovalPass = FALSE;
 	HBITMAP hLight = (HBITMAP)mBmpFail.GetSafeHandle();
-//	((CStatic*)GetDlgItem(IDC_STATIC_APPROVAL_LIGHT))->SetBitmap(hLight);
 	mApprovalLight->SetBitmap(hLight);
 }
 
 void CTabpageBorrow::OnBnClickedRadioPass()
 {
 	// TODO: Add your control notification handler code here
-	m_bApprovalPass = TRUE;
+	mApprovalPass = TRUE;
 	HBITMAP hLight = (HBITMAP)mBmpPass.GetSafeHandle();
-//	((CStatic*)GetDlgItem(IDC_STATIC_APPROVAL_LIGHT))->SetBitmap(hLight);
 	mApprovalLight->SetBitmap(hLight);
 }
 
@@ -130,11 +130,9 @@ void CTabpageBorrow::DoIDInput(CString id)
 	{
 		mIDPass = TRUE;
 		HBITMAP hLight = (HBITMAP)mBmpPass.GetSafeHandle();
-		//((CStatic*)GetDlgItem(IDC_STATIC_ID_LIGHT))->SetBitmap(hLight);
 		mIDLight->SetBitmap(hLight);
 
 		HBITMAP hHead = (HBITMAP)mBmpHead.GetSafeHandle();
-		//((CStatic*)GetDlgItem(IDC_STATIC_HEAD_PHOTO))->SetBitmap(hHead);
 		mHeadPhoto->SetBitmap(hHead);		
 		((CStatic*)GetDlgItem(IDC_STATIC_BASE_INFO))->SetWindowTextW(L"基本信息："+id);
 		mNameValue = L"姓名：   " + policeman->mName;
@@ -153,7 +151,6 @@ void CTabpageBorrow::DoIDInput(CString id)
 		HBITMAP hHead = (HBITMAP)mBmpHeadDef.GetSafeHandle();
 		mHeadPhoto->SetBitmap(hHead);		
 		((CStatic*)GetDlgItem(IDC_STATIC_BASE_INFO))->SetWindowTextW(L"基本信息：查无此人");
-	//	((CStatic*)GetDlgItem(IDC_STATIC_HEAD_PHOTO))->SetBitmap(hLight);
 
 		mNameValue = L"姓名：   ";
 		mSexValue = L"性别：   ";
@@ -169,6 +166,7 @@ void CTabpageBorrow::DoGunIDInput(CString gunId)
 	CGun* gun = CGunManager::GetInstance().GetGunById(gunId);
 	if (gun)
 	{
+		mGunPass = TRUE;
 		((CStatic*)GetDlgItem(IDC_STATIC_GUN_INFO))->SetWindowTextW(L"枪支信息："+gunId);
 		HBITMAP hGunPhoto = (HBITMAP)mBmpGun.GetSafeHandle();
 		mGunPhoto->SetBitmap(hGunPhoto);
@@ -179,11 +177,12 @@ void CTabpageBorrow::DoGunIDInput(CString gunId)
 		mGunStyleValue = L"枪支型号：  " + gun->mStyle;
 		mGunCountValue = L"枪支数量：  1" ;
 		mBulletStyleValue = L"子弹型号：  " + gun->mBullet;
-		mBulletCountValue = L"子弹数量：  4" + gun->mCountBullet;
+		mBulletCountValue.Format(L"子弹数量：  %d", gun->mCountBullet);
 		UpdateData(FALSE);
 	}
 	else
 	{
+		mGunPass = FALSE;
 		((CStatic*)GetDlgItem(IDC_STATIC_GUN_INFO))->SetWindowTextW(L"枪支信息：尚未入库");
 		mGunPhoto->SetBitmap(NULL);
 
@@ -220,4 +219,30 @@ BOOL CTabpageBorrow::PreTranslateMessage(MSG* pMsg)
 		return TRUE;
 	}
 	return CDialogEx::PreTranslateMessage(pMsg);
+}
+
+
+void CTabpageBorrow::OnBnClickedButtonOk()
+{
+	// TODO: Add your control notification handler code here
+	do{
+		if (!mApprovalPass)
+		{
+			::AfxMessageBox(L"领导审批未通过，不允许借用！");
+			break;
+		}
+	
+		if (!mIDPass)
+		{
+			::AfxMessageBox(L"身份证无效，不允许借用！");
+			break;
+		}
+		if (!mGunPass)
+		{
+			::AfxMessageBox(L"枪支未入库，不允许借用！");
+			break;
+		}
+
+		//DoBorrowGun();
+	}while (0);
 }

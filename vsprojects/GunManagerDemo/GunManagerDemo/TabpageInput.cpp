@@ -11,8 +11,8 @@
 
 IMPLEMENT_DYNAMIC(CTabpageInput, CDialogEx)
 
-CTabpageInput::CTabpageInput(CWnd* pParent, CTabCtrl* pTabContainer)
-	: CTabpageBase(CTabpageInput::IDD, L"–≈œ¢ ‰»Î", pParent, pTabContainer)
+CTabpageInput::CTabpageInput(CWnd* pParent)
+	: CDialogEx(CTabpageInput::IDD, pParent)
 {
 
 }

@@ -1,14 +1,13 @@
 #pragma once
 
-#include "TabpageBase.h"
 // CTabpageInput dialog
 
-class CTabpageInput : public CTabpageBase
+class CTabpageInput : public CDialogEx
 {
 	DECLARE_DYNAMIC(CTabpageInput)
 
 public:
-	CTabpageInput(CWnd* pParent, CTabCtrl* pTabContainer);   // standard constructor
+	CTabpageInput(CWnd* pParent = NULL);   // standard constructor
 	virtual ~CTabpageInput();
 
 // Dialog Data

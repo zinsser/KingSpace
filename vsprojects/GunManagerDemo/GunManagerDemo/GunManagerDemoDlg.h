@@ -10,7 +10,7 @@ using namespace std;
 #include "TabpageExport.h"
 #include "TabpageBorrow.h"
 // CGunManagerDemoDlg dialog
-class CTabpageBase;
+class CTabpageInfo;
 class CGunManagerDemoDlg : public CDialogEx
 {
 // Construction
@@ -40,7 +40,7 @@ private :
 
 private:
 	CTabCtrl mTabCtrlOpStage;
-	vector<CTabpageBase*>  mPageItems;
+	vector<CTabpageInfo*>  mPageItems;
 	CTabpageExport mTabpageExport;
 	CTabpageBorrow mTabpageBorrow;
 public:

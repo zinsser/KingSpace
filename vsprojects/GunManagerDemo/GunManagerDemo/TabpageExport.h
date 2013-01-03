@@ -1,6 +1,5 @@
 #pragma once
 
-#include "TabpageBase.h"
 // CTabpageExport dialog
 
 class CTabpageExport : public CDialogEx
@@ -8,7 +7,7 @@ class CTabpageExport : public CDialogEx
 	DECLARE_DYNAMIC(CTabpageExport)
 
 public:
-	CTabpageExport(CWnd* pParent = NULL, CTabCtrl* pTabContainer = NULL);   // standard constructor
+	CTabpageExport(CWnd* pParent = NULL);   // standard constructor
 	virtual ~CTabpageExport();
 
 // Dialog Data

@@ -1,16 +1,15 @@
 #pragma once
 
-#include "TabpageBase.h"
 #include "afxcmn.h"
 #include "afxwin.h"
 // CTabpageBorrow dialog
 
-class CTabpageBorrow : public CDialogEx //CTabpageBase
+class CTabpageBorrow : public CDialogEx 
 {
 	DECLARE_DYNAMIC(CTabpageBorrow)
 
 public:
-	CTabpageBorrow(CWnd* pParent = NULL, CTabCtrl* pTabContainer = NULL);   // standard constructor
+	CTabpageBorrow(CWnd* pParent = NULL);   // standard constructor
 	virtual ~CTabpageBorrow();
 
 // Dialog Data
@@ -31,7 +30,6 @@ public:
 	afx_msg void OnCbnSelchangeCombo2();
 	afx_msg void OnBnClickedRadioPass();
 	afx_msg void OnBnClickedRadioFail();
-//	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 
 public:
 	virtual BOOL OnInitDialog();
@@ -43,7 +41,8 @@ private:
 	CString mPoliceIdValue;
 	CString mRankValue;
 	BOOL mIDPass;
-	BOOL m_bApprovalPass;
+	BOOL mApprovalPass;
+	BOOL mGunPass;
 
 	CString mGunStyleValue;
 	CString mGunCountValue;
@@ -65,4 +64,6 @@ private:
 	CBitmap mBmpHead;
 	CBitmap mBmpGun;
 	CBitmap mBmpHeadDef;
+public:
+	afx_msg void OnBnClickedButtonOk();
 };

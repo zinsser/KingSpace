@@ -11,8 +11,7 @@
 
 IMPLEMENT_DYNAMIC(CTabpageExport, CDialogEx)
 
-CTabpageExport::CTabpageExport(CWnd* pParent, CTabCtrl* pTabContainer)
-//	: CTabpageBase(CTabpageExport::IDD, L"表格导出", pParent, pTabContainer)
+CTabpageExport::CTabpageExport(CWnd* pParent)
 	: CDialogEx(CTabpageExport::IDD, NULL)
 {
 }
