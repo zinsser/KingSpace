@@ -12,7 +12,6 @@ CTabpageInfo::~CTabpageInfo(void)
 	if (mDialog)
 	{
 		delete mDialog;
-		mDialog = NULL;
 	}
 }
 

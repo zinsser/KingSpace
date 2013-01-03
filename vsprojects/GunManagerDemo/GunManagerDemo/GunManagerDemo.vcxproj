@@ -102,10 +102,14 @@
     <None Include="res\GunManagerDemo.ico" />
     <None Include="res\GunManagerDemo.rc2" />
     <None Include="res\head.bmp" />
+    <None Include="res\normal.bmp" />
     <None Include="res\OOOPIC.bmp" />
     <None Include="res\Red.bmp" />
+    <None Include="res\small.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BorrowLogManager.h" />
+    <ClInclude Include="BorrowRecord.h" />
     <ClInclude Include="Gun.h" />
     <ClInclude Include="GunManager.h" />
     <ClInclude Include="GunManagerDemo.h" />
@@ -122,6 +126,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BorrowLogManager.cpp" />
     <ClCompile Include="GunManager.cpp" />
     <ClCompile Include="GunManagerDemo.cpp" />
     <ClCompile Include="GunManagerDemoDlg.cpp" />

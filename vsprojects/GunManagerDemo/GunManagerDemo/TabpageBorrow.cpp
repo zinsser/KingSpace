@@ -71,10 +71,44 @@ BOOL CTabpageBorrow::OnInitDialog()
 	CDialogEx::OnInitDialog();
 	InitControlPtrs();
 	InitListCtrl();
-//	InitLights();
-
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
+}
+
+void CTabpageBorrow::InitListCtrl( )
+{
+    //设置图标
+//    m_imgNormal.Create( MAKEINTRESOURCE(IDB_BITMAP_NORMAL),
+//        48, 48, RGB( 0, 0, 0 ) );
+//    m_imgSmall.Create( MAKEINTRESOURCE(IDB_BITMAP_SMALL),
+        //16, 16, RGB( 0, 0, 0 ) );
+//    m_ListBorrowRecord->SetImageList( &m_imgNormal, LVSIL_NORMAL );
+    //m_ListBorrowRecord->SetImageList( &m_imgSmall, LVSIL_SMALL );
+    //初始化列
+    m_ListBorrowRecord->InsertColumn( 0, L"名称", LVCFMT_LEFT, 150 );
+    m_ListBorrowRecord->InsertColumn( 1, L"长度", LVCFMT_LEFT, 150 );
+
+    CString strPath = L"C:\\*.*";
+    CFileFind find;
+    BOOL bFind = find.FindFile( strPath );
+    while( bFind )
+    {
+        bFind = find.FindNextFile( );
+        if( find.IsDirectory( ) )
+        {   //插入项
+            m_ListBorrowRecord->InsertItem( 0, find.GetFileName(), 0 );
+        }
+        else
+        {   //插入项
+            int nItem = m_ListBorrowRecord->InsertItem( 0, find.GetFileName(), 1 );
+            DWORD dwLen = find.GetLength( );
+            CString strLen;
+            strLen.Format( L"%d", dwLen );
+            //设置SubItem的字符串
+            m_ListBorrowRecord->SetItemText( nItem, 1, strLen );
+        }
+    }
+    find.Close( );
 }
 
 void CTabpageBorrow::InitControlPtrs()
@@ -90,7 +124,7 @@ void CTabpageBorrow::InitControlPtrs()
 		&& mIDLight != NULL && mGunLight != NULL
 		&& m_ListBorrowRecord != NULL && mGunPhoto);
 }
-
+/*
 void CTabpageBorrow::InitListCtrl()
 {
 	wchar_t *szColumn[]={L"昵称", L"IP地址", L"登陆时间", L"状态"};
@@ -103,13 +137,12 @@ void CTabpageBorrow::InitListCtrl()
 		lvc.pszText = szColumn[i];
 		lvc.cx = widths[i];
 		lvc.iSubItem = i;
-		((CListCtrl* )GetDlgItem(IDC_LIST_RECORD))->InsertColumn(i, &lvc);
+		m_ListBorrowRecord->InsertColumn(i, &lvc);
 	}
 }
-
+*/
 void CTabpageBorrow::OnBnClickedRadioFail()
 {
-	// TODO: Add your control notification handler code here
 	mApprovalPass = FALSE;
 	HBITMAP hLight = (HBITMAP)mBmpFail.GetSafeHandle();
 	mApprovalLight->SetBitmap(hLight);
@@ -117,7 +150,6 @@ void CTabpageBorrow::OnBnClickedRadioFail()
 
 void CTabpageBorrow::OnBnClickedRadioPass()
 {
-	// TODO: Add your control notification handler code here
 	mApprovalPass = TRUE;
 	HBITMAP hLight = (HBITMAP)mBmpPass.GetSafeHandle();
 	mApprovalLight->SetBitmap(hLight);
@@ -150,9 +182,9 @@ void CTabpageBorrow::DoIDInput(CString id)
 		((CStatic*)GetDlgItem(IDC_STATIC_ID_LIGHT))->SetBitmap(hLight);
 		HBITMAP hHead = (HBITMAP)mBmpHeadDef.GetSafeHandle();
 		mHeadPhoto->SetBitmap(hHead);		
-		((CStatic*)GetDlgItem(IDC_STATIC_BASE_INFO))->SetWindowTextW(L"基本信息：查无此人");
+		((CStatic*)GetDlgItem(IDC_STATIC_BASE_INFO))->SetWindowTextW(L"基本信息："+id);
 
-		mNameValue = L"姓名：   ";
+		mNameValue = L"姓名：   查无此人";
 		mSexValue = L"性别：   ";
 		mPoliceIdValue = L"警号：   ";
 		mRankValue = L"警衔：   ";
@@ -168,11 +200,12 @@ void CTabpageBorrow::DoGunIDInput(CString gunId)
 	{
 		mGunPass = TRUE;
 		((CStatic*)GetDlgItem(IDC_STATIC_GUN_INFO))->SetWindowTextW(L"枪支信息："+gunId);
-		HBITMAP hGunPhoto = (HBITMAP)mBmpGun.GetSafeHandle();
-		mGunPhoto->SetBitmap(hGunPhoto);
 
 		HBITMAP hLight = (HBITMAP)mBmpPass.GetSafeHandle();
 		mGunLight->SetBitmap(hLight);
+
+		HBITMAP hGunPhoto = (HBITMAP)mBmpGun.GetSafeHandle();
+		mGunPhoto->SetBitmap(hGunPhoto);
 
 		mGunStyleValue = L"枪支型号：  " + gun->mStyle;
 		mGunCountValue = L"枪支数量：  1" ;
@@ -183,13 +216,13 @@ void CTabpageBorrow::DoGunIDInput(CString gunId)
 	else
 	{
 		mGunPass = FALSE;
-		((CStatic*)GetDlgItem(IDC_STATIC_GUN_INFO))->SetWindowTextW(L"枪支信息：尚未入库");
+		((CStatic*)GetDlgItem(IDC_STATIC_GUN_INFO))->SetWindowTextW(L"枪支信息："+gunId);
 		mGunPhoto->SetBitmap(NULL);
 
 		HBITMAP hLight = (HBITMAP)mBmpFail.GetSafeHandle();
 		mGunLight->SetBitmap(hLight);
 
-		mGunStyleValue = L"枪支型号：  ";
+		mGunStyleValue = L"枪支型号：  尚未入库";
 		mGunCountValue = L"枪支数量：  1" ;
 		mBulletStyleValue = L"子弹型号：  ";
 		mBulletCountValue = L"子弹数量：  ";
@@ -244,5 +277,6 @@ void CTabpageBorrow::OnBnClickedButtonOk()
 		}
 
 		//DoBorrowGun();
+		::AfxMessageBox(L"    借用成功！\n是否打印回执?（是/否）");
 	}while (0);
 }

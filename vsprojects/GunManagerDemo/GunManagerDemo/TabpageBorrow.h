@@ -66,4 +66,7 @@ private:
 	CBitmap mBmpHeadDef;
 public:
 	afx_msg void OnBnClickedButtonOk();
+
+    CImageList m_imgNormal;
+    CImageList m_imgSmall;
 };
