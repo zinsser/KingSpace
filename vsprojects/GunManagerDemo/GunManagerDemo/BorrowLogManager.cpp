@@ -2,13 +2,14 @@
 #include "BorrowLogManager.h"
 #include "BorrowRecord.h"
 
-BorrowLogManager::BorrowLogManager(void)
+CBorrowLogManager::CBorrowLogManager(void)
 {
-	mRecords.push_back(new CBorrowRecord(L"123456789098765432", L"123456", L"2013-1-3_17:20:59", L"2013-1-4_17:20:59", FALSE));
+	mRecords.push_back(new CBorrowRecord(L"123456789098765432", L"123456", 1357218227, 1357218227, FALSE));
+
+	mRecords[0]->mEndTime = 1357218230;
 }
 
-
-BorrowLogManager::~BorrowLogManager(void)
+CBorrowLogManager::~CBorrowLogManager(void)
 {
 	vector<CBorrowRecord*>::const_iterator iter = mRecords.begin();
 	for (; iter != mRecords.end(); ++iter)
@@ -18,7 +19,7 @@ BorrowLogManager::~BorrowLogManager(void)
 	mRecords.clear();
 }
 
-void BorrowLogManager::GetRecordById(CString id, vector<CBorrowRecord*>& results)
+void CBorrowLogManager::GetRecordById(CString id, vector<CBorrowRecord*>& results)
 {
 	results.clear();
 	vector<CBorrowRecord*>::const_iterator iter = mRecords.begin();
@@ -31,7 +32,7 @@ void BorrowLogManager::GetRecordById(CString id, vector<CBorrowRecord*>& results
 	}
 }
 
-void BorrowLogManager::GetRecordByGunId(CString gunId, vector<CBorrowRecord*>& results)
+void CBorrowLogManager::GetRecordByGunId(CString gunId, vector<CBorrowRecord*>& results)
 {
 	results.clear();
 	vector<CBorrowRecord*>::const_iterator iter = mRecords.begin();
@@ -42,4 +43,9 @@ void BorrowLogManager::GetRecordByGunId(CString gunId, vector<CBorrowRecord*>& r
 			results.push_back(*iter);
 		}
 	}
+}
+
+void CBorrowLogManager::AddRecord(CBorrowRecord* record)
+{
+	mRecords.push_back(record);
 }

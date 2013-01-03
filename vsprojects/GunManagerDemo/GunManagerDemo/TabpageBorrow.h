@@ -2,8 +2,10 @@
 
 #include "afxcmn.h"
 #include "afxwin.h"
+#include "afxdtctl.h"
 // CTabpageBorrow dialog
-
+struct CPoliceman;
+struct CGun;
 class CTabpageBorrow : public CDialogEx 
 {
 	DECLARE_DYNAMIC(CTabpageBorrow)
@@ -25,6 +27,7 @@ private:
 	void InitLights();
 	void DoIDInput(CString id);
 	void DoGunIDInput(CString gunId);
+	void LoadBorrowRecords(CString id);
 
 public:
 	afx_msg void OnCbnSelchangeCombo2();
@@ -64,9 +67,13 @@ private:
 	CBitmap mBmpHead;
 	CBitmap mBmpGun;
 	CBitmap mBmpHeadDef;
+
+	CPoliceman* mCurrentPoliceman;
+	CGun* mCurrentGun;
 public:
 	afx_msg void OnBnClickedButtonOk();
-
-    CImageList m_imgNormal;
-    CImageList m_imgSmall;
+	CDateTimeCtrl mExpectDateCtrl;
+	CDateTimeCtrl mExpectTimeCtrl;
+	afx_msg void OnDtnDatetimechangeDatetimepicker1(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnDtnDatetimechangeDatetimepicker2(NMHDR *pNMHDR, LRESULT *pResult);
 };

@@ -11,6 +11,8 @@
 #include "Policeman.h"
 #include "GunManager.h"
 #include "Gun.h"
+#include "BorrowRecord.h"
+#include "BorrowLogManager.h"
 
 // CTabpageBorrow dialog
 
@@ -36,6 +38,9 @@ CTabpageBorrow::CTabpageBorrow(CWnd* pParent)
 	mBmpHead.LoadBitmapW(IDB_BITMAP_HEAD);
 	mBmpGun.LoadBitmapW(IDB_BITMAP_GUN_1);
 	mBmpHeadDef.LoadBitmapW(IDB_BITMAP_HEAD_DEF);
+
+	mCurrentPoliceman = NULL;
+	mCurrentGun = NULL;
 }
 
 CTabpageBorrow::~CTabpageBorrow()
@@ -54,6 +59,8 @@ void CTabpageBorrow::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_STATIC_GUN_COUNT, mGunCountValue);
 	DDX_Text(pDX, IDC_STATIC_BULLET_STYLE, mBulletStyleValue);
 	DDX_Text(pDX, IDC_STATIC_BULLET_COUNT, mBulletCountValue);
+	DDX_Control(pDX, IDC_DATETIMEPICKER1, mExpectDateCtrl);
+	DDX_Control(pDX, IDC_DATETIMEPICKER2, mExpectTimeCtrl);
 }
 
 
@@ -62,6 +69,8 @@ BEGIN_MESSAGE_MAP(CTabpageBorrow, CDialogEx)
 	ON_WM_CTLCOLOR()
 	ON_BN_CLICKED(IDC_RADIO_FAIL, &CTabpageBorrow::OnBnClickedRadioFail)
 	ON_BN_CLICKED(IDC_BUTTON_OK, &CTabpageBorrow::OnBnClickedButtonOk)
+	ON_NOTIFY(DTN_DATETIMECHANGE, IDC_DATETIMEPICKER1, &CTabpageBorrow::OnDtnDatetimechangeDatetimepicker1)
+	ON_NOTIFY(DTN_DATETIMECHANGE, IDC_DATETIMEPICKER2, &CTabpageBorrow::OnDtnDatetimechangeDatetimepicker2)
 END_MESSAGE_MAP()
 
 
@@ -77,38 +86,10 @@ BOOL CTabpageBorrow::OnInitDialog()
 
 void CTabpageBorrow::InitListCtrl( )
 {
-    //设置图标
-//    m_imgNormal.Create( MAKEINTRESOURCE(IDB_BITMAP_NORMAL),
-//        48, 48, RGB( 0, 0, 0 ) );
-//    m_imgSmall.Create( MAKEINTRESOURCE(IDB_BITMAP_SMALL),
-        //16, 16, RGB( 0, 0, 0 ) );
-//    m_ListBorrowRecord->SetImageList( &m_imgNormal, LVSIL_NORMAL );
-    //m_ListBorrowRecord->SetImageList( &m_imgSmall, LVSIL_SMALL );
     //初始化列
-    m_ListBorrowRecord->InsertColumn( 0, L"名称", LVCFMT_LEFT, 150 );
-    m_ListBorrowRecord->InsertColumn( 1, L"长度", LVCFMT_LEFT, 150 );
-
-    CString strPath = L"C:\\*.*";
-    CFileFind find;
-    BOOL bFind = find.FindFile( strPath );
-    while( bFind )
-    {
-        bFind = find.FindNextFile( );
-        if( find.IsDirectory( ) )
-        {   //插入项
-            m_ListBorrowRecord->InsertItem( 0, find.GetFileName(), 0 );
-        }
-        else
-        {   //插入项
-            int nItem = m_ListBorrowRecord->InsertItem( 0, find.GetFileName(), 1 );
-            DWORD dwLen = find.GetLength( );
-            CString strLen;
-            strLen.Format( L"%d", dwLen );
-            //设置SubItem的字符串
-            m_ListBorrowRecord->SetItemText( nItem, 1, strLen );
-        }
-    }
-    find.Close( );
+    m_ListBorrowRecord->InsertColumn(0, L"枪支型号", LVCFMT_LEFT, 150 );
+    m_ListBorrowRecord->InsertColumn(1, L"借用日期", LVCFMT_LEFT, 250 );
+	m_ListBorrowRecord->InsertColumn(2, L"归还日期", LVCFMT_LEFT, 250 );
 }
 
 void CTabpageBorrow::InitControlPtrs()
@@ -155,10 +136,37 @@ void CTabpageBorrow::OnBnClickedRadioPass()
 	mApprovalLight->SetBitmap(hLight);
 }
 
+void CTabpageBorrow::LoadBorrowRecords(CString id)
+{
+	vector<CBorrowRecord*> records;
+	CBorrowLogManager::GetInstance().GetRecordById(id, records);
+	if (records.size() > 0)
+	{
+		vector<CBorrowRecord*>::const_iterator iter = records.begin();
+		for (; iter != records.end(); ++iter)
+		{
+			CString gunId = (*iter)->mGunId;
+
+			CGun* gun = CGunManager::GetInstance().GetGunById(gunId);
+			int nItem = m_ListBorrowRecord->InsertItem(0, gun->mStyle);
+			
+			m_ListBorrowRecord->SetItemText(nItem, 1, CBorrowRecord::FormatTimeString((*iter)->mStartTime));
+			if ((*iter)->mEndTime == 0)
+			{
+				m_ListBorrowRecord->SetItemText(nItem, 2, L"尚未归还");
+			}
+			else
+			{
+				m_ListBorrowRecord->SetItemText(nItem, 2, CBorrowRecord::FormatTimeString((*iter)->mEndTime));
+			}
+		}
+	}
+}
+
 void CTabpageBorrow::DoIDInput(CString id)
 {
-	CPoliceman* policeman = CPolicemanManager::GetInstance().GetPolicemanById(id);
-	if (policeman)
+	mCurrentPoliceman = CPolicemanManager::GetInstance().GetPolicemanById(id);
+	if (mCurrentPoliceman)
 	{
 		mIDPass = TRUE;
 		HBITMAP hLight = (HBITMAP)mBmpPass.GetSafeHandle();
@@ -167,10 +175,12 @@ void CTabpageBorrow::DoIDInput(CString id)
 		HBITMAP hHead = (HBITMAP)mBmpHead.GetSafeHandle();
 		mHeadPhoto->SetBitmap(hHead);		
 		((CStatic*)GetDlgItem(IDC_STATIC_BASE_INFO))->SetWindowTextW(L"基本信息："+id);
-		mNameValue = L"姓名：   " + policeman->mName;
-		mSexValue = L"性别：   " + policeman->mSex;
-		mPoliceIdValue = L"警号：   " + policeman->mNumber;
-		mRankValue = L"警衔：   " + policeman->mRank;	
+		mNameValue = L"姓名：   " + mCurrentPoliceman->mName;
+		mSexValue = L"性别：   " + mCurrentPoliceman->mSex;
+		mPoliceIdValue = L"警号：   " + mCurrentPoliceman->mNumber;
+		mRankValue = L"警衔：   " + mCurrentPoliceman->mRank;	
+
+		LoadBorrowRecords(id);
 
 		UpdateData(FALSE);
 	}
@@ -195,8 +205,8 @@ void CTabpageBorrow::DoIDInput(CString id)
 
 void CTabpageBorrow::DoGunIDInput(CString gunId)
 {
-	CGun* gun = CGunManager::GetInstance().GetGunById(gunId);
-	if (gun)
+	mCurrentGun = CGunManager::GetInstance().GetGunById(gunId);
+	if (mCurrentGun)
 	{
 		mGunPass = TRUE;
 		((CStatic*)GetDlgItem(IDC_STATIC_GUN_INFO))->SetWindowTextW(L"枪支信息："+gunId);
@@ -207,10 +217,10 @@ void CTabpageBorrow::DoGunIDInput(CString gunId)
 		HBITMAP hGunPhoto = (HBITMAP)mBmpGun.GetSafeHandle();
 		mGunPhoto->SetBitmap(hGunPhoto);
 
-		mGunStyleValue = L"枪支型号：  " + gun->mStyle;
+		mGunStyleValue = L"枪支型号：  " + mCurrentGun->mStyle;
 		mGunCountValue = L"枪支数量：  1" ;
-		mBulletStyleValue = L"子弹型号：  " + gun->mBullet;
-		mBulletCountValue.Format(L"子弹数量：  %d", gun->mCountBullet);
+		mBulletStyleValue = L"子弹型号：  " + mCurrentGun->mBullet;
+		mBulletCountValue.Format(L"子弹数量：  %d", mCurrentGun->mCountBullet);
 		UpdateData(FALSE);
 	}
 	else
@@ -270,13 +280,39 @@ void CTabpageBorrow::OnBnClickedButtonOk()
 			::AfxMessageBox(L"身份证无效，不允许借用！");
 			break;
 		}
+		
 		if (!mGunPass)
 		{
 			::AfxMessageBox(L"枪支未入库，不允许借用！");
 			break;
 		}
 
-		//DoBorrowGun();
+		CTime startTime = CTime::GetCurrentTime();
+		CTime expectTime;
+		mExpectTimeCtrl.GetTime(expectTime);
+		CBorrowLogManager::GetInstance().AddRecord(new CBorrowRecord(mCurrentPoliceman->mID, mCurrentGun->mGunId, startTime.GetTime(), expectTime.GetTime(), FALSE));
 		::AfxMessageBox(L"    借用成功！\n是否打印回执?（是/否）");
 	}while (0);
+}
+
+
+void CTabpageBorrow::OnDtnDatetimechangeDatetimepicker1(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMDATETIMECHANGE pDTChange = reinterpret_cast<LPNMDATETIMECHANGE>(pNMHDR);
+
+	CTime tm;
+	mExpectDateCtrl.GetTime(tm);
+	mExpectTimeCtrl.SetTime(&tm);
+	*pResult = 0;
+}
+
+
+void CTabpageBorrow::OnDtnDatetimechangeDatetimepicker2(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMDATETIMECHANGE pDTChange = reinterpret_cast<LPNMDATETIMECHANGE>(pNMHDR);
+
+	CTime tm;
+	mExpectTimeCtrl.GetTime(tm);
+	mExpectDateCtrl.SetTime(&tm);
+	*pResult = 0;
 }

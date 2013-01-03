@@ -1,8 +1,10 @@
 #pragma once
 #include "afxwin.h"
+#include "afxcmn.h"
+#include "afxdtctl.h"
 
 // CTabpageLend dialog
-
+struct CBorrowRecord;
 class CTabpageLend : public CDialogEx
 {
 	DECLARE_DYNAMIC(CTabpageLend)
@@ -20,8 +22,11 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 private:
+	void InitListCtrl();
 	void DoIDInput(CString id);
 	void DoGunIDInput(CString gunId);
+	void LoadBorrowRecords(CString id);
+	void UpdateTimeLight(CString gunId);
 
 public:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
@@ -37,6 +42,8 @@ private:
 	CBitmap mBmpHead;
 	CBitmap mBmpGun;
 	CBitmap mBmpHeadDef;
+
+	CBorrowRecord* mCurrentRecord;
 private:
 	CStatic mTimeLight;
 	CStatic mHeadPhoto;
@@ -51,4 +58,13 @@ private:
 	CString mGunCountValue;
 	CString mBulletStyleValue;
 	CString mBulletCountValue;
+private:
+	CListCtrl mListBorrowLog;
+	CDateTimeCtrl mEndDateCtrl;
+	CDateTimeCtrl mEndTimeCtrl;
+public:
+	CDateTimeCtrl mExpectDateCtrl;
+	CDateTimeCtrl mExpectTimeCtrl;
+	virtual BOOL OnInitDialog();
+	afx_msg void OnBnClickedButtonReturnOk();
 };

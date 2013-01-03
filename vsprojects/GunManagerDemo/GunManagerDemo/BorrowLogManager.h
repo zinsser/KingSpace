@@ -3,25 +3,26 @@
 #include <vector>
 using namespace std;
 
-struct BorrowRecord;
-class BorrowLogManager
+struct CBorrowRecord;
+class CBorrowLogManager
 {
 private:
-	BorrowLogManager(void);
-	BorrowLogManager(const BorrowLogManager&);
-	BorrowLogManager& operator=(const BorrowLogManager&);
+	CBorrowLogManager(void);
+	CBorrowLogManager(const CBorrowLogManager&);
+	CBorrowLogManager& operator=(const CBorrowLogManager&);
 public:
-	~BorrowLogManager(void);
+	~CBorrowLogManager(void);
 
-	static BorrowLogManager& GetInstance()
+	static CBorrowLogManager& GetInstance()
 	{
-		static BorrowLogManager s_BorrowLogManager;
+		static CBorrowLogManager s_BorrowLogManager;
 		return s_BorrowLogManager;
 	}
 
 	void GetRecordById(CString id, vector<CBorrowRecord*>& results);
 	void GetRecordByGunId(CString gunId, vector<CBorrowRecord*>& results);
+	void AddRecord(CBorrowRecord* record);
 private:
-	vector<BorrowRecord*> mRecords;
+	vector<CBorrowRecord*> mRecords;
 };
 

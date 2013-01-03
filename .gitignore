@@ -12,4 +12,5 @@ ipch
 *.filters
 *.opensdf
 Debug
+Release
 
