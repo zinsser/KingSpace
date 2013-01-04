@@ -18,7 +18,9 @@ public:
 	}
 public:
 	CPoliceman* GetPolicemanById(CString id);
-
+	void AddPoliceman(CString id, CString number, CString name, CString sex, CString rank,
+		CString agency, CString officiate, CString job, CString gunHoldId,
+		CString telephone, BOOL isInstructor, BOOL isStudent);
 private:
 	vector<CPoliceman*> mPolicemans;
 };

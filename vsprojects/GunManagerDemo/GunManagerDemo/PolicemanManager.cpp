@@ -32,3 +32,10 @@ CPoliceman* CPolicemanManager::GetPolicemanById(CString id)
 	return NULL;
 }
 
+void CPolicemanManager::AddPoliceman(CString id, CString number, CString name, CString sex, CString rank,
+		CString agency, CString officiate, CString job, CString gunHoldId,
+		CString telephone, BOOL isInstructor, BOOL isStudent)
+{
+	mPolicemans.push_back(new CPoliceman(id, number, name, sex, rank, agency, officiate,
+		job, gunHoldId, telephone, isInstructor, isStudent));
+}

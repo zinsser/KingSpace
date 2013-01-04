@@ -23,6 +23,7 @@ public class RootAppDemoActivity extends Activity {
         	mPackageMgr.setComponentEnabledSetting(mAppDetailInfoComponent, 
 				PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 
 				PackageManager.DONT_KILL_APP);
+    		((TextView)findViewById(R.id.textViewHello)).setText("operation success!");
     	}else{
     		((TextView)findViewById(R.id.textViewHello)).setText("package manager create error!");
     	}
