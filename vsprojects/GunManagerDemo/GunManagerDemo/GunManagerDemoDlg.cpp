@@ -180,24 +180,21 @@ void CGunManagerDemoDlg::OnInitTabpage()
 {
 	UINT defaultIndex = 0;
 	mTabCtrlOpStage.SetCurSel(defaultIndex);
-
-	if (mPageItems[defaultIndex] != NULL
-		&& mPageItems[defaultIndex]->GetIndex() == defaultIndex)
-	{
-		mPageItems[defaultIndex]->ShowPage(SW_SHOW);
-	}
+	ShowPage(defaultIndex);
 }
 
 void CGunManagerDemoDlg::OnTcnSelchangeOpStage(NMHDR *pNMHDR, LRESULT *pResult)
 {
+	ShowPage(mTabCtrlOpStage.GetCurSel());
+	*pResult = 0;
+}
 
-	int curSel = mTabCtrlOpStage.GetCurSel();
+void CGunManagerDemoDlg::ShowPage(int index)
+{
 	for (vector<CTabpageInfo*>::iterator iter = mPageItems.begin();
 		iter != mPageItems.end(); ++iter)
 	{
-		(*iter)->ShowPage((*iter)->GetIndex() == curSel ? SW_SHOW : SW_HIDE);
+		(*iter)->ShowPage((*iter)->GetIndex() == index ? SW_SHOW : SW_HIDE);
 	}
-
-	*pResult = 0;
 }
 

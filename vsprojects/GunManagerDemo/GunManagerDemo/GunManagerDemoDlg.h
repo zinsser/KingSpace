@@ -34,6 +34,7 @@ protected:
 
 private :
 	void OnInitTabpage();
+	void ShowPage(int index);
 
 private:
 	CTabCtrl mTabCtrlOpStage;

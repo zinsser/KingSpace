@@ -110,6 +110,7 @@
   <ItemGroup>
     <ClInclude Include="BorrowLogManager.h" />
     <ClInclude Include="BorrowRecord.h" />
+    <ClInclude Include="ExcelCtrl.h" />
     <ClInclude Include="Gun.h" />
     <ClInclude Include="GunManager.h" />
     <ClInclude Include="GunManagerDemo.h" />
@@ -127,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BorrowLogManager.cpp" />
+    <ClCompile Include="ExcelCtrl.cpp" />
     <ClCompile Include="GunManager.cpp" />
     <ClCompile Include="GunManagerDemo.cpp" />
     <ClCompile Include="GunManagerDemoDlg.cpp" />

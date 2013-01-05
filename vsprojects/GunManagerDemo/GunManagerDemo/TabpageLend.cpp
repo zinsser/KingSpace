@@ -262,9 +262,16 @@ void CTabpageLend::OnBnClickedButtonReturnOk()
 	// TODO: Add your control notification handler code here
 	if (mCurrentRecord)
 	{
-		mCurrentRecord->mEndTime = CTime::GetCurrentTime().GetTime();
-		LoadBorrowRecords(mCurrentRecord->mId);
-		::AfxMessageBox(L"还枪成功！");
-		mCurrentRecord = NULL;
+		if (CTime::GetCurrentTime().GetTime() < mCurrentRecord->mExpectTime)
+		{
+			mCurrentRecord->mEndTime = CTime::GetCurrentTime().GetTime();
+			LoadBorrowRecords(mCurrentRecord->mId);
+			::AfxMessageBox(L"还枪成功！");
+			mCurrentRecord = NULL;		
+		}else{
+			::AfxMessageBox(L"超过预期还枪时间，还枪失败！");		
+		}
+	}else{
+		::AfxMessageBox(L"没有该枪的借用记录！请没收该枪！");		
 	}
 }

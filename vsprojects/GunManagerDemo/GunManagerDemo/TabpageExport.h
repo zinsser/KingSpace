@@ -1,4 +1,6 @@
 #pragma once
+#include "afxwin.h"
+#include "afxcmn.h"
 
 // CTabpageExport dialog
 
@@ -17,7 +19,21 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 	DECLARE_MESSAGE_MAP()
+
+private:
+	void UpdatePersonData();
+	void UpdateBulletLibData();
+	void ExportExcelFromList(CListCtrl* listCtrl);
 public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnLbnSelchangeList2();
+	afx_msg void OnBnClickedButtonExportPerson();
+
+	CListCtrl mListPerson;
+	CListCtrl mListGunBorrow;
+	CListCtrl mListBulletBorrow;
+	CListCtrl mListBulletLib;
+	afx_msg void OnBnClickedButtonBulletLib();
+	afx_msg void OnBnClickedButtonGunBorrow();
+	afx_msg void OnBnClickedButtonBulletBorrow();
 };
