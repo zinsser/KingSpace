@@ -39,9 +39,9 @@ private :
 private:
 	CTabCtrl mTabCtrlOpStage;
 	vector<CTabpageInfo*>  mPageItems;
-//	CTabpageExport mTabpageExport;
-//	CTabpageBorrow mTabpageBorrow;
+	CBrush   mBlueBrush;
 public:
 	afx_msg void OnTcnSelchangeOpStage(NMHDR *pNMHDR, LRESULT *pResult);
 
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };

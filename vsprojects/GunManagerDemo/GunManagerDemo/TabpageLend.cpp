@@ -63,11 +63,17 @@ void CTabpageLend::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DATETIMEPICKER4, mEndTimeCtrl);
 	DDX_Control(pDX, IDC_DATETIMEPICKER1, mExpectDateCtrl);
 	DDX_Control(pDX, IDC_DATETIMEPICKER3, mExpectTimeCtrl);
+	DDX_Control(pDX, IDC_STATIC_BASE_INFO, mGroupboxBaseinfo);
+	DDX_Control(pDX, IDC_STATIC_GUN_INFO, mGroupboxGuninfo);
+	DDX_Control(pDX, IDC_STATIC_BORROW_INFO, mGroupboxBorrowinfo);
+	DDX_Control(pDX, IDC_STATIC_DOER, mGroupboxDoer);
 }
 
 
 BEGIN_MESSAGE_MAP(CTabpageLend, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_RETURN_OK, &CTabpageLend::OnBnClickedButtonReturnOk)
+	ON_WM_PAINT()
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -141,7 +147,7 @@ void CTabpageLend::DoIDInput(CString id)
 
 		HBITMAP hHead = (HBITMAP)mBmpHead.GetSafeHandle();
 		mHeadPhoto.SetBitmap(hHead);		
-		((CStatic*)GetDlgItem(IDC_STATIC_BASE_INFO))->SetWindowTextW(L"基本信息："+id);
+		mGroupboxBaseinfo.SetWindowTextW(L"基本信息："+id);
 		mNameValue = L"姓名：   " + policeman->mName;
 		mSexValue = L"性别：   " + policeman->mSex;
 		mRankValue = L"警衔：   " + policeman->mRank;	
@@ -158,7 +164,7 @@ void CTabpageLend::DoIDInput(CString id)
 		mIDLight.SetBitmap(hLight);
 		HBITMAP hHead = (HBITMAP)mBmpHeadDef.GetSafeHandle();
 		mHeadPhoto.SetBitmap(hHead);		
-		((CStatic*)GetDlgItem(IDC_STATIC_BASE_INFO))->SetWindowTextW(L"基本信息："+id);
+		mGroupboxBaseinfo.SetWindowTextW(L"基本信息："+id);
 
 		mNameValue = L"姓名：   查无此人";
 		mSexValue = L"性别：   ";
@@ -212,7 +218,7 @@ void CTabpageLend::DoGunIDInput(CString gunId)
 	if (gun)
 	{
 		mGunPass = TRUE;
-		((CStatic*)GetDlgItem(IDC_STATIC_GUN_INFO))->SetWindowTextW(L"枪支信息："+gunId);
+		mGroupboxGuninfo.SetWindowTextW(L"枪支信息："+gunId);
 		HBITMAP hGunPhoto = (HBITMAP)mBmpGun.GetSafeHandle();
 		mGunPhoto.SetBitmap(hGunPhoto);
 
@@ -231,7 +237,7 @@ void CTabpageLend::DoGunIDInput(CString gunId)
 	else
 	{
 		mGunPass = FALSE;
-		((CStatic*)GetDlgItem(IDC_STATIC_GUN_INFO))->SetWindowTextW(L"枪支信息："+gunId);
+		mGroupboxGuninfo.SetWindowTextW(L"枪支信息："+gunId);
 		mGunPhoto.SetBitmap(NULL);
 
 		HBITMAP hLight = (HBITMAP)mBmpFail.GetSafeHandle();
@@ -252,6 +258,20 @@ BOOL CTabpageLend::OnInitDialog()
 
 	// TODO:  Add extra initialization here
 	InitListCtrl();
+	mBlueBrush.CreateSolidBrush(RGB(41, 22, 111));
+
+	COLORREF bkColor = RGB(41, 22, 111);
+	COLORREF fontColor = RGB(255, 255, 255);
+	mBlueBrush.CreateSolidBrush(bkColor);
+	mGroupboxBaseinfo.SetBackgroundColor(bkColor, bkColor);
+	mGroupboxBaseinfo.SetCatptionTextColor(fontColor);
+
+	mGroupboxGuninfo.SetBackgroundColor(bkColor, bkColor);
+	mGroupboxGuninfo.SetCatptionTextColor(fontColor);
+	mGroupboxBorrowinfo.SetBackgroundColor(bkColor, bkColor);
+	mGroupboxBorrowinfo.SetCatptionTextColor(fontColor);
+	mGroupboxDoer.SetBackgroundColor(bkColor, bkColor);
+	mGroupboxDoer.SetCatptionTextColor(fontColor);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -274,4 +294,31 @@ void CTabpageLend::OnBnClickedButtonReturnOk()
 	}else{
 		::AfxMessageBox(L"没有该枪的借用记录！请没收该枪！");		
 	}
+}
+
+
+void CTabpageLend::OnPaint()
+{
+	CPaintDC dc(this); // device context for painting
+	// TODO: Add your message handler code here
+	// Do not call CDialogEx::OnPaint() for painting messages
+	CRect   rect;
+	GetClientRect(rect);
+	dc.FillSolidRect(rect,RGB(41,22,111));   //设置为绿色背景
+}
+
+
+HBRUSH CTabpageLend::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  Change any attributes of the DC here
+	if (nCtlColor != CTLCOLOR_EDIT)
+	{
+		pDC->SetBkColor(RGB(41, 22, 111));
+		pDC->SetTextColor(RGB(255,255,255));
+		pDC->SetBkMode(TRANSPARENT);
+	}
+	// TODO:  Return a different brush if the default is not desired
+	return (HBRUSH)mBlueBrush.GetSafeHandle();
 }

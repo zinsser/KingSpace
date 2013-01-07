@@ -18,7 +18,15 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 	DECLARE_MESSAGE_MAP()
-public:
+private:
+	
+	afx_msg void OnBnClickedButtonOk();
+	afx_msg void OnBnClickedButtonCancel();
+	afx_msg void OnPaint();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	virtual BOOL OnInitDialog();
+	
+private:
 	CString mEditNameValue;
 	CString mEditID;
 	CString mEditPhoneValue;
@@ -28,10 +36,10 @@ public:
 	CString mEditPoliceRank;
 	CString mEditHolderID;
 	CString mEditJob;
-	afx_msg void OnBnClickedButtonOk();
-	afx_msg void OnBnClickedButtonCancel();
+
+	CBrush   mBlueBrush;
+
 	CComboBox mComboSex;
 	CComboBox mComboInstructor;
 	CComboBox mComboStudent;
-	virtual BOOL OnInitDialog();
 };

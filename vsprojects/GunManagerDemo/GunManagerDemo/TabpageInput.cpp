@@ -53,6 +53,8 @@ void CTabpageInput::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CTabpageInput, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_OK, &CTabpageInput::OnBnClickedButtonOk)
 	ON_BN_CLICKED(IDC_BUTTON_CANCEL, &CTabpageInput::OnBnClickedButtonCancel)
+	ON_WM_PAINT()
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -106,6 +108,34 @@ BOOL CTabpageInput::OnInitDialog()
 	mComboStudent.AddString(L"是");
 	mComboStudent.AddString(L"否");
 	mComboStudent.SetCurSel(0);
+	mBlueBrush.CreateSolidBrush(RGB(41, 22, 111));
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
+}
+
+
+void CTabpageInput::OnPaint()
+{
+	CPaintDC dc(this); // device context for painting
+	// TODO: Add your message handler code here
+	// Do not call CDialogEx::OnPaint() for painting messages
+	CRect   rect;
+	GetClientRect(rect);
+	dc.FillSolidRect(rect,RGB(41,22,111));   //设置为绿色背景
+}
+
+
+HBRUSH CTabpageInput::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  Change any attributes of the DC here
+	if (nCtlColor != CTLCOLOR_EDIT)
+	{
+		pDC->SetBkColor(RGB(41, 22, 111));
+		pDC->SetTextColor(RGB(255,255,255));
+		pDC->SetBkMode(TRANSPARENT);
+	}
+	// TODO:  Return a different brush if the default is not desired
+	return (HBRUSH)mBlueBrush.GetSafeHandle();
 }

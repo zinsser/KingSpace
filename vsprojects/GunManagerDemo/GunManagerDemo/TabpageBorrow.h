@@ -3,6 +3,7 @@
 #include "afxcmn.h"
 #include "afxwin.h"
 #include "afxdtctl.h"
+#include "XPGroupBox.h"
 // CTabpageBorrow dialog
 struct CPoliceman;
 struct CGun;
@@ -70,10 +71,18 @@ private:
 
 	CPoliceman* mCurrentPoliceman;
 	CGun* mCurrentGun;
+
+	CBrush mBlueBrush ;
 public:
 	afx_msg void OnBnClickedButtonOk();
 	CDateTimeCtrl mExpectDateCtrl;
 	CDateTimeCtrl mExpectTimeCtrl;
 	afx_msg void OnDtnDatetimechangeDatetimepicker1(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnDtnDatetimechangeDatetimepicker2(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnPaint();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	CXPGroupBox mGroupboxBaseinfo;
+	CXPGroupBox mGroupboxGuninfo;
+	CXPGroupBox mGroupboxBorrowinfo;
+	CXPGroupBox mGroupboxDoer;
 };

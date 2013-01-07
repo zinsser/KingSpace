@@ -24,7 +24,14 @@ private:
 	void UpdatePersonData();
 	void UpdateBulletLibData();
 	void ExportExcelFromList(CListCtrl* listCtrl);
-public:
+
+	afx_msg void OnBnClickedButtonBulletLib();
+	afx_msg void OnBnClickedButtonGunBorrow();
+	afx_msg void OnBnClickedButtonBulletBorrow();
+	afx_msg void OnPaint();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+
+private:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnLbnSelchangeList2();
 	afx_msg void OnBnClickedButtonExportPerson();
@@ -33,7 +40,6 @@ public:
 	CListCtrl mListGunBorrow;
 	CListCtrl mListBulletBorrow;
 	CListCtrl mListBulletLib;
-	afx_msg void OnBnClickedButtonBulletLib();
-	afx_msg void OnBnClickedButtonGunBorrow();
-	afx_msg void OnBnClickedButtonBulletBorrow();
+
+	CBrush   mBlueBrush;
 };

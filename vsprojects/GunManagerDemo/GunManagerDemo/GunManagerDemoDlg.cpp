@@ -78,6 +78,7 @@ BEGIN_MESSAGE_MAP(CGunManagerDemoDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_NOTIFY(TCN_SELCHANGE, IDC_OP_STAGE, &CGunManagerDemoDlg::OnTcnSelchangeOpStage)
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -124,6 +125,7 @@ BOOL CGunManagerDemoDlg::OnInitDialog()
 
 	OnInitTabpage();
 	ShowWindow(SW_MAXIMIZE);
+	mBlueBrush.CreateSolidBrush(RGB(41, 22, 111));
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -165,6 +167,10 @@ void CGunManagerDemoDlg::OnPaint()
 	}
 	else
 	{
+		CRect   rect;
+		CPaintDC   dc(this);
+		GetClientRect(rect);
+		dc.FillSolidRect(rect,RGB(41,22,111));   //ÉèÖÃÎªÂÌÉ«±³¾°
 		CDialogEx::OnPaint();
 	}
 }
@@ -198,3 +204,19 @@ void CGunManagerDemoDlg::ShowPage(int index)
 	}
 }
 
+
+
+HBRUSH CGunManagerDemoDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  Change any attributes of the DC here
+	if (nCtlColor != CTLCOLOR_EDIT)
+	{
+		pDC->SetBkColor(RGB(41, 22, 111));
+		pDC->SetTextColor(RGB(255,255,255));
+		pDC->SetBkMode(TRANSPARENT);
+	}
+	// TODO:  Return a different brush if the default is not desired
+	return (HBRUSH)mBlueBrush.GetSafeHandle();
+}

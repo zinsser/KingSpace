@@ -41,6 +41,8 @@ BEGIN_MESSAGE_MAP(CTabpageExport, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_BULLET_LIB, &CTabpageExport::OnBnClickedButtonBulletLib)
 	ON_BN_CLICKED(IDC_BUTTON_GUN_BORROW, &CTabpageExport::OnBnClickedButtonGunBorrow)
 	ON_BN_CLICKED(IDC_BUTTON_BULLET_BORROW, &CTabpageExport::OnBnClickedButtonBulletBorrow)
+	ON_WM_PAINT()
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -108,6 +110,8 @@ BOOL CTabpageExport::OnInitDialog()
 
 	UpdatePersonData();
 	UpdateBulletLibData();
+
+	mBlueBrush.CreateSolidBrush(RGB(41, 22, 111));
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -256,4 +260,31 @@ void CTabpageExport::OnBnClickedButtonBulletBorrow()
 {
 	// TODO: Add your control notification handler code here
 	ExportExcelFromList(&mListBulletBorrow);
+}
+
+
+void CTabpageExport::OnPaint()
+{
+	CPaintDC dc(this); // device context for painting
+	// TODO: Add your message handler code here
+	// Do not call CDialogEx::OnPaint() for painting messages
+	CRect   rect;
+	GetClientRect(rect);
+	dc.FillSolidRect(rect,RGB(41,22,111));   //ÉèÖÃÎªÂÌÉ«±³¾°
+}
+
+
+HBRUSH CTabpageExport::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  Change any attributes of the DC here
+	if (nCtlColor != CTLCOLOR_EDIT)
+	{
+		pDC->SetBkColor(RGB(41, 22, 111));
+		pDC->SetTextColor(RGB(255,255,255));
+		pDC->SetBkMode(TRANSPARENT);
+	}
+	// TODO:  Return a different brush if the default is not desired
+	return (HBRUSH)mBlueBrush.GetSafeHandle();;
 }

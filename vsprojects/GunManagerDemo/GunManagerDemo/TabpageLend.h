@@ -2,7 +2,7 @@
 #include "afxwin.h"
 #include "afxcmn.h"
 #include "afxdtctl.h"
-
+#include "XPGroupBox.h"
 // CTabpageLend dialog
 struct CBorrowRecord;
 class CTabpageLend : public CDialogEx
@@ -43,6 +43,8 @@ private:
 	CBitmap mBmpGun;
 	CBitmap mBmpHeadDef;
 
+	CBrush   mBlueBrush;
+
 	CBorrowRecord* mCurrentRecord;
 private:
 	CStatic mTimeLight;
@@ -67,4 +69,10 @@ public:
 	CDateTimeCtrl mExpectTimeCtrl;
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedButtonReturnOk();
+	afx_msg void OnPaint();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	CXPGroupBox mGroupboxBaseinfo;
+	CXPGroupBox mGroupboxGuninfo;
+	CXPGroupBox mGroupboxBorrowinfo;
+	CXPGroupBox mGroupboxDoer;
 };

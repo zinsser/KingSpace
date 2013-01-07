@@ -61,6 +61,10 @@ void CTabpageBorrow::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_STATIC_BULLET_COUNT, mBulletCountValue);
 	DDX_Control(pDX, IDC_DATETIMEPICKER1, mExpectDateCtrl);
 	DDX_Control(pDX, IDC_DATETIMEPICKER2, mExpectTimeCtrl);
+	DDX_Control(pDX, IDC_STATIC_BASE_INFO, mGroupboxBaseinfo);
+	DDX_Control(pDX, IDC_STATIC_GUN_INFO, mGroupboxGuninfo);
+	DDX_Control(pDX, IDC_STATIC_BORROW_INFO, mGroupboxBorrowinfo);
+	DDX_Control(pDX, IDC_STATIC_DOER, mGroupboxDoer);
 }
 
 
@@ -71,6 +75,8 @@ BEGIN_MESSAGE_MAP(CTabpageBorrow, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_OK, &CTabpageBorrow::OnBnClickedButtonOk)
 	ON_NOTIFY(DTN_DATETIMECHANGE, IDC_DATETIMEPICKER1, &CTabpageBorrow::OnDtnDatetimechangeDatetimepicker1)
 	ON_NOTIFY(DTN_DATETIMECHANGE, IDC_DATETIMEPICKER2, &CTabpageBorrow::OnDtnDatetimechangeDatetimepicker2)
+	ON_WM_PAINT()
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -80,6 +86,19 @@ BOOL CTabpageBorrow::OnInitDialog()
 	CDialogEx::OnInitDialog();
 	InitControlPtrs();
 	InitListCtrl();
+
+	COLORREF bkColor = RGB(41, 22, 111);
+	COLORREF fontColor = RGB(255, 255, 255);
+	mBlueBrush.CreateSolidBrush(bkColor);
+	mGroupboxBaseinfo.SetBackgroundColor(bkColor, bkColor);
+	mGroupboxBaseinfo.SetCatptionTextColor(fontColor);
+
+	mGroupboxGuninfo.SetBackgroundColor(bkColor, bkColor);
+	mGroupboxGuninfo.SetCatptionTextColor(fontColor);
+	mGroupboxBorrowinfo.SetBackgroundColor(bkColor, bkColor);
+	mGroupboxBorrowinfo.SetCatptionTextColor(fontColor);
+	mGroupboxDoer.SetBackgroundColor(bkColor, bkColor);
+	mGroupboxDoer.SetCatptionTextColor(fontColor);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -105,23 +124,7 @@ void CTabpageBorrow::InitControlPtrs()
 		&& mIDLight != NULL && mGunLight != NULL
 		&& m_ListBorrowRecord != NULL && mGunPhoto);
 }
-/*
-void CTabpageBorrow::InitListCtrl()
-{
-	wchar_t *szColumn[]={L"昵称", L"IP地址", L"登陆时间", L"状态"};
-	int widths[]={100, 98, 70, 55};
-	LV_COLUMN lvc;
-	lvc.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
-	lvc.fmt = LVCFMT_LEFT;
-	for(int i = 0; i < 4; i++) 
-	{//插入各列
-		lvc.pszText = szColumn[i];
-		lvc.cx = widths[i];
-		lvc.iSubItem = i;
-		m_ListBorrowRecord->InsertColumn(i, &lvc);
-	}
-}
-*/
+
 void CTabpageBorrow::OnBnClickedRadioFail()
 {
 	mApprovalPass = FALSE;
@@ -174,7 +177,7 @@ void CTabpageBorrow::DoIDInput(CString id)
 
 		HBITMAP hHead = (HBITMAP)mBmpHead.GetSafeHandle();
 		mHeadPhoto->SetBitmap(hHead);		
-		((CStatic*)GetDlgItem(IDC_STATIC_BASE_INFO))->SetWindowTextW(L"基本信息："+id);
+		mGroupboxBaseinfo.SetWindowTextW(L"基本信息："+id);
 		mNameValue = L"姓名：   " + mCurrentPoliceman->mName;
 		mSexValue = L"性别：   " + mCurrentPoliceman->mSex;
 		mPoliceIdValue = L"警号：   " + mCurrentPoliceman->mNumber;
@@ -192,7 +195,7 @@ void CTabpageBorrow::DoIDInput(CString id)
 		((CStatic*)GetDlgItem(IDC_STATIC_ID_LIGHT))->SetBitmap(hLight);
 		HBITMAP hHead = (HBITMAP)mBmpHeadDef.GetSafeHandle();
 		mHeadPhoto->SetBitmap(hHead);		
-		((CStatic*)GetDlgItem(IDC_STATIC_BASE_INFO))->SetWindowTextW(L"基本信息："+id);
+		mGroupboxBaseinfo.SetWindowTextW(L"基本信息："+id);
 
 		mNameValue = L"姓名：   查无此人";
 		mSexValue = L"性别：   ";
@@ -209,7 +212,7 @@ void CTabpageBorrow::DoGunIDInput(CString gunId)
 	if (mCurrentGun)
 	{
 		mGunPass = TRUE;
-		((CStatic*)GetDlgItem(IDC_STATIC_GUN_INFO))->SetWindowTextW(L"枪支信息："+gunId);
+		mGroupboxGuninfo.SetWindowTextW(L"枪支信息："+gunId);
 
 		HBITMAP hLight = (HBITMAP)mBmpPass.GetSafeHandle();
 		mGunLight->SetBitmap(hLight);
@@ -226,7 +229,7 @@ void CTabpageBorrow::DoGunIDInput(CString gunId)
 	else
 	{
 		mGunPass = FALSE;
-		((CStatic*)GetDlgItem(IDC_STATIC_GUN_INFO))->SetWindowTextW(L"枪支信息："+gunId);
+		mGroupboxGuninfo.SetWindowTextW(L"枪支信息："+gunId);
 		mGunPhoto->SetBitmap(NULL);
 
 		HBITMAP hLight = (HBITMAP)mBmpFail.GetSafeHandle();
@@ -315,4 +318,37 @@ void CTabpageBorrow::OnDtnDatetimechangeDatetimepicker2(NMHDR *pNMHDR, LRESULT *
 	mExpectTimeCtrl.GetTime(tm);
 	mExpectDateCtrl.SetTime(&tm);
 	*pResult = 0;
+}
+
+
+void CTabpageBorrow::OnPaint()
+{
+	CPaintDC dc(this); // device context for painting
+	// TODO: Add your message handler code here
+	// Do not call CDialogEx::OnPaint() for painting messages
+	CRect   rect;
+	GetClientRect(rect);
+	dc.FillSolidRect(rect,RGB(41,22,111));   //设置为绿色背景
+}
+
+
+HBRUSH CTabpageBorrow::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  Change any attributes of the DC here
+	if (nCtlColor != CTLCOLOR_EDIT)
+	{
+		pDC->SetBkColor(RGB(41, 22, 111));
+		pDC->SetTextColor(RGB(255,255,255));
+		pDC->SetBkMode(TRANSPARENT);
+	}
+
+	if (pWnd->GetDlgCtrlID() == IDC_RADIO_PASS)
+	{
+		pDC->SetBkColor(RGB(41, 22, 111));
+		pDC->SetTextColor(RGB(255,255,255));	
+	}
+	// TODO:  Return a different brush if the default is not desired
+	return (HBRUSH)mBlueBrush.GetSafeHandle();;
 }
