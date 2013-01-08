@@ -24,7 +24,7 @@ BOOL CTabpageInfo::CreatePage(CWnd* tabCtrl)
 
 		CRect rs;
 		tabCtrl->GetClientRect(&rs);
-		rs.top += 18;
+		rs.top += 22;
 		rs.bottom -= 1;
 		rs.left -= 2;
 		rs.right -= 1;

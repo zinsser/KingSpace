@@ -28,6 +28,7 @@ END_MESSAGE_MAP()
 // CRadioButtonEx message handlers
 void CRadioButtonEx::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
-	
+	CDC* pDC = CDC::FromHandle(lpDrawItemStruct->hDC);
+	pDC->SetTextColor(RGB(255, 255, 255));
 }
 

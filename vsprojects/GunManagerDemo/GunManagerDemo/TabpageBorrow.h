@@ -4,6 +4,8 @@
 #include "afxwin.h"
 #include "afxdtctl.h"
 #include "XPGroupBox.h"
+#include "RadioButtonEx.h"
+
 // CTabpageBorrow dialog
 struct CPoliceman;
 struct CGun;
@@ -85,4 +87,7 @@ public:
 	CXPGroupBox mGroupboxGuninfo;
 	CXPGroupBox mGroupboxBorrowinfo;
 	CXPGroupBox mGroupboxDoer;
+	CRadioButtonEx mRadioButtonPass;
+	CRadioButtonEx mRadioButtonFail;
+	afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
 };

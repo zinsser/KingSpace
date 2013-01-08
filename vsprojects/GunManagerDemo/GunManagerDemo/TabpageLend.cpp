@@ -258,11 +258,12 @@ BOOL CTabpageLend::OnInitDialog()
 
 	// TODO:  Add extra initialization here
 	InitListCtrl();
-	mBlueBrush.CreateSolidBrush(RGB(41, 22, 111));
 
 	COLORREF bkColor = RGB(41, 22, 111);
 	COLORREF fontColor = RGB(255, 255, 255);
+
 	mBlueBrush.CreateSolidBrush(bkColor);
+
 	mGroupboxBaseinfo.SetBackgroundColor(bkColor, bkColor);
 	mGroupboxBaseinfo.SetCatptionTextColor(fontColor);
 

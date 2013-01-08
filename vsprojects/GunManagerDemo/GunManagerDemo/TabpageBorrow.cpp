@@ -65,6 +65,8 @@ void CTabpageBorrow::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_STATIC_GUN_INFO, mGroupboxGuninfo);
 	DDX_Control(pDX, IDC_STATIC_BORROW_INFO, mGroupboxBorrowinfo);
 	DDX_Control(pDX, IDC_STATIC_DOER, mGroupboxDoer);
+	DDX_Control(pDX, IDC_RADIO_PASS, mRadioButtonPass);
+	DDX_Control(pDX, IDC_RADIO_FAIL, mRadioButtonFail);
 }
 
 
@@ -77,6 +79,7 @@ BEGIN_MESSAGE_MAP(CTabpageBorrow, CDialogEx)
 	ON_NOTIFY(DTN_DATETIMECHANGE, IDC_DATETIMEPICKER2, &CTabpageBorrow::OnDtnDatetimechangeDatetimepicker2)
 	ON_WM_PAINT()
 	ON_WM_CTLCOLOR()
+	ON_WM_DRAWITEM()
 END_MESSAGE_MAP()
 
 
@@ -99,6 +102,8 @@ BOOL CTabpageBorrow::OnInitDialog()
 	mGroupboxBorrowinfo.SetCatptionTextColor(fontColor);
 	mGroupboxDoer.SetBackgroundColor(bkColor, bkColor);
 	mGroupboxDoer.SetCatptionTextColor(fontColor);
+
+	GetDlgItem(IDC_RADIO_PASS)->Invalidate(FALSE);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -351,4 +356,19 @@ HBRUSH CTabpageBorrow::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	}
 	// TODO:  Return a different brush if the default is not desired
 	return (HBRUSH)mBlueBrush.GetSafeHandle();;
+}
+
+
+void CTabpageBorrow::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
+{
+	// TODO: Add your message handler code here and/or call default
+	if (nIDCtl == IDC_RADIO_PASS || nIDCtl == IDC_RADIO_FAIL)
+	{
+		CDC dc;
+		RECT rc;
+		dc.Attach(lpDrawItemStruct->hDC);
+		dc.SetTextColor(RGB(255, 255, 255));
+		dc.Detach();
+	}
+	CDialogEx::OnDrawItem(nIDCtl, lpDrawItemStruct);
 }
